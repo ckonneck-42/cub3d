@@ -1,9 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   keyhandling.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/21 12:14:34 by ckonneck          #+#    #+#             */
+/*   Updated: 2024/11/21 14:57:35 by ckonneck         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	close_window(t_data *data)
 {
 	mlx_clear_window(data->mlx, data->win);
-	mlx_destroy_image(data->mlx, data->img);
+	mlx_destroy_image(data->mlx, data->img[0]);
+	mlx_destroy_image(data->mlx, data->img[1]);
+	mlx_destroy_image(data->mlx, data->img[2]);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_loop_end(data->mlx);
 	mlx_destroy_display(data->mlx);
@@ -28,7 +42,9 @@ int	ft_close(int keycode, t_data *data)
 	if (keycode == K_ESC)
 	{
 		mlx_clear_window(data->mlx, data->win);
-		mlx_destroy_image(data->mlx, data->img);
+		mlx_destroy_image(data->mlx, data->img[0]);
+		mlx_destroy_image(data->mlx, data->img[1]);
+		mlx_destroy_image(data->mlx, data->img[2]);
 		mlx_destroy_window(data->mlx, data->win);
 		mlx_loop_end(data->mlx);
 		mlx_destroy_display(data->mlx);
@@ -42,28 +58,28 @@ int	ft_close(int keycode, t_data *data)
 
 int	keypress(int keycode, t_data *data)
 {
-	if (keycode == K_ARRLFT)
-		data->angle_y -= 0.1;
-	else if (keycode == K_ARRRGT)
-		data->angle_y += 0.1;
-	else if (keycode == K_ARRUP)
-		data->angle_x -= 0.1;
-	else if (keycode == K_ARRDWN)
-		data->angle_x += 0.1;
-	else if (keycode == K_P)
-		data->zoom += 0.1;
-	else if (keycode == K_M && data->zoom > 0.2)
-		data->zoom -= 0.1;
-	else if (keycode == K_M && data->zoom <= 0.2)
-		data->zoom -= 0.01;
-	else if (keycode == K_W)
-		data->offset_y -= 20;
+	if (keycode == K_W)
+	{
+		data->posX += data->dirX * data->movespeed;
+		data->posY += data->dirY * data->movespeed;
+		// printf("%f\n", data->posX);
+	}
 	else if (keycode == K_A)
-		data->offset_x -= 20;
+	{
+		data->posX -= data->planeX * data->movespeed;
+		data->posY -= data->planeY * data->movespeed;
+	}
 	else if (keycode == K_S)
-		data->offset_y += 20;
+	{
+		data->posX -= data->dirX * data->movespeed;
+		data->posY -= data->dirY * data->movespeed;
+	}
 	else if (keycode == K_D)
-		data->offset_x += 20;
+	{
+		data->posX += data->planeX * data->movespeed;
+		data->posY += data->planeY * data->movespeed;
+	}
+	
 	// draw_map(data, data->filename);
 	return (0);
 }

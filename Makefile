@@ -1,6 +1,18 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/11/21 12:14:45 by ckonneck          #+#    #+#              #
+#    Updated: 2024/11/21 14:41:02 by ckonneck         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 
 # Source files for cub3d
-cub3d_SRCS = main.c keyhandling.c
+cub3d_SRCS = main.c keyhandling.c raycasting.c
 cub3d_OBJS = $(cub3d_SRCS:.c=.o)
 cub3d_DEPS = $(cub3d_SRCS:.c=.d)
 CC = cc

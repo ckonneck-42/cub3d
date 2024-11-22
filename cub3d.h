@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
+/*   Updated: 2024/11/21 15:32:04 by ckonneck         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
 #include <X11/X.h>
 #include <fcntl.h>
@@ -36,51 +48,85 @@ typedef struct t_Coordinate
 	float			z;
 }					t_Coordinate;
 
+
+typedef struct 
+{
+	char *imgpath;
+	int mapX;
+	int mapY;
+	int height;	
+} t_Cube;
+
+typedef struct {
+    // Screen dimensions
+    int screenWidth; 
+    int screenHeight;
+
+    // Player position and direction
+    double posX, posY;    // Player's position
+    double dirX, dirY;    // Direction vector
+    double planeX, planeY; // Camera plane
+
+    // Ray properties
+    double cameraX;       // X-coordinate in camera space
+    double rayDirX, rayDirY; // Ray direction
+
+    // Map grid position
+    int mapX, mapY;       // Current map cell
+
+    // DDA step and distance
+    double sideDistX, sideDistY; // Distances to next x or y side
+    double deltaDistX, deltaDistY; // Distance increments
+    double perpWallDist;  // Perpendicular wall distance
+    int stepX, stepY;     // DDA step direction
+    int hit;              // Did the ray hit a wall?
+    int side;             // Was a NS or EW wall hit?
+
+    // Drawing parameters
+    int lineHeight;       // Height of the line to draw
+    int drawStart, drawEnd; // Drawing limits for the stripe
+
+    // Texture properties
+    int texNum;           // Texture number of the hit wall
+    double wallX;         // Exact hit position on the wall
+    int texX;             // X-coordinate on the texture
+	int texY;  
+	int **textures;
+    // Texture dimensions (assumed globally consistent)
+    int texWidth;         // Width of a texture
+    int texHeight;        // Height of a texture
+} t_RaycastVars;
+
 typedef struct s_data
 {
 	void			*mlx;
 	void			*win;
-	void			*img[12];
+	void			*img[3];
 	char			*addr;
-
-	int				width;
-	int				height;
-	int				bits_per_pixel;
 	int				line_length;
+	int				bits_per_pixel;
 	int				endian;
-	float			x;
-	float			y;
-	float			z;
-	float			x1;
-	float			x2;
-	float			y1;
-	float			y2;
-	float			z1;
-	float			z2;
-	float			line_x;
-	float			line_y;
-	float			line_z;
-	float			line_dx;
-	float			line_dy;
+
+
+	double			posX;
+	double			posY;
+	double			dirX;
+	double			dirY;
+	double			planeX;
+	double			planeY;
+	double 			movespeed;
 	float			colours;
-	float			zoom;
-	float			angle;
-	float			angle_x;
-	float			angle_y;
-	float			angle_z;
-	int				offset_x;
-	int				offset_y;
-	float			step;
-	int				rows;
-	int				cols;
 	const char		*filename;
-	int				check;
-	int				mode;
 	t_Coordinate	**coordinates;
+	// t_RaycastVars	ray;
+	t_Cube			cube;
 }					t_data;
+
 
 
 void	base_init(t_data *data);
 int	keypress(int keycode, t_data *data);
 int	ft_close(int keycode, t_data *data);
 int	close_window(t_data *data);
+void	raycasting(t_data *data);
+void	my_mlx_pixel_put(t_data *data, float x, float y, int size);

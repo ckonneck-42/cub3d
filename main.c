@@ -1,15 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
+/*   Updated: 2024/11/21 15:33:38 by ckonneck         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 
 void	render_textures(char target, t_data *data, int x, int y)
 {
 	int img_width, img_height;
+	t_Cube cube;
+	t_RaycastVars ray;
+	cube.height = 256;
 
 	if (!data->img[1])
-		data->img[1] = mlx_xpm_file_to_image(data->mlx, TEXTURE_METAL, &img_width, &img_height);
+		data->img[1] = mlx_xpm_file_to_image(data->mlx, TEXTURE_METAL, &cube.height, &cube.height);
 	if (!data->img[2])
-		data->img[2] = mlx_xpm_file_to_image(data->mlx, TEXTURE_SNOW, &img_width, &img_height);
-	// if (!data->img[3])
+		data->img[2] = mlx_xpm_file_to_image(data->mlx, TEXTURE_SNOW, &cube.height, &cube.height);
 	// 	data->img[3] = mlx_xpm_file_to_image(data->mlx, TEXTURE_METAL, &img_width, &img_height);
 	if (target == '1')
 	{
@@ -21,8 +35,9 @@ void	render_textures(char target, t_data *data, int x, int y)
 		mlx_put_image_to_window(data->mlx, data->win, data->img[2],
 			x, y);
 	// else if (target == 'N')
-	// 	mlx_put_image_to_window(data->mlx, data->win, data->img[3],
-	// 		x, y);
+		//putplayer/camera here facing the right way ofc
+	//also give 4 sets based on the NO SO WE shit orientation so that i load images based off of that.
+	
 	// else if (target == 'N')
 	// 	render_player(data, x, y);
 	// else if (target == 'Z')
@@ -31,6 +46,32 @@ void	render_textures(char target, t_data *data, int x, int y)
 	// 	render_collectible(game, x, y);
 	// else if (target == 'E')
 	// 	render_exit(game, x, y);
+}
+
+
+
+void	my_mlx_pixel_put(t_data *data, float x, float y, int size)
+{
+	char	*dst;
+	int		i;
+	int		j;
+	data->colours = 20000;
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			if (x + i >= 0 && x + i < 1920 && y + j >= 0 && y + j < 1080)
+			{
+				dst = data->addr + ((int)(y + j) *data->line_length + (int)(x
+							+ i) *(data->bits_per_pixel / 8));
+				*(unsigned int *)dst = data->colours;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 
@@ -84,14 +125,14 @@ int main(int argc, char **argv)
 	else
 		parse_map(argv, &data);
 		
-	// mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
+	// raycasting(&data);
+	// mlx_pixel_put(data.mlx, data.win, data.posX * 200, data.posY * 200, 0xFFFFFF); // Draw a white dot for the player
 	mlx_hook(data.win, 17, 0, close_window, &data);
 	mlx_hook(data.win, 2, 1L << 0, ft_close, &data);
 	mlx_key_hook(data.win, keypress, &data);
 	mlx_loop(data.mlx);
 
 }
-
 
 
 void	base_init(t_data *data)
@@ -101,7 +142,12 @@ void	base_init(t_data *data)
 	data->img[0] = mlx_new_image(data->mlx, 1920, 1080);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
 			&data->line_length, &data->endian);
-
-}
-
+	data->posX = 220;
+	data->posY = 120;  //x and y start position
+  	data->dirX = -1;
+	data->dirY = 0; //initial direction vector
+  	data->planeX = 0;
+	data->planeY = 0.66; //the 2d raycaster version of camera plane
+	data->movespeed = 0.05;
+};
 
