@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/21 14:57:35 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:51:27 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	keypress(int keycode, t_data *data)
 	{
 		data->posX += data->dirX * data->movespeed;
 		data->posY += data->dirY * data->movespeed;
-		// printf("%f\n", data->posX);
+		printf("%f\n", data->posX);
 	}
 	else if (keycode == K_A)
 	{
@@ -79,7 +79,6 @@ int	keypress(int keycode, t_data *data)
 		data->posX += data->planeX * data->movespeed;
 		data->posY += data->planeY * data->movespeed;
 	}
-	
 	// draw_map(data, data->filename);
 	return (0);
 }

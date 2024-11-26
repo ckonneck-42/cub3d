@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/21 15:33:38 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:28:38 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,13 @@ void	render_textures(char target, t_data *data, int x, int y)
 	else if (target == '0')
 		mlx_put_image_to_window(data->mlx, data->win, data->img[2],
 			x, y);
-	// else if (target == 'N')
+	else if (target == 'N')
+	{
+		my_mlx_pixel_put(data, data->posX, data->posY, 20);
+		// mlx_put_image_to_window(data->mlx, data->win, data->img[0],  if i dont update the screen it doesnt show
+		// 	x, y);
+	}
+		 // Draw a white dot for the player
 		//putplayer/camera here facing the right way ofc
 	//also give 4 sets based on the NO SO WE shit orientation so that i load images based off of that.
 	
@@ -115,39 +121,43 @@ void parse_map(char **argv, t_data *data)
 
 int main(int argc, char **argv)
 {
-	t_data data;
-	base_init(&data);
+	t_data *data;
+	data = base_init(data);
 	if (argc != 2)
 	{
 		printf("give map plx\n");
 		exit(1);
 	}
 	else
-		parse_map(argv, &data);
+		parse_map(argv, data);
 		
 	// raycasting(&data);
-	// mlx_pixel_put(data.mlx, data.win, data.posX * 200, data.posY * 200, 0xFFFFFF); // Draw a white dot for the player
-	mlx_hook(data.win, 17, 0, close_window, &data);
-	mlx_hook(data.win, 2, 1L << 0, ft_close, &data);
-	mlx_key_hook(data.win, keypress, &data);
-	mlx_loop(data.mlx);
+	
+	// mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
+
+	mlx_hook(data->win, 17, 0, close_window, data);
+	mlx_hook(data->win, 2, 1L << 0, ft_close, data);
+	mlx_key_hook(data->win, keypress, data);
+	mlx_loop(data->mlx);
 
 }
 
 
-void	base_init(t_data *data)
+t_data	*base_init(t_data *data)
 {
+	data = malloc(sizeof(t_data));
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, 1920, 1080, "cub3d");
 	data->img[0] = mlx_new_image(data->mlx, 1920, 1080);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+	data->addr = mlx_get_data_addr(data->img[0], &data->bits_per_pixel,
 			&data->line_length, &data->endian);
-	data->posX = 220;
-	data->posY = 120;  //x and y start position
-  	data->dirX = -1;
+	data->posX = 960;
+	data->posY = 540;  //x and y start position
+  	data->dirX = 1;
 	data->dirY = 0; //initial direction vector
   	data->planeX = 0;
 	data->planeY = 0.66; //the 2d raycaster version of camera plane
 	data->movespeed = 0.05;
+	return(data);
 };
 

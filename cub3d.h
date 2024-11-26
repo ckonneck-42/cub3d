@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/21 15:32:04 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:50:33 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ typedef struct s_data
 
 
 
-void	base_init(t_data *data);
+t_data	*base_init(t_data *data);
 int	keypress(int keycode, t_data *data);
 int	ft_close(int keycode, t_data *data);
 int	close_window(t_data *data);
