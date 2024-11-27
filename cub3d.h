@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/26 11:50:33 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/11/27 13:30:27 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,14 @@ typedef struct s_data
 	void			*win;
 	void			*img[3];
 	char			*addr;
-	int				line_length;
+    char			*addr1;
+	int			    line_length;
 	int				bits_per_pixel;
 	int				endian;
-
-
+    char            **map;
+    int             **walls;
+    int             a;
+    int             flag;
 	double			posX;
 	double			posY;
 	double			dirX;
@@ -118,15 +121,24 @@ typedef struct s_data
 	float			colours;
 	const char		*filename;
 	t_Coordinate	**coordinates;
-	// t_RaycastVars	ray;
+    	// t_RaycastVars	ray;
 	t_Cube			cube;
 }					t_data;
 
+typedef struct s_walls
+{
+    int num;
+    int **walls;
+}               t_walls;
 
-
+void	redraw_map(t_data *data);
 t_data	*base_init(t_data *data);
 int	keypress(int keycode, t_data *data);
 int	ft_close(int keycode, t_data *data);
 int	close_window(t_data *data);
 void	raycasting(t_data *data);
 void	my_mlx_pixel_put(t_data *data, float x, float y, int size);
+void parse_map(char **argv, t_data *data);
+void reinit_data(t_data *data);
+int get_pixel_color(int x, int y, t_data *data);
+int	ft_detectpoint(t_data *data);
