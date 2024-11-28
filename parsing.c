@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/28 16:37:43 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:26:07 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_Coordinate	**allocatecoordinates(int rows, int cols)
 	coordinates = (t_Coordinate **)malloc(rows * sizeof(t_Coordinate *));
 	if (coordinates == NULL)
 	{
-		ft_printf("Memory allocation failed for rows\n");
+		ft_printf("Memory allocation failed for rows.\n");
 		exit(1);
 	}
 	while (i < rows)
