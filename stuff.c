@@ -115,3 +115,54 @@
 // 		y--;
 // 	}
 // }
+
+
+
+
+
+
+// int	ft_detectpoint(t_data *data)
+// {
+// 	int	a;
+
+// 	a = 19;
+// 	while (a)
+// 	{
+// 		if (get_pixel_color(data->posX + a, data->posY, data) == 45000)
+// 			return(1);
+// 		a--;
+// 	}
+// 	a = 19;
+// 	while (a)
+// 	{
+// 		if (get_pixel_color(data->posX - a, data->posY, data) == 45000)
+// 			return(2);
+// 		a--;
+// 	}
+// 	a = 19;
+// 	while (a)
+// 	{
+// 		if (get_pixel_color(data->posX, data->posY + a, data) == 45000)
+// 			return(3);
+// 		a--;
+// 	}
+// 	a = 19;
+// 	while (a)
+// 	{
+// 		if (get_pixel_color(data->posX, data->posY - a, data) == 45000)
+// 			return(4);
+// 		a--;
+// 	}
+// 	return(0);
+// }
+
+// int get_pixel_color(int x, int y, t_data *data)obsolete
+// {
+//     char *pixel;
+
+//     // Calculate the pixel's memory address
+//     pixel = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+
+//     // Convert the pixel data to an integer (color)
+//     return *(int *)pixel;
+// }

@@ -6,13 +6,13 @@
 #    By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 12:14:45 by ckonneck          #+#    #+#              #
-#    Updated: 2024/11/21 14:41:02 by ckonneck         ###   ########.fr        #
+#    Updated: 2024/11/28 16:23:16 by ckonneck         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 # Source files for cub3d
-cub3d_SRCS = main.c keyhandling.c raycasting.c
+cub3d_SRCS = main.c keyhandling.c raycasting.c rendering.c parsing.c free.c
 cub3d_OBJS = $(cub3d_SRCS:.c=.o)
 cub3d_DEPS = $(cub3d_SRCS:.c=.d)
 CC = cc
@@ -47,6 +47,8 @@ re: fclean all
 # valgrind rule
 valgrind: $(NAME)
 		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) $(ARGS)
+helgrind: $(NAME)
+		valgrind --tool=helgrind --history-level=full ./$(NAME) $(ARGS)
 # extra options: --verbose --log-file=valgrind-out.txt
 #norminette rule
 norminette: $(cub3d_SRCS)

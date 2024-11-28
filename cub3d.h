@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/27 13:30:27 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:35:44 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 #define K_A 97
 #define K_S 115
 #define K_D 100
-
+#define GRID_SIZE 100
 # define TEXTURE_BRICK "./pic/NO.xpm"
 # define TEXTURE_SNOW "./pic/Snow.xpm"
 # define TEXTURE_METAL "./pic/Metal.xpm"
@@ -46,6 +46,7 @@ typedef struct t_Coordinate
 	float			x;
 	float			y;
 	float			z;
+    char            map;
 }					t_Coordinate;
 
 
@@ -107,7 +108,10 @@ typedef struct s_data
 	int			    line_length;
 	int				bits_per_pixel;
 	int				endian;
-    char            **map;
+    char            *map;
+    char            **mapcoords;
+    int             rows;
+    int             coloumns;
     int             **walls;
     int             a;
     int             flag;
@@ -132,13 +136,19 @@ typedef struct s_walls
 }               t_walls;
 
 void	redraw_map(t_data *data);
-t_data	*base_init(t_data *data);
+t_data	*base_init(t_data *data, char **argv);
 int	keypress(int keycode, t_data *data);
 int	ft_close(int keycode, t_data *data);
 int	close_window(t_data *data);
 void	raycasting(t_data *data);
 void	my_mlx_pixel_put(t_data *data, float x, float y, int size);
-void parse_map(char **argv, t_data *data);
+void parse_map(char *map, t_data *data);
 void reinit_data(t_data *data);
 int get_pixel_color(int x, int y, t_data *data);
-int	ft_detectpoint(t_data *data);
+int	ft_detectpoint(t_data *data, int flag);
+void calculatesize(char *map, t_data *data);
+void castbeams(t_data *data);
+void	render_textures(char target, t_data *data, int x, int y);
+t_Coordinate	**allocatecoordinates(int rows, int cols);
+void	freecall(t_Coordinate **coordinates, int rows);
+void	freedom(t_data *data, char *line);
