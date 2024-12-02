@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:48:00 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/28 15:51:21 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/02 11:09:46 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,46 @@ void	my_mlx_pixel_put(t_data *data, float x, float y, int size)
 		i++;
 	}
 }
+void renderScene(t_data *data) {
+    // Loop through each column on the screen
+    for (int screenColumn = 0; screenColumn < data->screenWidth; screenColumn++) {
+        // Calculate the distance to the wall, and then render the 3D projection for each column
+         // Assuming you have this function to calculate the distance
+        render3D(data, data->distanceahead, 50, screenColumn); // 50 is the cube height, change as needed
+    }
+}
+
+
+void render3D(t_data *data, float distance, float cubeHeight, int screenColumn)
+{
+	 if (screenColumn < 0 || screenColumn > data->screenWidth) {
+        printf("Error: screenColumn (%d) out of bounds!\n", screenColumn);
+        // return;
+    }
+	float projPlaneDist = (data->screenWidth / 2) / tan(data->FOV / 2);
+    float projectedHeight = (cubeHeight * projPlaneDist) / distance;
+	// printf(" Projectedplanedist %f\n", projPlaneDist);
+    // Calculate start and end Y positions for the wall slice
+    int wallStartY = (data->screenHeight / 2) - (projectedHeight / 2);
+    int wallEndY = (data->screenHeight / 2) + (projectedHeight / 2);
+
+	// printf("wallStartY: %d, wallEndY: %d\n", wallStartY, wallEndY);
+    // Ensure wall slice is within screen bounds
+    if (wallStartY < 0)
+		wallStartY = 0;
+    if (wallEndY > data->screenHeight)
+		wallEndY = data->screenHeight - 1;
+	// printf("test");
+    // Draw the vertical slice
+    for (int y = wallStartY; y <= wallEndY; y++)
+	{
+        my_mlx_pixel_put(data, screenColumn, y, 1);
+		// printf("putting pixels");
+    }
+	// printf("screenheight: %d\n", data->screenHeight);
+	// 	printf("screenwidth: %d\n", data->screenWidth);
+	// printf("FOV radians: %f\n", data->FOV);
+}
 
 void draw_cube(t_data *data, float x, float y)
 {
@@ -41,7 +81,7 @@ void draw_cube(t_data *data, float x, float y)
 	float targety;
 	float targetz;
 	int i;
-	targetx = x + 100;
+	targetx = x + 50;
 	while(x <= targetx)//maybe put one more pixel somewhere directly 
 	//on the start since 0 is where the detection fails idk
 	{
@@ -50,7 +90,7 @@ void draw_cube(t_data *data, float x, float y)
 		my_mlx_pixel_put(data, x, y, 1);
 		x++;
 	}
-	targety = y + 100;
+	targety = y + 50;
 	while(y <= targety)
 	{	
 		// if(get_pixel_color(x, y+10, data) == 45000)
@@ -58,7 +98,7 @@ void draw_cube(t_data *data, float x, float y)
 		my_mlx_pixel_put(data, x, y, 1);
 		y++;
 	}
-	targetx = x - 100;
+	targetx = x - 50;
 	while(x >= targetx)
 	{
 		// if(get_pixel_color(targetx-10, y, data) == 45000)
@@ -66,7 +106,7 @@ void draw_cube(t_data *data, float x, float y)
 		my_mlx_pixel_put(data, x, y, 1);
 		x--;
 	}
-	targety = y - 100;
+	targety = y - 50;
 	while(y >= targety)
 	{
 		// if(get_pixel_color(x, targety-10, data) == 45000)

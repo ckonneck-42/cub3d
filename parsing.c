@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/28 17:28:34 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/11/29 13:37:40 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ void parse_map(char *map, t_data *data)
 		while (line[i] == '1' || line[i] == '0' || line[i] == 'N' || line[i] == ' ')
 		{
 			if (line[i] == '1')
-				data->coordinates[x/100][y/100].map = line[i];
+				data->coordinates[x/50][y/50].map = line[i];
 			else
-				data->coordinates[x/100][y/100].map = line[i];
+				data->coordinates[x/50][y/50].map = line[i];
 			render_textures(line[i], data, x, y);
 			i++;
-			x += 100;
+			x += 50;
 		}
 		if (line[i] != '\0' && line[i] != '\n')
         {
@@ -77,7 +77,7 @@ void parse_map(char *map, t_data *data)
 		free(line);
 		// printf("getting next line\n");
 		line = get_next_line(fd);
-		y += 100;
+		y += 50;
 	}
 	close(fd);
 	// free(line);

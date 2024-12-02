@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/28 16:05:53 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/11/29 15:58:05 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,22 @@ int	ft_detectpoint(t_data *data, int flag)
 	int gridY;
 	if (flag == 4)
 	{
-		gridX = (int)((data->posX - data->planeX * data->movespeed)/ GRID_SIZE) ;
+		gridX = (int)((data->posX - data->planeX * data->movespeed)/ GRID_SIZE);
 		gridY = (int)((data->posY - data->planeY * data->movespeed) / GRID_SIZE);
 	}
 	if (flag == 3)
 	{
-		gridX = (int)((data->posX - data->dirX * data->movespeed)/ GRID_SIZE) ;
+		gridX = (int)((data->posX - data->dirX * data->movespeed)/ GRID_SIZE);
 		gridY = (int)((data->posY - data->dirY * data->movespeed) / GRID_SIZE);
 	}
 	if (flag == 2)
 	{
-		gridX = (int)((data->posX + data->planeX * data->movespeed)/ GRID_SIZE) ;
+		gridX = (int)((data->posX + data->planeX * data->movespeed)/ GRID_SIZE);
 		gridY = (int)((data->posY + data->planeY * data->movespeed) / GRID_SIZE);
 	}
 	if (flag == 1)
 	{
-		gridX = (int)((data->posX + data->dirX * data->movespeed)/ GRID_SIZE) ;
+		gridX = (int)((data->posX + data->dirX * data->movespeed)/ GRID_SIZE);
 		gridY = (int)((data->posY + data->dirY * data->movespeed) / GRID_SIZE);
 	}
 	if (data->coordinates[gridX][gridY].map == '1')
@@ -178,5 +178,4 @@ void reinit_data(t_data *data)
 	// free(data);
 	// data = base_init(data);
 	// parse_map(data->map, data);
-	
 }

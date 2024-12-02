@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/28 16:35:44 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/11/29 15:40:07 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 #define K_A 97
 #define K_S 115
 #define K_D 100
-#define GRID_SIZE 100
+#define GRID_SIZE 50
 # define TEXTURE_BRICK "./pic/NO.xpm"
 # define TEXTURE_SNOW "./pic/Snow.xpm"
 # define TEXTURE_METAL "./pic/Metal.xpm"
@@ -109,7 +109,6 @@ typedef struct s_data
 	int				bits_per_pixel;
 	int				endian;
     char            *map;
-    char            **mapcoords;
     int             rows;
     int             coloumns;
     int             **walls;
@@ -122,6 +121,12 @@ typedef struct s_data
 	double			planeX;
 	double			planeY;
 	double 			movespeed;
+    double          distanceahead;
+    double          distanceleft;
+    double          distanceright;
+    int             screenHeight;
+    int             screenWidth;
+    float             FOV;
 	float			colours;
 	const char		*filename;
 	t_Coordinate	**coordinates;
@@ -152,3 +157,5 @@ void	render_textures(char target, t_data *data, int x, int y);
 t_Coordinate	**allocatecoordinates(int rows, int cols);
 void	freecall(t_Coordinate **coordinates, int rows);
 void	freedom(t_data *data, char *line);
+void render3D(t_data *data, float distance, float cubeHeight, int screenColumn);
+void renderScene(t_data *data);

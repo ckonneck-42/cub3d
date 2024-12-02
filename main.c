@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/28 15:51:12 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/11/29 15:31:13 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ t_data	*base_init(t_data *data, char **argv)
 	data->flag = 0;
 	data->coloumns = 0;
 	data->rows = 0;
+	data->FOV = 1.047197;
+	data->screenHeight = 1080;
+	data->screenWidth = 1920;
 	calculatesize(data->map, data);
 	data->coordinates = allocatecoordinates(data->rows, data->coloumns);
 	return(data);

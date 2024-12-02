@@ -34,7 +34,7 @@
 // 	int i;
 // 	tempx = x;
 // 	tempy = y;
-// 	targetx = tempx + 100;
+// 	targetx = tempx + 50;
 // 	while(tempx <= targetx)
 // 	{
 // 		if(get_pixel_color(targetx + 10, tempy, data) == 45000)
@@ -42,7 +42,7 @@
 // 		my_mlx_pixel_put(data, tempx, tempy, 1);
 // 		tempx++;
 // 	}
-// 	targety = tempy + 100;
+// 	targety = tempy + 50;
 // 	while(tempy <= targety)
 // 	{	
 // 		if(get_pixel_color(tempx, targety + 10, data) == 45000)
@@ -50,7 +50,7 @@
 // 		my_mlx_pixel_put(data, tempx, tempy, 1);
 // 		tempy++;
 // 	}
-// 	targetx = tempx - 100;
+// 	targetx = tempx - 50;
 // 	while(tempx >= targetx)
 // 	{
 // 		if (x)
@@ -59,7 +59,7 @@
 // 		my_mlx_pixel_put(data, tempx, tempx, 1);
 // 		tempx--;
 // 	}
-// 	targety = tempy - 100;
+// 	targety = tempy - 50;
 // 	while(tempy >= targety)
 // 	{
 // 		if (y)
@@ -82,7 +82,7 @@
 // 	float targety;
 // 	float targetz;
 // 	int i;
-// 	targetx = x + 100;
+// 	targetx = x + 50;
 // 	while(x <= targetx)
 // 	{
 // 		// if(get_pixel_color(x+10, y, data) == 45000)
@@ -90,7 +90,7 @@
 // 		my_mlx_pixel_put(data, x, y, 1);
 // 		x++;
 // 	}
-// 	targety = y + 100;
+// 	targety = y + 50;
 // 	while(y <= targety)
 // 	{	
 // 		// if(get_pixel_color(x, y+10, data) == 45000)
@@ -98,7 +98,7 @@
 // 		my_mlx_pixel_put(data, x, y, 1);
 // 		y++;
 // 	}
-// 	targetx = x - 100;
+// 	targetx = x - 50;
 // 	while(x >= targetx)
 // 	{
 // 		// if(get_pixel_color(targetx-10, y, data) == 45000)
@@ -106,7 +106,7 @@
 // 		my_mlx_pixel_put(data, x, y, 1);
 // 		x--;
 // 	}
-// 	targety = y - 100;
+// 	targety = y - 50;
 // 	while(y >= targety)
 // 	{
 // 		// if(get_pixel_color(x, targety-10, data) == 45000)
