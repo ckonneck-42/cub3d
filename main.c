@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/29 15:31:13 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:06:21 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@ int main(int argc, char **argv)
 	}
 	else
 		parse_map(data->map, data);
-		
+	
+	castbeams(data);
+	data->colours = 45000;
+	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
+	parse_map(data->map, data);
+	renderScene(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 	// raycasting(&data);
 	
 	mlx_hook(data->win, 17, 0, close_window, data);

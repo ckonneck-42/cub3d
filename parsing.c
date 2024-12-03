@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/29 13:37:40 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:57:42 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,7 @@ void parse_map(char *map, t_data *data)
 	// free(line);
 	data->colours = 16711680;//deep red (player)
 	my_mlx_pixel_put(data, data->posX, data->posY, 5);
-	castbeams(data);
-	data->colours = 45000;
-	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
+	
 	printf("finished parsing\n");
 	//printing coordinate grid
 	// for (int y = 0; y < data->coloumns; y++) 

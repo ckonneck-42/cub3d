@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/29 15:40:07 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:45:55 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,10 @@ typedef struct s_data
 	double			dirY;
 	double			planeX;
 	double			planeY;
+    float           rayAngle;
+    float           playerAngle;
 	double 			movespeed;
-    double          distanceahead;
+    double          distanceahead[61];
     double          distanceleft;
     double          distanceright;
     int             screenHeight;
@@ -157,5 +159,5 @@ void	render_textures(char target, t_data *data, int x, int y);
 t_Coordinate	**allocatecoordinates(int rows, int cols);
 void	freecall(t_Coordinate **coordinates, int rows);
 void	freedom(t_data *data, char *line);
-void render3D(t_data *data, float distance, float cubeHeight, int screenColumn);
+void render3D(t_data *data, double distance, float cubeHeight, int screenColumn);
 void renderScene(t_data *data);
