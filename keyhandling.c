@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/03 14:07:17 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:41:35 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void reinit_data(t_data *data)
 	data->img[0] = mlx_new_image(data->mlx, 1920, 1080);
 	data->addr = mlx_get_data_addr(data->img[0], &data->bits_per_pixel,
 			&data->line_length, &data->endian);
-	parse_map(data->map, data);
+	// parse_map(data->map, data);
 	// free(data);
 	// data = base_init(data);
 	// parse_map(data->map, data);

@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/03 13:45:55 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:38:39 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ typedef struct s_data
     float           rayAngle;
     float           playerAngle;
 	double 			movespeed;
-    double          distanceahead[61];
+    double          distanceahead[1920];
     double          distanceleft;
     double          distanceright;
     int             screenHeight;

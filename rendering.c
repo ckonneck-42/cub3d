@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:48:00 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/03 14:08:19 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:38:24 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void renderScene(t_data *data)
 		data->rayAngle = data->playerAngle - (data->FOV / 2) + (screenColumn * (data->FOV / data->screenWidth));
         // Calculate the distance to the wall, and then render the 3D projection for each column
          // Assuming you have this function to calculate the distance
-        render3D(data, data->distanceahead[screenColumn/61], 50, screenColumn); // 50 is the cube height, change as needed
+        render3D(data, data->distanceahead[screenColumn], 20, screenColumn); // 50 is the cube height, change as needed
     }
 	// parse_map(data->map, data);
 }
