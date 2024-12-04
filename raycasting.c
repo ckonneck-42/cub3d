@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:32 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/04 17:26:33 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/04 17:42:18 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,15 @@ void castbeams(t_data *data)
 	float beamY;
 	data->colours = 8388736;// purple for beam
 	double	ang = data->a;
+	double ang_mark = data->a + 1920 * 0.02;
+	double ang_2 = 1920 * 0.04 + data->a - ang_mark;
 	int i = 0;
 	while (i < 1920)
 	{
 		beamX = data->posX;
 		beamY = data->posY;
 		double rad_angle_1 = ang * (PI / 180.0);
-		
+		double rad_angle_2 = ang_2 * (PI / 180.0); 
 		while ((beamX >= 0 && beamX <= 1920 && beamY >= 0 && beamY <= 1080 && ft_detectpointbeam(beamX, beamY, data, rad_angle_1) != 1))// beamX != wallline
 		{
 			my_mlx_pixel_put(data, beamX, beamY, 1);
@@ -69,9 +71,10 @@ void castbeams(t_data *data)
 		}
 		data->final_point[i].x = beamX;
 		data->final_point[i].y = beamY;
-		data->distanceahead[i] = sqrt(pow(beamX - data->posX, 2) + pow(beamY - data->posY, 2));
+		data->distanceahead[i] = (sqrt(pow(beamX - data->posX, 2) + pow(beamY - data->posY, 2))) * cos(rad_angle_2);
 		// printf("this is the beamX: %f, this is the beamY: %f\n", beamX, beamY);
 		ang += 0.04;
+		ang_2 -=0.04;
 		i++;
 	}
 	// printf("the last ang is: %f\n", ang);
