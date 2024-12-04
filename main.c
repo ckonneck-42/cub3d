@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/03 14:06:21 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/04 17:33:12 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ t_data	*base_init(t_data *data, char **argv)
 	data->dirY = 0; //initial direction vector
   	data->planeX = 0;
 	data->planeY = 1.0; //the 2d raycaster version of camera plane
-	data->movespeed = 15.000;
-	data->a = 0;
+	data->movespeed = 10.000;
+	data->a = 235;
+	data->playerAngle = 0 ;
 	data->flag = 0;
 	data->coloumns = 0;
 	data->rows = 0;

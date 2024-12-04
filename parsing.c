@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/04 13:32:29 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/04 17:31:47 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void parse_map(char *map, t_data *data)
 			i++;
 			x += 50;
 		}
+		if (line[i] == '\n' || line[i] == '\0')
+			data->coordinates[x/50][y/50].map = '1';
 		if (line[i] != '\0' && line[i] != '\n')
         {
             printf("Found irregularity: %c\n", line[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:48:00 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/04 13:35:26 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/04 17:09:26 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void renderScene(t_data *data)
     // Loop through each column on the screen
     for (int screenColumn = 0; screenColumn < data->screenWidth; screenColumn++)
 	{
-		data->playerAngle =
-		data->rayAngle = data->playerAngle - (data->FOV / 2) + (screenColumn * (data->FOV / data->screenWidth));
+		// data->playerAngle =
+		// data->rayAngle = data->playerAngle - (data->FOV / 2) + (screenColumn * (data->FOV / data->screenWidth));
         // Calculate the distance to the wall, and then render the 3D projection for each column
          // Assuming you have this function to calculate the distance
         render3D(data, data->distanceahead[screenColumn], 20, screenColumn); // 50 is the cube height, change as needed

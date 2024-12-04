@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:32 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/04 13:33:15 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/04 17:26:33 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int ft_detectpointbeam(float beamX, float beamY, t_data *data, double rad_angle)
         // Out of bounds, no collision detected
         return 0;
     }
+
+	if (gridX >= data->rows || gridY >= data->coloumns || !data->coordinates[gridX])
+		return (1);
 
 	// Check for wall at the grid location
 	if (data->coordinates[gridX][gridY].map == '1')
@@ -49,16 +52,15 @@ void castbeams(t_data *data)
 {
     float beamX;
 	float beamY;
-
 	data->colours = 8388736;// purple for beam
 	double	ang = data->a;
 	int i = 0;
-	
 	while (i < 1920)
 	{
 		beamX = data->posX;
 		beamY = data->posY;
 		double rad_angle_1 = ang * (PI / 180.0);
+		
 		while ((beamX >= 0 && beamX <= 1920 && beamY >= 0 && beamY <= 1080 && ft_detectpointbeam(beamX, beamY, data, rad_angle_1) != 1))// beamX != wallline
 		{
 			my_mlx_pixel_put(data, beamX, beamY, 1);
