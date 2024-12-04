@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/03 15:30:41 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:32:29 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,13 @@ void parse_map(char *map, t_data *data)
 		while (line[i] == '1' || line[i] == '0' || line[i] == 'N' || line[i] == ' ')
 		{
 			if (line[i] == '1')
-			{
 				data->coordinates[x/50][y/50].map = line[i];
-				printf("put 1 at x:%d, y: %d\n", x/50, y/50);
-			}
 			else
-			{
 				data->coordinates[x/50][y/50].map = line[i];
-				printf("put %c at x:%d, y: %d\n",line[i], x/50, y/50);
-			}
-				
 			render_textures(line[i], data, x, y);
 			i++;
 			x += 50;
 		}
-		// data->coordinates[x/50][y/50].map = line[i];
 		if (line[i] != '\0' && line[i] != '\n')
         {
             printf("Found irregularity: %c\n", line[i]);
@@ -109,20 +101,18 @@ void calculatesize(char *map, t_data *data)
 	int fd;
 	int ll;
 	data->coloumns = 0;
-	int coloumns = 0;
 	fd = open(map, O_RDONLY);
 	ll = 0;
 	line = get_next_line(fd);
 	while(line)
 	{
-		coloumns++;
+		data->coloumns++;
 		ll = ft_strlen(line);
 		if (ll > data->rows)
             data->rows = ll;
 		free(line);
 		line = get_next_line(fd);
 	}
-	data->coloumns = coloumns;
 	// free(line);maybe necessary
 	close(fd);
 	printf("rows %d, coloumns %d\n", data->rows, data->coloumns);

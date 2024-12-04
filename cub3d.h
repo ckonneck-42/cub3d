@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/03 14:38:39 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:34:21 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,13 @@ typedef struct {
     int texHeight;        // Height of a texture
 } t_RaycastVars;
 
+typedef struct s_final_point
+{
+    int x;
+    int y;
+}   t_final_point;
+
+
 typedef struct s_data
 {
 	void			*mlx;
@@ -124,6 +131,7 @@ typedef struct s_data
     float           playerAngle;
 	double 			movespeed;
     double          distanceahead[1920];
+    t_final_point   final_point[1920];
     double          distanceleft;
     double          distanceright;
     int             screenHeight;

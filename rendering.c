@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:48:00 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/03 14:38:24 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:35:26 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,34 @@ void render3D(t_data *data, double distance, float cubeHeight, int screenColumn)
 		wallEndY = data->screenHeight - 1;
 	// printf("test");
     // Draw the vertical slice
-	data->colours = 6666666;
-    for (int y = wallStartY; y <= wallEndY; y++)
+	if ((data->final_point[screenColumn].x % 50 == 49 || data->final_point[screenColumn].x % 50 == 0) && data->final_point[screenColumn].x > data->posX)	//east wall
+		data->colours = 9000000;
+	else if ((data->final_point[screenColumn].x % 50 == 49 || data->final_point[screenColumn].x % 50 == 0) && data->final_point[screenColumn].x < data->posX)	//west wall
+		data->colours = 7000000;
+	else if ((data->final_point[screenColumn].y % 50 == 49 || data->final_point[screenColumn].y % 50 == 0) && data->final_point[screenColumn].y > data->posY)	//north wall
+		data->colours = 5000000;
+	else if ((data->final_point[screenColumn].y % 50 == 49 || data->final_point[screenColumn].y % 50 == 0) && data->final_point[screenColumn].y < data->posY)	//south wall
+		data->colours = 3000000;
+	else
+		data->colours = 6666666;
+	// * distance* 0.0000001;
+	for (int y = wallStartY; y <= wallEndY; y++)
 	{
-        my_mlx_pixel_put(data, screenColumn, y, 1);
+		my_mlx_pixel_put(data, screenColumn, y, 1);
 		// printf("putting pixels");
-    }
+	}
+	data->colours = 2222222;
+	for (int y = wallEndY; y < 1080; y++)
+	{
+		my_mlx_pixel_put(data, screenColumn, y, 1);
+		// printf("putting pixels");
+	}
+	data->colours = 8888888;
+	for (int y = wallStartY; y > 0; y--)
+	{
+		my_mlx_pixel_put(data, screenColumn, y, 1);
+		// printf("putting pixels");
+	}
 	// printf("screenheight: %d\n", data->screenHeight);
 	// 	printf("screenwidth: %d\n", data->screenWidth);
 	// printf("FOV radians: %f\n", data->FOV);
