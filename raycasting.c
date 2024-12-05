@@ -6,16 +6,44 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:32 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/04 17:42:18 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:10:01 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 
+// int ft_detectpointbeam(float beamX, float beamY, t_data *data, double rad_angle)
+// {
+// // Calculate grid indices
+
+// 	// if ((int)beamX % GRID_SIZE == 0 || (int)beamY % GRID_SIZE == 0)
+// 	// 	return (1);
+//     int gridX = (int)((beamX + cos(rad_angle)) / GRID_SIZE);
+//     int gridY = (int)((beamY + sin(rad_angle)) / GRID_SIZE);
+
+// 	// Ensure gridX and gridY are within bounds
+//     if (gridX < 0 || gridY < 0)
+//     {
+//         // Out of bounds, no collision detected
+//         return 0;
+//     }
+
+// 	if (gridX >= data->rows || gridY >= data->coloumns || !data->coordinates[gridX])
+// 		return (1);
+
+// 	// Check for wall at the grid location
+// 	if (data->coordinates[gridX][gridY].map == '1')
+// 		return 1;
+
+// 	// No wall detected
+// 	return 0;
+// }
+
 int ft_detectpointbeam(float beamX, float beamY, t_data *data, double rad_angle)
 {
 // Calculate grid indices
+
     int gridX = (int)((beamX + cos(rad_angle)) / GRID_SIZE);
     int gridY = (int)((beamY + sin(rad_angle)) / GRID_SIZE);
 
@@ -50,6 +78,10 @@ int ft_detectpointbeam(float beamX, float beamY, t_data *data, double rad_angle)
 
 void castbeams(t_data *data)
 {
+	//if point before the wall before the pixel that goes through is solid, and the wall after the pixel is also solid,
+	// also make the pixel inbetween solid. also half the beams being cast to make math maybe more predictable
+	// or introduce a step that we increment, instead of +0.04. currently casting 1920 beams if i am interpreting this correctly.
+	// halfing this shouldnt really cause any issues.
     float beamX;
 	float beamY;
 	data->colours = 8388736;// purple for beam
@@ -62,8 +94,9 @@ void castbeams(t_data *data)
 		beamX = data->posX;
 		beamY = data->posY;
 		double rad_angle_1 = ang * (PI / 180.0);
-		double rad_angle_2 = ang_2 * (PI / 180.0); 
-		while ((beamX >= 0 && beamX <= 1920 && beamY >= 0 && beamY <= 1080 && ft_detectpointbeam(beamX, beamY, data, rad_angle_1) != 1))// beamX != wallline
+		double rad_angle_2 = ang_2 * (PI / 180.0);
+		while ((beamX >= 0 && beamX <= 1920 && beamY >= 0 && beamY <= 1080 && ft_detectpointbeam(beamX, beamY, data, rad_angle_1) != 1) 
+				&& ft_detectpointbeam(beamX -1, beamY - 1, data, rad_angle_1) != 1)// beamX != wallline
 		{
 			my_mlx_pixel_put(data, beamX, beamY, 1);
 			beamX += cos(rad_angle_1);
@@ -74,7 +107,7 @@ void castbeams(t_data *data)
 		data->distanceahead[i] = (sqrt(pow(beamX - data->posX, 2) + pow(beamY - data->posY, 2))) * cos(rad_angle_2);
 		// printf("this is the beamX: %f, this is the beamY: %f\n", beamX, beamY);
 		ang += 0.04;
-		ang_2 -=0.04;
+		ang_2 -= 0.038;
 		i++;
 	}
 	// printf("the last ang is: %f\n", ang);

@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/04 17:33:12 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:35:35 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ int main(int argc, char **argv)
 	parse_map(data->map, data);
 	renderScene(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
+
+	
+	// 	int img_width;
+	// int img_height;
+	// void *img;
+	// img = mlx_xpm_file_to_image(data->mlx, "./pic/NO.xpm", &img_width, &img_height);
+	// mlx_put_image_to_window(data->mlx, data->win, img, 960, 540);
 	// raycasting(&data);
 	
 	mlx_hook(data->win, 17, 0, close_window, data);
@@ -38,6 +45,7 @@ int main(int argc, char **argv)
 	mlx_loop(data->mlx);
 
 }
+
 
 
 t_data	*base_init(t_data *data, char **argv)
@@ -59,13 +67,14 @@ t_data	*base_init(t_data *data, char **argv)
 	data->dirY = 0; //initial direction vector
   	data->planeX = 0;
 	data->planeY = 1.0; //the 2d raycaster version of camera plane
-	data->movespeed = 10.000;
+	data->movespeed = 10.0;
 	data->a = 235;
 	data->playerAngle = 0 ;
 	data->flag = 0;
 	data->coloumns = 0;
 	data->rows = 0;
-	data->FOV = 1.047197;
+	data->FOV = 60 * PI / 180;
+	printf("%f", data->FOV);
 	data->screenHeight = 1080;
 	data->screenWidth = 1920;
 	calculatesize(data->map, data);

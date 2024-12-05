@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/04 16:37:02 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:56:15 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void pressW(t_data *data)  // Move Forward
     double nextX = data->posX + cos(ang * (PI / 180.0)) * data->movespeed;
     double nextY = data->posY + sin(ang * (PI / 180.0)) * data->movespeed;
 
-    if (ft_detectpoint(data, nextX, nextY) != 1)  // Check if there's no wall ahead
+    if (ft_detectpoint(data, nextX, nextY) != 1 )  // Check if there's no wall ahead
     {
         data->posX = nextX;  // Update position
         data->posY = nextY;  // Update position
@@ -140,11 +140,11 @@ int	keypress(int keycode, t_data *data)//facing north set
 		pressD(data);
 	else if(keycode == K_ARRRGT)
 	{
-		data->a = fmod(data->a + 1.0, 360.0); 
+		data->a = fmod(data->a + 5.0, 360.0); 
 	}
 	else if(keycode == K_ARRLFT)
 	{
-		data->a = fmod(data->a - 1.0 + 360.0, 360.0);
+		data->a = fmod(data->a - 5.0 + 360.0, 360.0);
 	}
 	redraw_map(data);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/04 17:31:47 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:39:31 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,61 @@ t_Coordinate	**allocatecoordinates(int rows, int cols)
 	return (coordinates);
 }
 
+int		find_it(char *line, int fd, char *ttf)
+{
+	int i;
+	i = 0;
+	line = get_next_line(fd);
+	while(line)
+	{
+		while(line[i] == ' ')
+				i++;
+		if (ft_strncmp(line+i, ttf, 2) == 0)
+		{
+			i = 0;
+			free(line);
+			line = get_next_line(fd);
+			printf("found %s\n", ttf);
+			return(1);
+		}
+		else
+		{
+			i = 0;
+			free(line);
+			line = get_next_line(fd);
+		}
+		printf("%s", line);
+	}
+	return(0);
+	
+}
+
+
+void	parse_everything_else(char *map, t_data *data)
+{
+	char *line;
+	int fd;
+	int i;
+	fd = open(map, O_RDONLY);
+
+		if(find_it(line, fd, "NO") != 1)
+			printf("no north found\n");
+		printf("going into southfinding\n");
+		if(find_it(line, fd, "SO") != 1)
+			printf("no south found\n");
+		printf("going into westfinding\n");
+		if(find_it(line, fd, "WE") != 1)
+			printf("no west found\n");
+		if(find_it(line, fd, "EA") != 1)
+			printf("no east found\n");
+		// else
+		// {
+		// 	free(line);
+		// 	get_next_line(fd);
+		// }
+	close (fd);
+	exit(0);
+}
 
 void parse_map(char *map, t_data *data)
 {
@@ -52,6 +107,7 @@ void parse_map(char *map, t_data *data)
 	char *line;
 	int i;
 	int x;
+	// parse_everything_else(map, data);
 	int y = 0;
 	fd = open(map, O_RDONLY);
 	line = get_next_line(fd);
