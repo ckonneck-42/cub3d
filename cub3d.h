@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/05 13:59:25 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:58:48 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,16 @@ typedef struct s_data
 	int			    line_length;
 	int				bits_per_pixel;
 	int				endian;
+    int             fd;
     char            *map;
+    char            raw_map[1024];
+    
     int             rows;
     int             coloumns;
     int             **walls;
     int             a;
     int             flag;
+    int             playerflag;
 	double			posX;
 	double			posY;
 	double			dirX;
@@ -139,6 +143,7 @@ typedef struct s_data
     float             FOV;
 	float			colours;
 	const char		*filename;
+    char            **fd_parsearray;
 	t_Coordinate	**coordinates;
     	// t_RaycastVars	ray;
 	t_Cube			cube;
@@ -157,7 +162,7 @@ int	ft_close(int keycode, t_data *data);
 int	close_window(t_data *data);
 void	raycasting(t_data *data);
 void	my_mlx_pixel_put(t_data *data, float x, float y, int size);
-void parse_map(char *map, t_data *data);
+void parse_map(t_data *data);
 void reinit_data(t_data *data);
 int get_pixel_color(int x, int y, t_data *data);
 int ft_detectpoint(t_data *data, double nextX, double nextY);
@@ -169,3 +174,7 @@ void	freecall(t_Coordinate **coordinates, int rows);
 void	freedom(t_data *data, char *line);
 void render3D(t_data *data, double distance, float cubeHeight, int screenColumn);
 void renderScene(t_data *data);
+void	parse_everything_else(char *map, t_data *data);
+void	copy_map_to_buffer(t_data *data, size_t buffer_size);
+void	fd_parse(char *map, t_data *data);
+int find_the_map(int i, t_data *data);

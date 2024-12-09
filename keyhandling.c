@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/05 15:56:15 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:49:36 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	close_window(t_data *data)
 	freecall(data->coordinates, data->rows);
 	free(data->mlx);
 	free(data);
+	unlink("tempfilemap");
 	exit(0);
 }
 
@@ -53,6 +54,7 @@ int	ft_close(int keycode, t_data *data)
 		freecall(data->coordinates, data->rows);
 		free(data->mlx);
 		free(data);
+		unlink("tempfilemap");
 		exit(0);
 	}
 	else
@@ -157,7 +159,7 @@ void	redraw_map(t_data *data)
 	my_mlx_pixel_put(data, data->posX, data->posY, 5);
 	renderScene(data);
 	castbeams(data);
-	parse_map(data->map, data);
+	parse_map(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 	data->colours = 45000;//normalize for walls

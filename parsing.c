@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/05 15:39:31 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:15:43 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,84 @@ t_Coordinate	**allocatecoordinates(int rows, int cols)
 	return (coordinates);
 }
 
-int		find_it(char *line, int fd, char *ttf)
+void	fd_parse(char *map, t_data *data)
 {
 	int i;
+	char *line;
+	int fd;
 	i = 0;
+	fd = open(map, O_RDONLY);
 	line = get_next_line(fd);
+	data->fd_parsearray = malloc(sizeof(char *) * 1024);
 	while(line)
 	{
-		while(line[i] == ' ')
-				i++;
-		if (ft_strncmp(line+i, ttf, 2) == 0)
+		data->fd_parsearray[i] = ft_strdup(line);
+		i++;
+		free(line);
+		line = get_next_line(fd);
+	}
+}
+
+
+int		find_it(char *ttf,t_data *data)
+{
+	int i;
+	int k;
+	i = 0;
+	k = 0;
+	// printf("line at THE VERY start: %s\n", line);
+	while(data->fd_parsearray[i])
+	{
+		printf("line at start: %s\n", data->fd_parsearray[i]);
+		while(data->fd_parsearray[i][k] == ' ' || data->fd_parsearray[i][k] == 9)
+				k++;
+		if (ft_strncmp(data->fd_parsearray[i] + k, ttf, 2) == 0)
 		{
-			i = 0;
-			free(line);
-			line = get_next_line(fd);
+			
+			k = 0;
 			printf("found %s\n", ttf);
+			data->flag++;
+			printf("flag is now %d\n", data->flag);
 			return(1);
 		}
 		else
 		{
-			i = 0;
-			free(line);
-			line = get_next_line(fd);
+			k = 0;
 		}
-		printf("%s", line);
+			i++;
+		printf("line at end %s\n", data->fd_parsearray[i]);
+	}
+	
+	return(0);
+}
+
+int		find_colors(char *ttf, t_data *data)
+{
+	int i;
+	int k;
+	i = 0;
+	k = 0;
+	// printf("line at THE VERY start: %s\n", line);
+	while(data->fd_parsearray[i])
+	{
+		printf("line at start: %s\n", data->fd_parsearray[i]);
+		while(data->fd_parsearray[i][k] == ' ' || data->fd_parsearray[i][k] == 9)
+				k++;
+		if (ft_strncmp(data->fd_parsearray[i] + k, ttf, 1) == 0)
+		{
+			
+			k = 0;
+			printf("found %s\n", ttf);
+			data->flag++;
+			printf("flag is now %d\n", data->flag);
+			return(1);
+		}
+		else
+		{
+			k = 0;
+		}
+			i++;
+		printf("line at end %s\n", data->fd_parsearray[i]);
 	}
 	return(0);
 	
@@ -80,37 +134,112 @@ void	parse_everything_else(char *map, t_data *data)
 	char *line;
 	int fd;
 	int i;
-	fd = open(map, O_RDONLY);
-
-		if(find_it(line, fd, "NO") != 1)
-			printf("no north found\n");
-		printf("going into southfinding\n");
-		if(find_it(line, fd, "SO") != 1)
-			printf("no south found\n");
-		printf("going into westfinding\n");
-		if(find_it(line, fd, "WE") != 1)
-			printf("no west found\n");
-		if(find_it(line, fd, "EA") != 1)
-			printf("no east found\n");
-		// else
-		// {
-		// 	free(line);
-		// 	get_next_line(fd);
-		// }
-	close (fd);
-	exit(0);
+	
+	data->flag = 0;
+	while(data->flag != 6)
+	{
+		if(data->flag == 0 && (find_it("NO", data) != 1))
+		{
+			perror("no north found");
+			exit(1);
+		}
+		printf("going southfinding\n");
+		if(data->flag == 1 && (find_it("SO", data) != 1))
+		{
+			perror("no south found");
+			exit(1);
+		}
+		if(data->flag == 2 && (find_it("WE", data) != 1))
+		{
+			perror("no west found");
+			exit(1);
+		}
+		if(data->flag == 3 && (find_it("EA", data) != 1))// also dont forget to handle errors
+		{
+			perror("no east found");
+			exit(1);
+		}
+		if(data->flag == 4 && (find_colors("F", data) != 1))
+			perror("no floor color found");
+		if(data->flag == 5 && (find_colors("C", data) != 1))
+			perror("no ceiling color found");
+	}
+		copy_map_to_buffer(data, 1024);//need to change this because i stopped passing fd.
+		close (fd);
 }
 
-void parse_map(char *map, t_data *data)
+void	copy_map_to_buffer(t_data *data, size_t buffer_size)
 {
+	size_t	offset = 0;
+	int i;
+	i = find_the_map(i, data);
+	
+	while (data->fd_parsearray[i] && offset < buffer_size)
+	{
+		size_t len = ft_strlen(data->fd_parsearray[i]);
+		if (offset + len >= buffer_size)
+		{
+			fprintf(stderr, "Buffer overflow\n");
+			break;
+		}
+		ft_strlcpy(data->raw_map + offset, data->fd_parsearray[i], len + 1);
+		offset += len;
+		i++;
+	}
+}
+
+int find_the_map(int i, t_data *data)
+{
+	while(data->fd_parsearray[i])
+	{
+		if (ft_strncmp(data->fd_parsearray[i], "111", 3) == 0)
+			return(i);
+		i++;
+	}
+	perror("couldn't find a map");
+	exit(1);
+}
+
+
+char *get_next_line_from_memory(const char *buffer, size_t *offset)
+{
+    size_t start;
+    size_t len;
+	char *line;
+
+	len = 0;
+	start = *offset;
+    if (!buffer[start])
+        return NULL;
+    while (buffer[start + len] && buffer[start + len] != '\n')
+        len++;
+   line = malloc(len + 2);
+    if (!line)
+        return NULL;
+    ft_strlcpy(line, buffer + start, len);
+    if (buffer[start + len] == '\n')
+    {
+        line[len] = '\n';
+        len++;
+    }
+    line[len] = '\0';
+    *offset = start + len;
+
+    return line;
+}
+
+
+void parse_map(t_data *data)
+{
+	size_t offset;
 	int fd;
 	char *line;
 	int i;
 	int x;
-	// parse_everything_else(map, data);
 	int y = 0;
-	fd = open(map, O_RDONLY);
-	line = get_next_line(fd);
+
+	offset = 0;
+	line = get_next_line_from_memory(data->raw_map, &offset);
 	while (line != NULL)
 	{
 		i = 0;
@@ -134,10 +263,9 @@ void parse_map(char *map, t_data *data)
         }
 		free(line);
 		// printf("getting next line\n");
-		line = get_next_line(fd);
+		line = get_next_line_from_memory(data->raw_map, &offset);
 		y += 50;
 	}
-	close(fd);
 	// free(line);
 	data->colours = 16711680;//deep red (player)
 	my_mlx_pixel_put(data, data->posX, data->posY, 5);
