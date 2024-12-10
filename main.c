@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/09 15:41:19 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:00:23 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,16 @@ int main(int argc, char **argv)
 	{
 		fd_parse(data->map, data);
 		parse_everything_else(data->map, data);
+		calculatesize(data->map, data);
+		data->coordinates = allocatecoordinates(data->rows, data->coloumns);
 		parse_map(data);
 	}
 	
-	castbeams(data);
-	data->colours = 45000;
-	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 	parse_map(data);
+	castbeams(data);
 	renderScene(data);
+	data->colours = 45000;
+	// mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 
 	
@@ -74,15 +76,13 @@ t_data	*base_init(t_data *data, char **argv)
 	data->movespeed = 10.0;
 	data->playerflag = 0;
 	data->a = 235;
-	data->playerAngle = 0 ;
+	data->playerAngle = 0;
 	data->flag = 0;
 	data->coloumns = 0;
 	data->rows = 0;
 	data->FOV = 60 * PI / 180;
 	data->screenHeight = 1080;
 	data->screenWidth = 1920;
-	calculatesize(data->map, data);
-	data->coordinates = allocatecoordinates(data->rows, data->coloumns);
 	return(data);
 };
 

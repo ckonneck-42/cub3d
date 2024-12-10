@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:48:00 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/10 11:56:52 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:35:55 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ void render3D(t_data *data, double distance, float cubeHeight, int screenColumn)
 		my_mlx_pixel_put(data, screenColumn, y, 1);
 		// printf("putting pixels");
 	}
-	data->colours = 2222222;
+	data->colours = data->floorcolor;
 	for (int y = wallEndY; y < 1080; y++)
 	{
 		my_mlx_pixel_put(data, screenColumn, y, 1);
 		// printf("putting pixels");
 	}
-	data->colours = 8888888;
+	data->colours = data->ceilingcolor;
 	for (int y = wallStartY; y > 0; y--)
 	{
 		my_mlx_pixel_put(data, screenColumn, y, 1);
@@ -149,17 +149,11 @@ void	render_textures(char target, t_data *data, int x, int y)
 	t_Cube cube;
 	t_RaycastVars ray;
 	cube.height = 256;
-	int nr;
-	nr = 0;
-	// if (!data->img[1])
-	// 	data->img[1] = mlx_xpm_file_to_image(data->mlx, TEXTURE_METAL, &cube.height, &cube.height);
-	// if (!data->img[2])
-	// 	data->img[2] = mlx_xpm_file_to_image(data->mlx, TEXTURE_SNOW, &cube.height, &cube.height);
-	// 	data->img[3] = mlx_xpm_file_to_image(data->mlx, TEXTURE_METAL, &img_width, &img_height);
-	if (target == '1')
+
+	if (target == '1' || target == '\n' || target == '\0')
 	{
+		// printf("drawing cube for x: %d, and y: %d\n", x/50, y/50);
 		draw_cube(data, x, y);
-		// savecoords(x, y, nr++);
 	}
 	// else if (target == '0')
 	// 	my_mlx_pixel_put(data, x, y, 10);

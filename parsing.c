@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/09 16:15:43 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/10 18:01:34 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	fd_parse(char *map, t_data *data)
 		free(line);
 		line = get_next_line(fd);
 	}
+	data->fd_parsearray[i] = NULL;
 }
 
 
@@ -73,16 +74,16 @@ int		find_it(char *ttf,t_data *data)
 	// printf("line at THE VERY start: %s\n", line);
 	while(data->fd_parsearray[i])
 	{
-		printf("line at start: %s\n", data->fd_parsearray[i]);
+		// printf("line at start: %s\n", data->fd_parsearray[i]);
 		while(data->fd_parsearray[i][k] == ' ' || data->fd_parsearray[i][k] == 9)
 				k++;
 		if (ft_strncmp(data->fd_parsearray[i] + k, ttf, 2) == 0)
 		{
 			
 			k = 0;
-			printf("found %s\n", ttf);
+			// printf("found %s\n", ttf);
 			data->flag++;
-			printf("flag is now %d\n", data->flag);
+			// printf("flag is now %d\n", data->flag);
 			return(1);
 		}
 		else
@@ -90,7 +91,7 @@ int		find_it(char *ttf,t_data *data)
 			k = 0;
 		}
 			i++;
-		printf("line at end %s\n", data->fd_parsearray[i]);
+		// printf("line at end %s\n", data->fd_parsearray[i]);
 	}
 	
 	return(0);
@@ -105,29 +106,86 @@ int		find_colors(char *ttf, t_data *data)
 	// printf("line at THE VERY start: %s\n", line);
 	while(data->fd_parsearray[i])
 	{
-		printf("line at start: %s\n", data->fd_parsearray[i]);
+		// printf("parsing %s\n", data->fd_parsearray[i]);
+		// printf("line at start: %s\n", data->fd_parsearray[i]);
 		while(data->fd_parsearray[i][k] == ' ' || data->fd_parsearray[i][k] == 9)
 				k++;
 		if (ft_strncmp(data->fd_parsearray[i] + k, ttf, 1) == 0)
 		{
 			
-			k = 0;
-			printf("found %s\n", ttf);
+			// printf("found %s\n", ttf);
+			parse_the_color(data, data->fd_parsearray[i], k);
 			data->flag++;
-			printf("flag is now %d\n", data->flag);
 			return(1);
 		}
 		else
 		{
 			k = 0;
 		}
-			i++;
-		printf("line at end %s\n", data->fd_parsearray[i]);
+		i++;
+		// printf("line at end %s\n", data->fd_parsearray[i]);
 	}
 	return(0);
 	
 }
 
+void	parse_the_color(t_data *data, char *line, int k)
+{
+	char **temp;
+	
+	if (line[k] == 'C')
+	{
+		while (line[k] == 'C' || line[k] == ' ')
+			k++;
+		temp = ft_split(line + k, ',');
+		assign_colors(temp, data);
+		data->floorcolor = (data->redc << 16) | (data->greenc << 8) | data->bluec;
+	}
+	else if (line[k] == 'F')
+	{
+		while (line[k] == 'F' || line[k] == ' ')
+			k++;
+		temp = ft_split(line + k, ',');
+		assign_colors(temp, data);
+		data->ceilingcolor = (data->redc << 16) | (data->greenc << 8) | data->bluec;
+	}
+	k = 0;
+	while (temp[k])
+		free(temp[k++]);
+	free(temp);
+}
+
+void assign_colors(char **temp, t_data *data)
+{
+	if(ft_isalnumwhole(temp[0]) == 0)
+		data->redc = ft_atoi(temp[0]);
+	else
+		close_window(data);
+	if(ft_isalnumwhole(temp[1]) == 0)
+		data->greenc = ft_atoi(temp[1]);
+	else
+		close_window(data);
+	if(ft_isalnumwhole(temp[2]) == 0)
+		data->bluec = ft_atoi(temp[2]);
+	else
+		close_window(data);
+
+}
+
+
+int ft_isalnumwhole(char *line)
+{
+	int i;
+	i = 0;
+	while(line[i])
+	{
+		if ((line[i] >= 48 && line[i] <= 57 && i < 3 )|| line[i] == 10 || line[i] == '\0')
+			i++;
+		else
+			return(1);
+	}
+	return(0);
+}
 
 void	parse_everything_else(char *map, t_data *data)
 {
@@ -143,7 +201,7 @@ void	parse_everything_else(char *map, t_data *data)
 			perror("no north found");
 			exit(1);
 		}
-		printf("going southfinding\n");
+		// printf("going southfinding\n");
 		if(data->flag == 1 && (find_it("SO", data) != 1))
 		{
 			perror("no south found");
@@ -164,8 +222,7 @@ void	parse_everything_else(char *map, t_data *data)
 		if(data->flag == 5 && (find_colors("C", data) != 1))
 			perror("no ceiling color found");
 	}
-		copy_map_to_buffer(data, 1024);//need to change this because i stopped passing fd.
-		close (fd);
+		copy_map_to_buffer(data, 1024);
 }
 
 void	copy_map_to_buffer(t_data *data, size_t buffer_size)
@@ -173,7 +230,7 @@ void	copy_map_to_buffer(t_data *data, size_t buffer_size)
 	size_t	offset = 0;
 	int i;
 	i = find_the_map(i, data);
-	
+	// printf("copying\n");
 	while (data->fd_parsearray[i] && offset < buffer_size)
 	{
 		size_t len = ft_strlen(data->fd_parsearray[i]);
@@ -224,7 +281,7 @@ char *get_next_line_from_memory(const char *buffer, size_t *offset)
     }
     line[len] = '\0';
     *offset = start + len;
-
+	// printf("offset is %zu\n", *offset);
     return line;
 }
 
@@ -237,25 +294,26 @@ void parse_map(t_data *data)
 	int i;
 	int x;
 	int y = 0;
-
 	offset = 0;
 	line = get_next_line_from_memory(data->raw_map, &offset);
+	// printf("the line is: %s", line);
 	while (line != NULL)
 	{
 		i = 0;
 		x = 0;
 		while (line[i] == '1' || line[i] == '0' || line[i] == 'N' || line[i] == ' ')
 		{
-			if (line[i] == '1')
-				data->coordinates[x/50][y/50].map = line[i];
-			else
-				data->coordinates[x/50][y/50].map = line[i];
+			data->coordinates[x/50][y/50].map = line[i];
 			render_textures(line[i], data, x, y);
 			i++;
 			x += 50;
 		}
+		// x += 50;
 		if (line[i] == '\n' || line[i] == '\0')
+		{
 			data->coordinates[x/50][y/50].map = '1';
+			render_textures(line[i], data, x, y);
+		}
 		if (line[i] != '\0' && line[i] != '\n')
         {
             printf("Found irregularity: %c\n", line[i]);
@@ -264,6 +322,8 @@ void parse_map(t_data *data)
 		free(line);
 		// printf("getting next line\n");
 		line = get_next_line_from_memory(data->raw_map, &offset);
+		// printf("getting the next line\n");
+		// printf("the line is: %s", line);
 		y += 50;
 	}
 	// free(line);
@@ -286,10 +346,11 @@ void calculatesize(char *map, t_data *data)
 	char *line;
 	int fd;
 	int ll;
-	data->coloumns = 0;
-	fd = open(map, O_RDONLY);
+	size_t offset;
+	data->coloumns = 1;
+	offset = 0;
+	line = get_next_line_from_memory(data->raw_map, &offset);
 	ll = 0;
-	line = get_next_line(fd);
 	while(line)
 	{
 		data->coloumns++;
@@ -297,10 +358,10 @@ void calculatesize(char *map, t_data *data)
 		if (ll > data->rows)
             data->rows = ll;
 		free(line);
-		line = get_next_line(fd);
+		line = get_next_line_from_memory(data->raw_map, &offset);
+		// printf("data rows: %d, ll: %d\n", data->rows, ll);
 	}
+	data->rows += 1;
 	// free(line);maybe necessary
-	close(fd);
 	printf("rows %d, coloumns %d\n", data->rows, data->coloumns);
-	// printf("coloumsize = %d", data->coloumn);
 }

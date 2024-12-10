@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/09 15:58:48 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:38:24 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,11 @@ typedef struct s_data
     int             a;
     int             flag;
     int             playerflag;
+    int             floorcolor;
+    int             ceilingcolor;
+    int             redc;
+    int             greenc;
+    int             bluec;
 	double			posX;
 	double			posY;
 	double			dirX;
@@ -178,3 +183,6 @@ void	parse_everything_else(char *map, t_data *data);
 void	copy_map_to_buffer(t_data *data, size_t buffer_size);
 void	fd_parse(char *map, t_data *data);
 int find_the_map(int i, t_data *data);
+void	parse_the_color(t_data *data, char *line, int k);
+int ft_isalnumwhole(char *line);
+void assign_colors(char **temp, t_data *data);
