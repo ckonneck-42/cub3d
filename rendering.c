@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:48:00 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/05 13:59:30 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:56:52 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,12 +165,12 @@ void	render_textures(char target, t_data *data, int x, int y)
 	// 	my_mlx_pixel_put(data, x, y, 10);
 	// 	// mlx_put_image_to_window(data->mlx, data->win, data->img[2],
 	// 	// 	x, y);
-	else if (target == 'N' && data->flag == 0)
+	else if (target == 'N' && data->playerflag == 0)
 	{
 		// printf("saving player coords");
-		data->posX = x;
-		data->posY = y;
-		data->flag = 1;
+		data->posX = x+25;
+		data->posY = y+25;
+		data->playerflag = 1;
 		// mlx_put_image_to_window(data->mlx, data->win, data->img[0],  if i dont update the screen it doesnt show
 		// 	x, y);
 	}
