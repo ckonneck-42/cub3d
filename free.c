@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:55:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/11/28 16:37:14 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:00:51 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,11 @@ void	freecall(t_Coordinate **coordinates, int rows)
 void	freedom(t_data *data, char *line)
 {
 	free(line);
+	close_window(data);
+}
+
+void	clean_exit(t_data *data, char *errormessage)
+{
+	printf("Error\n%s\nexiting game\n" ,errormessage);
 	close_window(data);
 }
