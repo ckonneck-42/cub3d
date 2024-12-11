@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/10 17:38:24 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/11 14:48:21 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef struct s_data
     int             fd;
     char            *map;
     char            raw_map[1024];
+    char            **rawmaparray;
     
     int             rows;
     int             coloumns;
@@ -186,3 +187,8 @@ int find_the_map(int i, t_data *data);
 void	parse_the_color(t_data *data, char *line, int k);
 int ft_isalnumwhole(char *line);
 void assign_colors(char **temp, t_data *data);
+void	clean_exit(t_data *data, char *errormessage);
+int is_surrounded(t_data *data);
+int is_valid_adjacent(t_data *data, size_t x, size_t y);
+void fill_from_zero(t_data *data);
+void complete_flood(t_data *data, size_t x, size_t y);
