@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/10 18:01:34 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/11 14:50:59 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,17 +133,17 @@ void	parse_the_color(t_data *data, char *line, int k)
 {
 	char **temp;
 	
-	if (line[k] == 'C')
+	if (line[k] == 'F')
 	{
-		while (line[k] == 'C' || line[k] == ' ')
+		while (line[k] == 'F' || line[k] == ' ')
 			k++;
 		temp = ft_split(line + k, ',');
 		assign_colors(temp, data);
 		data->floorcolor = (data->redc << 16) | (data->greenc << 8) | data->bluec;
 	}
-	else if (line[k] == 'F')
+	else if (line[k] == 'C')
 	{
-		while (line[k] == 'F' || line[k] == ' ')
+		while (line[k] == 'C' || line[k] == ' ')
 			k++;
 		temp = ft_split(line + k, ',');
 		assign_colors(temp, data);
@@ -160,16 +160,24 @@ void assign_colors(char **temp, t_data *data)
 	if(ft_isalnumwhole(temp[0]) == 0)
 		data->redc = ft_atoi(temp[0]);
 	else
+	{
+		printf("error color assignment\n");
 		close_window(data);
+	}
 	if(ft_isalnumwhole(temp[1]) == 0)
 		data->greenc = ft_atoi(temp[1]);
 	else
+	{
+		printf("error color assignment\n");
 		close_window(data);
+	}
 	if(ft_isalnumwhole(temp[2]) == 0)
 		data->bluec = ft_atoi(temp[2]);
 	else
+	{
+		printf("error color assignment\n");
 		close_window(data);
-
+	}
 }
 
 
@@ -197,52 +205,49 @@ void	parse_everything_else(char *map, t_data *data)
 	while(data->flag != 6)
 	{
 		if(data->flag == 0 && (find_it("NO", data) != 1))
-		{
-			perror("no north found");
-			exit(1);
-		}
+			clean_exit(data, "no north found");
 		// printf("going southfinding\n");
 		if(data->flag == 1 && (find_it("SO", data) != 1))
-		{
-			perror("no south found");
-			exit(1);
-		}
+			clean_exit(data, "no south found");
 		if(data->flag == 2 && (find_it("WE", data) != 1))
-		{
-			perror("no west found");
-			exit(1);
-		}
+			clean_exit(data, "no west found");
 		if(data->flag == 3 && (find_it("EA", data) != 1))// also dont forget to handle errors
-		{
-			perror("no east found");
-			exit(1);
-		}
+			clean_exit(data, "no east found");
 		if(data->flag == 4 && (find_colors("F", data) != 1))
-			perror("no floor color found");
+			clean_exit(data, "no floor color found");
 		if(data->flag == 5 && (find_colors("C", data) != 1))
-			perror("no ceiling color found");
+			clean_exit(data, "no ceiling color found");
 	}
-		copy_map_to_buffer(data, 1024);
+	copy_map_to_buffer(data, 1024);
+	if(is_surrounded(data) == 1)
+		printf("floodfill worked\n");
 }
 
 void	copy_map_to_buffer(t_data *data, size_t buffer_size)
 {
 	size_t	offset = 0;
 	int i;
+	int k;
+	k = 0;
 	i = find_the_map(i, data);
+	data->rawmaparray = malloc(sizeof(char *) * 1024);
 	// printf("copying\n");
 	while (data->fd_parsearray[i] && offset < buffer_size)
 	{
 		size_t len = ft_strlen(data->fd_parsearray[i]);
 		if (offset + len >= buffer_size)
 		{
-			fprintf(stderr, "Buffer overflow\n");
+			printf("Buffer overflow\n");
 			break;
 		}
 		ft_strlcpy(data->raw_map + offset, data->fd_parsearray[i], len + 1);
+		data->rawmaparray[k] = malloc(len + 1);
+		ft_strlcpy(data->rawmaparray[k], data->fd_parsearray[i],  len + 1);
 		offset += len;
 		i++;
+		k++;
 	}
+	data->rawmaparray[k] = NULL;
 }
 
 int find_the_map(int i, t_data *data)
@@ -253,8 +258,8 @@ int find_the_map(int i, t_data *data)
 			return(i);
 		i++;
 	}
-	perror("couldn't find a map");
-	exit(1);
+	clean_exit(data, "couldn't find a map");
+	return(0);
 }
 
 
