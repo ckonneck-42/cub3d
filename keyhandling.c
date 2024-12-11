@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/09 12:49:36 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/11 11:39:31 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 int	close_window(t_data *data)
 {
 	mlx_clear_window(data->mlx, data->win);
-	mlx_destroy_image(data->mlx, data->img[0]);
-	// mlx_destroy_image(data->mlx, data->img[1]);
-	// mlx_destroy_image(data->mlx, data->img[2]);
+    mlx_destroy_image(data->mlx, data->img[0]);
 	mlx_destroy_window(data->mlx, data->win);
-	mlx_loop_end(data->mlx);
 	mlx_destroy_display(data->mlx);
+	mlx_loop_end(data->mlx);
 	freecall(data->coordinates, data->rows);
+	int i = 0;
+	while(data->fd_parsearray && data->fd_parsearray[i])
+		free(data->fd_parsearray[i++]);
+	free(data->fd_parsearray);
 	free(data->mlx);
 	free(data);
-	unlink("tempfilemap");
 	exit(0);
 }
 
@@ -44,17 +45,7 @@ int	ft_close(int keycode, t_data *data)
 	}
 	if (keycode == K_ESC)
 	{
-		mlx_clear_window(data->mlx, data->win);
-		mlx_destroy_image(data->mlx, data->img[0]);
-		// mlx_destroy_image(data->mlx, data->img[1]);
-		// mlx_destroy_image(data->mlx, data->img[2]);
-		mlx_destroy_window(data->mlx, data->win);
-		mlx_loop_end(data->mlx);
-		mlx_destroy_display(data->mlx);
-		freecall(data->coordinates, data->rows);
-		free(data->mlx);
-		free(data);
-		unlink("tempfilemap");
+		close_window(data);
 		exit(0);
 	}
 	else
@@ -161,7 +152,7 @@ void	redraw_map(t_data *data)
 	castbeams(data);
 	parse_map(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
-	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
+	// mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 	data->colours = 45000;//normalize for walls
 }
 
