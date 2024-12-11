@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/10 14:00:23 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:55:32 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int main(int argc, char **argv)
 		calculatesize(data->map, data);
 		data->coordinates = allocatecoordinates(data->rows, data->coloumns);
 		parse_map(data);
+		// if(is_surrounded(data) == 1)
+		// 	printf("floodfill failed\n");
+		// else
+		// 	printf("good job\n");
 	}
 	
 	parse_map(data);

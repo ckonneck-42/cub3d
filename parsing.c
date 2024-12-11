@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/11 14:50:59 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:06:26 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,8 +219,6 @@ void	parse_everything_else(char *map, t_data *data)
 			clean_exit(data, "no ceiling color found");
 	}
 	copy_map_to_buffer(data, 1024);
-	if(is_surrounded(data) == 1)
-		printf("floodfill worked\n");
 }
 
 void	copy_map_to_buffer(t_data *data, size_t buffer_size)
@@ -331,6 +329,7 @@ void parse_map(t_data *data)
 		// printf("the line is: %s", line);
 		y += 50;
 	}
+	
 	// free(line);
 	data->colours = 16711680;//deep red (player)
 	my_mlx_pixel_put(data, data->posX, data->posY, 5);

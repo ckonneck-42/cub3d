@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/11 11:39:31 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/11 14:53:58 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ int	close_window(t_data *data)
 	int i = 0;
 	while(data->fd_parsearray && data->fd_parsearray[i])
 		free(data->fd_parsearray[i++]);
+	i = 0;
+	while(data->rawmaparray && data->rawmaparray[i])
+		free(data->rawmaparray[i++]);
+	free(data->rawmaparray);
 	free(data->fd_parsearray);
 	free(data->mlx);
 	free(data);
@@ -69,7 +73,7 @@ void pressW(t_data *data)  // Move Forward
     double nextX = data->posX + cos(ang * (PI / 180.0)) * data->movespeed;
     double nextY = data->posY + sin(ang * (PI / 180.0)) * data->movespeed;
 
-    if (ft_detectpoint(data, nextX, nextY) != 1 )  // Check if there's no wall ahead
+    if (ft_detectpoint(data, nextX, nextY) != 1 && ft_detectpoint(data, nextX -1, nextY - 1) != 1)  // Check if there's no wall ahead
     {
         data->posX = nextX;  // Update position
         data->posY = nextY;  // Update position
@@ -84,7 +88,7 @@ void pressS(t_data *data)  // Move Backward
     double nextX = data->posX - cos(ang * (PI / 180.0)) * data->movespeed;
     double nextY = data->posY - sin(ang * (PI / 180.0)) * data->movespeed;
 
-    if (ft_detectpoint(data, nextX, nextY) != 1)
+    if (ft_detectpoint(data, nextX, nextY) != 1 && ft_detectpoint(data, nextX -1, nextY - 1) != 1)
     {
         data->posX = nextX;
         data->posY = nextY;
@@ -98,7 +102,7 @@ void pressA(t_data *data)  // Move Left
 	double	ang = data->a + 1920 * 0.02;
  	double nextX = data->posX + sin(ang * (PI / 180.0)) * data->movespeed;  // Use sin for X (opposite direction)
     double nextY = data->posY - cos(ang * (PI / 180.0)) * data->movespeed;  // Use cos for Y (normal direction)
-    if (ft_detectpoint(data, nextX, nextY) != 1)
+    if (ft_detectpoint(data, nextX, nextY) != 1 && ft_detectpoint(data, nextX -1, nextY - 1) != 1)
     {
         data->posX = nextX;
         data->posY = nextY;
@@ -112,7 +116,7 @@ void pressD(t_data *data)  // Move Right
 	double	ang = data->a + 1920 * 0.02;
      double nextX = data->posX - sin(ang * (PI / 180.0)) * data->movespeed;  // Use sin for X (normal direction)
     double nextY = data->posY + cos(ang * (PI / 180.0)) * data->movespeed;  // Use cos for Y (opposite direction)
-    if (ft_detectpoint(data, nextX, nextY) != 1)
+    if (ft_detectpoint(data, nextX, nextY) != 1 && ft_detectpoint(data, nextX -1, nextY - 1) != 1)
     {
         data->posX = nextX;
         data->posY = nextY;

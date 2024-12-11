@@ -6,16 +6,16 @@
 #    By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 12:14:45 by ckonneck          #+#    #+#              #
-#    Updated: 2024/11/28 16:23:16 by ckonneck         ###   ########.fr        #
+#    Updated: 2024/12/11 16:13:27 by ckonneck         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 # Source files for cub3d
-cub3d_SRCS = main.c keyhandling.c raycasting.c rendering.c parsing.c free.c
+cub3d_SRCS = main.c keyhandling.c raycasting.c rendering.c parsing.c free.c mapchecks.c
 cub3d_OBJS = $(cub3d_SRCS:.c=.o)
 cub3d_DEPS = $(cub3d_SRCS:.c=.d)
-CC = cc
+CC = cc -g
 LIBFT_DIR = ./libft
 LIBS = -L$(LIBFT_DIR) -lft -Lminilibx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR) -Imlx_linux

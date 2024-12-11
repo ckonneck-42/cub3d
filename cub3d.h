@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/11 14:48:21 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:52:32 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct s_data
     int             screenWidth;
     float             FOV;
 	float			colours;
+    float           pre_color;
 	const char		*filename;
     char            **fd_parsearray;
 	t_Coordinate	**coordinates;
@@ -189,6 +190,6 @@ int ft_isalnumwhole(char *line);
 void assign_colors(char **temp, t_data *data);
 void	clean_exit(t_data *data, char *errormessage);
 int is_surrounded(t_data *data);
-int is_valid_adjacent(t_data *data, size_t x, size_t y);
+int is_valid_adjacent(t_data *data, int x, int y);
 void fill_from_zero(t_data *data);
-void complete_flood(t_data *data, size_t x, size_t y);
+void complete_flood(t_data *data, int x, int y);
