@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:48:00 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/11 17:56:01 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:06:47 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ void	my_mlx_pixel_put(t_data *data, float x, float y, int size)
 		i++;
 	}
 }
+
+t_texture   ft_load_texture(void *mlx, char *path)
+{
+    t_texture   texture;
+    texture.img = mlx_xpm_file_to_image(mlx, path, &texture.width, &texture.height);
+    if (!texture.img)
+        perror("Load .xpm img wrong!\n");
+    texture.addr = mlx_get_data_addr(texture.img, &texture.bpp, &texture.line_length, &texture.endian);
+    return (texture);
+}
+
 void renderScene(t_data *data)
 {
 	

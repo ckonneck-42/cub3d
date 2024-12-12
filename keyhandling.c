@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/11 14:53:58 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:48:25 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,8 @@ void	redraw_map(t_data *data)
 	data->colours = 16711680;//deep red (player)
 	my_mlx_pixel_put(data, data->posX, data->posY, 5);
 	renderScene(data);
-	castbeams(data);
 	parse_map(data);
+	castbeams(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 	// mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 	data->colours = 45000;//normalize for walls

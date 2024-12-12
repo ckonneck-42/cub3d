@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/11 17:52:32 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:06:59 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,16 @@ typedef struct s_final_point
     int y;
 }   t_final_point;
 
+typedef struct s_texture
+{
+    void    *img;
+    char    *addr;
+    int     width;
+    int     height;
+    int     bpp;
+    int     line_length;
+    int     endian;
+}   t_texture;
 
 typedef struct s_data
 {
@@ -193,3 +203,4 @@ int is_surrounded(t_data *data);
 int is_valid_adjacent(t_data *data, int x, int y);
 void fill_from_zero(t_data *data);
 void complete_flood(t_data *data, int x, int y);
+t_texture   ft_load_texture(void *mlx, char *path);
