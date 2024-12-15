@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+         #
+#    By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 12:14:45 by ckonneck          #+#    #+#              #
-#    Updated: 2024/12/11 16:13:27 by ckonneck         ###   ########.fr        #
+#    Updated: 2024/12/12 17:33:37 by dyao             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,16 @@ LIBFT_DIR = ./libft
 LIBS = -L$(LIBFT_DIR) -lft -Lminilibx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR) -Imlx_linux
 NAME = cub3d
+GREEN			= \033[0;92m
+COLOR			= \033[0m
 
+SUCCES			= @echo "$(GREEN)cub3d compiled successfully$(COLOR)"
 all: $(NAME)
 
 $(NAME): $(cub3d_OBJS)
 	$(MAKE) -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(cub3d_OBJS) $(LIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(cub3d_OBJS) $(LIBS) -o $(NAME) -lreadline
+	$(SUCCES)
 
 %.o: %.c
 	$(CC) -O3 -MMD -c $< -o $@
