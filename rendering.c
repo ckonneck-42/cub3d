@@ -6,7 +6,7 @@
 /*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:48:00 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/15 15:21:40 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/15 15:43:36 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ t_texture	ft_load_texture(void *mlx, char *path)
 
 void	ft_wall_texture(t_data *data)
 {
-	data->wall_texture[0] = ft_load_texture(data->mlx, "./pic/mossy.xpm");		//east wall
-	data->wall_texture[1] = ft_load_texture(data->mlx, "./pic/blue_stone.xpm");	//south wall
-	data->wall_texture[2] = ft_load_texture(data->mlx, "./pic/wood.xpm");		//west wall
-	data->wall_texture[3] = ft_load_texture(data->mlx, "./pic/color_stone.xpm");//north wall
+	data->wall_texture[0] = ft_load_texture(data->mlx, "./pic/blue_stone.xpm");
+	data->wall_texture[1] = ft_load_texture(data->mlx, "./pic/grey_stone.xpm");
+	data->wall_texture[2] = ft_load_texture(data->mlx, "./pic/wood.xpm");
+	data->wall_texture[3] = ft_load_texture(data->mlx, "./pic/color_stone.xpm");
 }
 
 void renderScene(t_data *data)
@@ -64,6 +64,73 @@ void renderScene(t_data *data)
         render3D(data, data->distanceahead[screenColumn], 20, screenColumn); // 50 is the cube height, change as needed
     }
 	// parse_map(data->map, data);
+}
+
+//NOTICE:this is not the perfect function, because it need so many variables, norminette won't be happy ( | _ | )
+//this function is for the east and west wall
+void	ft_draw_wall(t_data *data, float wallStartY, float wallEndY, double wall_true_start_y, int screenColumn, double distance, float walltotal, int i)
+{
+	double	tex_x = fmod(data->final_point[screenColumn].y, GRID_SIZE);
+		double	tex_y;
+		// printf("this is x: %f\n", tex_x);
+		data->colours = 9000000;
+		if (distance == 999999)
+		{
+			data->colours = 0;
+			for (float y = 0; y < data->screenHeight; y++)
+				my_mlx_pixel_put(data, screenColumn, y, 1);
+		}
+		else
+		{
+			for (float y = wallStartY; y <= wallEndY; y++)
+			{
+				int	tex_y = (y - wall_true_start_y) * data->wall_texture[i].height / walltotal;
+		// printf("tex_y is: %d, tex_x is: %d, y is: %d\n", tex_y, tex_x, data->final_point[screenColumn].y);
+				data->colours = *(int *)(data->wall_texture[i].addr + ((int)tex_y * data->wall_texture[i].line_length + (int)tex_x * (data->wall_texture[i].bpp / 8)));
+				my_mlx_pixel_put(data, screenColumn, y, 1);
+			}
+			data->colours = 2222222;
+			for (float y = wallEndY; y < 1080; y++)
+				my_mlx_pixel_put(data, screenColumn, y, 1);
+			data->colours = 8888888;
+			for (float y = wallStartY; y > 0; y--)
+				my_mlx_pixel_put(data, screenColumn, y, 1);
+			data->colours = 0;
+		}
+		data->pre_color = *(int *)(data->wall_texture[i].addr + ((int)tex_y * data->wall_texture[i].line_length + (int)tex_x * (data->wall_texture[i].bpp / 8)));
+}
+
+//this function is for the north and south wall
+void	ft_draw_wall_2(t_data *data, float wallStartY, float wallEndY, double wall_true_start_y, int screenColumn, double distance, float walltotal, int i)
+{
+	double	tex_x = fmod(data->final_point[screenColumn].x, GRID_SIZE);
+	double	tex_y;
+	// printf("this is x: %f\n", tex_x);
+	data->colours = 9000000;
+	if (distance == 999999)
+	{
+		data->colours = 0;
+		for (float y = 0; y < data->screenHeight; y++)
+			my_mlx_pixel_put(data, screenColumn, y, 1);
+	}
+	else
+	{
+		for (float y = wallStartY; y <= wallEndY; y++)
+		{
+			int	tex_y = (y - wall_true_start_y) * data->wall_texture[i].height / walltotal;
+	// printf("tex_y is: %d, tex_x is: %d, y is: %d\n", tex_y, tex_x, data->final_point[screenColumn].y);
+			data->colours = *(int *)(data->wall_texture[i].addr + ((int)tex_y * data->wall_texture[i].line_length + (int)tex_x * (data->wall_texture[i].bpp / 8)));
+			my_mlx_pixel_put(data, screenColumn, y, 1);
+		}
+		data->colours = 2222222;
+		for (float y = wallEndY; y < 1080; y++)
+			my_mlx_pixel_put(data, screenColumn, y, 1);
+		data->colours = 8888888;
+		for (float y = wallStartY; y > 0; y--)
+			my_mlx_pixel_put(data, screenColumn, y, 1);
+		data->colours = 0;
+	}
+	data->pre_color = *(int *)(data->wall_texture[i].addr + ((int)tex_y * data->wall_texture[i].line_length + (int)tex_x * (data->wall_texture[i].bpp / 8)));
 }
 
 void render3D(t_data *data, double distance, float cubeHeight, int screenColumn)
@@ -92,8 +159,6 @@ void render3D(t_data *data, double distance, float cubeHeight, int screenColumn)
     if (wallEndY > data->screenHeight)
 		wallEndY = data->screenHeight - 1;
 	// printf("this is the start y: %f,	this is the end y: %f,	this is the distance: %f\n", wallStartY, wallEndY, distance);
-	// printf("test");
-    // Draw the vertical slice
 	// printf("this is x: %d,	this is y: %d\n", data->final_point[screenColumn].x, data->final_point[screenColumn].y);
 	if ((int)data->final_point[screenColumn].x % 50 == 0 && (int)data->final_point[screenColumn].y % 50 == 0)
 	{
@@ -119,127 +184,19 @@ void render3D(t_data *data, double distance, float cubeHeight, int screenColumn)
 	}
 	else if (((int)data->final_point[screenColumn].x % 50 == 0) && data->final_point[screenColumn].x > data->posX)	//east wall
 	{
-		double	tex_x = fmod(data->final_point[screenColumn].y, GRID_SIZE);
-		double	tex_y;
-		// printf("this is x: %f\n", tex_x);
-		data->colours = 9000000;
-		if (distance == 999999)
-		{
-			data->colours = 0;
-			for (float y = 0; y < data->screenHeight; y++)
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-		}
-		else
-		{
-			for (float y = wallStartY; y <= wallEndY; y++)
-			{
-				int	tex_y = (y - wall_true_start_y) * data->wall_texture[0].height / walltotal;
-		// printf("tex_y is: %d, tex_x is: %d, y is: %d\n", tex_y, tex_x, data->final_point[screenColumn].y);
-				data->colours = *(int *)(data->wall_texture[0].addr + ((int)tex_y * data->wall_texture[0].line_length + (int)tex_x * (data->wall_texture[0].bpp / 8)));
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-			}
-			data->colours = 2222222;
-			for (float y = wallEndY; y < 1080; y++)
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-			data->colours = 8888888;
-			for (float y = wallStartY; y > 0; y--)
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-			data->colours = 0;
-		}
-		data->pre_color = *(int *)(data->wall_texture[0].addr + ((int)tex_y * data->wall_texture[0].line_length + (int)tex_x * (data->wall_texture[0].bpp / 8)));
+		ft_draw_wall(data, wallStartY, wallEndY, wall_true_start_y, screenColumn, distance, walltotal, 0);
 	}
 	else if (((int)data->final_point[screenColumn].x % 50 == 0) && data->final_point[screenColumn].x < data->posX)	//west wall
 	{
-		double	tex_x_3 = fmod(data->final_point[screenColumn].y, GRID_SIZE);
-		double	tex_y_3;
-		// printf("this is x: %f\n", tex_x);
-		data->colours = 9000000;
-		if (distance == 999999)
-		{
-			data->colours = 0;
-			for (float y = 0; y < data->screenHeight; y++)
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-		}
-		else
-		{
-			for (float y = wallStartY; y <= wallEndY; y++)
-			{
-				tex_y_3 = (y - wall_true_start_y) * data->wall_texture[2].height / walltotal;
-		// printf("tex_y is: %d, tex_x is: %d, y is: %d\n", tex_y, tex_x, data->final_point[screenColumn].y);
-				data->colours = *(int *)(data->wall_texture[2].addr + ((int)tex_y_3 * data->wall_texture[2].line_length + (int)tex_x_3 * (data->wall_texture[2].bpp / 8)));
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-			}
-			data->colours = 2222222;
-			for (float y = wallEndY; y < 1080; y++)
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-			data->colours = 8888888;
-			for (float y = wallStartY; y > 0; y--)
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-			data->colours = 0;
-		}
-		data->pre_color = *(int *)(data->wall_texture[2].addr + ((int)tex_y_3 * data->wall_texture[2].line_length + (int)tex_x_3 * (data->wall_texture[2].bpp / 8)));
+		ft_draw_wall(data, wallStartY, wallEndY, wall_true_start_y, screenColumn, distance, walltotal, 1);
 	}
 	else if (((int)data->final_point[screenColumn].y % 50 == 0) && data->final_point[screenColumn].y > data->posY)	//south wall
 	{
-		double	tex_x_2 = fmod(data->final_point[screenColumn].x, GRID_SIZE);
-		double	tex_y_2;
-		// printf("this is x: %f\n", fmod(data->final_point[screenColumn].x, GRID_SIZE));
-		data->colours = 5000000;
-		if (distance == 999999)
-		{
-			data->colours = 0;
-			for (float y = 0; y < data->screenHeight; y++)
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-		}
-		else
-		{
-			for (float y = wallStartY; y <= wallEndY; y++)
-			{
-				tex_y_2 = (y - wall_true_start_y) * data->wall_texture[1].height / walltotal;
-		// printf("tex_y is: %d, tex_x_2 is: %d, y is: %d\n", tex_y, tex_x_2, data->final_point[screenColumn].y);
-				data->colours = *(int *)(data->wall_texture[1].addr + ((int)tex_y_2 * data->wall_texture[1].line_length + (int)tex_x_2 * (data->wall_texture[1].bpp / 8)));
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-			}
-			data->colours = 2222222;
-			for (float y = wallEndY; y < 1080; y++)
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-			data->colours = 8888888;
-			for (float y = wallStartY; y > 0; y--)
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-			data->colours = 0;
-		}
-		data->pre_color = *(int *)(data->wall_texture[1].addr + ((int)tex_y_2 * data->wall_texture[1].line_length + (int)tex_x_2 * (data->wall_texture[1].bpp / 8)));
+		ft_draw_wall_2(data, wallStartY, wallEndY, wall_true_start_y, screenColumn, distance, walltotal, 2);
 	}
 	else if (((int)data->final_point[screenColumn].y % 50 == 0) && data->final_point[screenColumn].y < data->posY)	//north wall
 	{
-		double	tex_x_4 = fmod(data->final_point[screenColumn].x, GRID_SIZE);
-		double	tex_y_4;
-		// printf("this is x: %f\n", fmod(data->final_point[screenColumn].x, GRID_SIZE));
-		data->colours = 5000000;
-		if (distance == 999999)
-		{
-			data->colours = 0;
-			for (float y = 0; y < data->screenHeight; y++)
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-		}
-		else
-		{
-			for (float y = wallStartY; y <= wallEndY; y++)
-			{
-				tex_y_4 = (y - wall_true_start_y) * data->wall_texture[3].height / walltotal;
-		// printf("tex_y is: %d, tex_x_2 is: %d, y is: %d\n", tex_y, tex_x_2, data->final_point[screenColumn].y);
-				data->colours = *(int *)(data->wall_texture[3].addr + ((int)tex_y_4 * data->wall_texture[3].line_length + (int)tex_x_4 * (data->wall_texture[3].bpp / 8)));
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-			}
-			data->colours = 2222222;
-			for (float y = wallEndY; y < 1080; y++)
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-			data->colours = 8888888;
-			for (float y = wallStartY; y > 0; y--)
-				my_mlx_pixel_put(data, screenColumn, y, 1);
-			data->colours = 0;
-		}
-		data->pre_color = *(int *)(data->wall_texture[3].addr + ((int)tex_y_4 * data->wall_texture[3].line_length + (int)tex_x_4 * (data->wall_texture[3].bpp / 8)));
+		ft_draw_wall_2(data, wallStartY, wallEndY, wall_true_start_y, screenColumn, distance, walltotal, 3);
 	}
 	else
 	{
