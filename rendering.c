@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:48:00 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/19 17:14:03 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:31:39 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,27 @@ void	my_mlx_pixel_put(t_data *data, float x, float y, int size)
 }
 
 //The essence is to place the pixels on the .xpm in proportion on the wall.
-t_texture	ft_load_texture(void *mlx, char *path)
+t_texture	ft_load_texture(void *mlx, char *path, t_data *data)
 {
 	t_texture	texture;
 
 	texture.img = mlx_xpm_file_to_image(mlx, path, &texture.width, &texture.height);
 	if (!texture.img)
-		perror("Load .xpm img wrong!\n");
+		clean_exit(data, "Load .xpm img wrong!");
 	texture.addr = mlx_get_data_addr(texture.img, &texture.bpp, &texture.line_length, &texture.endian);
 	return (texture);
 }
 
 void	ft_wall_texture(t_data *data)
 {
-	data->wall_texture[0] = ft_load_texture(data->mlx, data->easttxt);//east
-	data->wall_texture[1] = ft_load_texture(data->mlx, data->westtxt);//west
-	data->wall_texture[2] = ft_load_texture(data->mlx, data->southtxt);//south
-	data->wall_texture[3] = ft_load_texture(data->mlx, data->northtxt);//north
+	data->wall_texture[0] = ft_load_texture(data->mlx, data->easttxt, data);//east
+	data->wall_texture[1] = ft_load_texture(data->mlx, data->westtxt, data);//west
+	data->wall_texture[2] = ft_load_texture(data->mlx, data->southtxt, data);//south
+	data->wall_texture[3] = ft_load_texture(data->mlx, data->northtxt, data);//north
 }
 
 void renderScene(t_data *data)
 {
-	ft_wall_texture(data);
     // Loop through each column on the screen
     for (int screenColumn = 0; screenColumn < data->screenWidth; screenColumn++)
 	{

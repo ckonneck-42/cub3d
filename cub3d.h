@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/19 16:44:26 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:32:40 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,8 +208,9 @@ int is_surrounded(t_data *data);
 int is_valid_adjacent(t_data *data, int x, int y);
 void fill_from_zero(t_data *data);
 void complete_flood(t_data *data, int x, int y);
-t_texture   ft_load_texture(void *mlx, char *path);
+t_texture	ft_load_texture(void *mlx, char *path, t_data *data);
 void    make_btwo(t_data *data);
 void    make_a_square(t_data *data);
 void    restore_map(t_data *data);
 void	parse_the_texturepath(t_data *data, char *line, int k, char *ttf);
+void	ft_wall_texture(t_data *data);

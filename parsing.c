@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/19 17:10:43 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:34:14 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,7 @@ void	parse_everything_else(char *map, t_data *data)
 			clean_exit(data, "no north found");
 		if(data->flag == 1 && (find_it("SO", data) != 1))
 			clean_exit(data, "no south found");
-		if(data->flag == 2 && (find_it("WE", data) != 1))
+		if(data->flag == 2 && (find_it("WE", data) != 1))// still need to free the mallocd strings at the end
 			clean_exit(data, "no west found");
 		if(data->flag == 3 && (find_it("EA", data) != 1))// also dont forget to handle errors
 			clean_exit(data, "no east found");
@@ -260,6 +260,7 @@ void	parse_everything_else(char *map, t_data *data)
 		if(data->flag == 5 && (find_colors("C", data) != 1))
 			clean_exit(data, "no ceiling color found");
 	}
+	ft_wall_texture(data);
 	copy_map_to_buffer(data, 1024);
 }
 
