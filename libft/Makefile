@@ -6,7 +6,7 @@
 #    By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/10 08:26:08 by ckonneck          #+#    #+#              #
-#    Updated: 2024/07/09 13:52:35 by ckonneck         ###   ########.fr        #
+#    Updated: 2024/12/19 12:21:18 by ckonneck         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS        =    ft_isalnum.c ft_isprint.c ft_memcmp.c  ft_putchar_fd.c ft_split
 					ft_printfhex.c ft_printfsmallhex.c ft_printfunsigned.c \
 					ft_printfpointer.c get_next_line.c get_next_line_utils.c
 OBJS        :=    $(SRCS:.c=.o)
-CC          =    cc
+CC          =    gcc
 RM          =    rm -f
 CFLAGS      =    -Wall -Werror -Wextra
 NAME        =    libft.a

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/15 17:30:01 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/19 17:25:16 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,16 @@ int main(int argc, char **argv)
 		fd_parse(data->map, data);
 		parse_everything_else(data->map, data);
 		calculatesize(data->map, data);
-		data->coordinates = allocatecoordinates(data->rows, data->coloumns);
+		make_a_square(data);
+		data->coordinates = allocatecoordinates(data->rows + 3, data->coloumns + 1);
 		parse_map(data);
-		// if(is_surrounded(data) == 1)
-		// 	printf("floodfill failed\n");
-		// else
-		// 	printf("good job\n");
+		if(is_surrounded(data) == 1)
+			clean_exit(data, "invalid map");
+		restore_map(data);
+		castbeams(data);
+		renderScene(data);
 	}
 	
-	parse_map(data);
-	castbeams(data);
-	renderScene(data);
 	data->colours = 45000;
 	// mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
@@ -79,7 +78,7 @@ t_data	*base_init(t_data *data, char **argv)
 	data->planeY = 1.0; //the 2d raycaster version of camera plane
 	data->movespeed = 10.0;
 	data->playerflag = 0;
-	data->a = 235;
+	data->a = 0;
 	data->playerAngle = 0;
 	data->flag = 0;
 	data->coloumns = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/15 17:30:58 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/19 17:10:43 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		find_it(char *ttf,t_data *data)
 				k++;
 		if (ft_strncmp(data->fd_parsearray[i] + k, ttf, 2) == 0)
 		{
-			
+			parse_the_texturepath(data, data->fd_parsearray[i], k, ttf);
 			k = 0;
 			// printf("found %s\n", ttf);
 			data->flag++;
@@ -96,6 +96,49 @@ int		find_it(char *ttf,t_data *data)
 	
 	return(0);
 }
+
+void	parse_the_texturepath(t_data *data, char *line, int k, char *ttf)
+{
+	int i;
+	i = 0;
+	if (ft_strncmp(ttf, "NO", 2) == 0)
+	{
+		data->northtxt = malloc(ft_strlen(line));
+		while (line[k] == 'N' || line[k] == 'O' || line[k] == ' ')
+			k++;
+		while (line[k] != '\n')
+			data->northtxt[i++] = line[k++];
+		data->northtxt[i] = '\0';
+	}
+	else if (ft_strncmp(ttf, "EA", 2) == 0)
+	{
+		data->easttxt = malloc(ft_strlen(line));
+		while (line[k] == 'E' || line[k] == 'A' || line[k] == ' ')
+			k++;
+		while (line[k] != '\n')
+			data->easttxt[i++] = line[k++];
+		data->easttxt[i] = '\0';
+	}
+	else if (ft_strncmp(ttf, "WE", 2) == 0)
+	{
+		data->westtxt = malloc(ft_strlen(line));
+		while (line[k] == 'W' || line[k] == 'E' || line[k] == ' ')
+			k++;
+		while (line[k] != '\n')
+			data->westtxt[i++] = line[k++];
+		data->westtxt[i] = '\0';
+	}
+	else if (ft_strncmp(ttf, "SO", 2) == 0)
+	{
+		data->southtxt = malloc(ft_strlen(line));
+		while (line[k] == 'S' || line[k] == 'O' || line[k] == ' ')
+			k++;
+		while (line[k] != '\n')
+			data->southtxt[i++] = line[k++];
+		data->southtxt[i] = '\0';
+	}
+}
+
 
 int		find_colors(char *ttf, t_data *data)
 {
@@ -206,7 +249,6 @@ void	parse_everything_else(char *map, t_data *data)
 	{
 		if(data->flag == 0 && (find_it("NO", data) != 1))
 			clean_exit(data, "no north found");
-		// printf("going southfinding\n");
 		if(data->flag == 1 && (find_it("SO", data) != 1))
 			clean_exit(data, "no south found");
 		if(data->flag == 2 && (find_it("WE", data) != 1))
@@ -288,61 +330,43 @@ char *get_next_line_from_memory(const char *buffer, size_t *offset)
     return line;
 }
 
-
 void parse_map(t_data *data)
 {
-	size_t offset;
-	int fd;
 	char *line;
 	int i;
 	int x;
 	int y = 0;
-	offset = 0;
-	line = get_next_line_from_memory(data->raw_map, &offset);
-	// printf("the line is: %s", line);
-	while (line != NULL)
+	int k;
+	k = 0;
+	while (data->squaremap[k] != NULL)
 	{
+		line = data->squaremap[k];
+		// printf("the line is: %s\n", line);
 		i = 0;
 		x = 0;
-		while (line[i] == '1' || line[i] == '0' || line[i] == 'N' || line[i] == ' ')
+		while (line[i] == '1' || line[i] == '0' || line[i] == 'N' || line[i] == ' ' || line[i] == '2'
+		|| line[i] == 'E' || line[i] == 'W' || line[i] == 'S')
 		{
-			data->coordinates[x/50][y/50].map = line[i];
+			if(line[i] == '1' || line[i] == '2')
+				data->coordinates[x/50][y/50].map = '1';
+			else
+				data->coordinates[x/50][y/50].map = line[i];
 			render_textures(line[i], data, x, y);
 			i++;
 			x += 50;
 		}
-		// x += 50;
-		if (line[i] == '\n' || line[i] == '\0')
-		{
-			data->coordinates[x/50][y/50].map = '1';
-			render_textures(line[i], data, x, y);
-		}
-		if (line[i] != '\0' && line[i] != '\n')
+		if (line[i] != '\0' && line[i] != '\n' && line[i] != '2')
         {
             printf("Found irregularity: %c\n", line[i]);
 			freedom(data, line);
         }
-		free(line);
-		// printf("getting next line\n");
-		line = get_next_line_from_memory(data->raw_map, &offset);
-		// printf("getting the next line\n");
-		// printf("the line is: %s", line);
 		y += 50;
+		k++;
 	}
-	
-	// free(line);
 	data->colours = 16711680;//deep red (player)
 	my_mlx_pixel_put(data, data->posX, data->posY, 5);
 	
 	printf("finished parsing\n");
-	//printing coordinate grid
-	// for (int y = 0; y < data->coloumns; y++) 
-	// {
-    // 	for (int x = 0; x < data->rows; x++)
-	// 	{
-    //     	printf("Coordinate[%d][%d] = %c\n", x, y, data->coordinates[x][y].map);
-    // 	}
-	// }
 }
 
 void calculatesize(char *map, t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/15 17:32:01 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/19 16:44:26 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,10 @@ typedef struct s_texture
 
 typedef struct s_data
 {
+    char            *northtxt;
+    char            *easttxt;
+    char            *westtxt;
+    char            *southtxt;
 	void			*mlx;
 	void			*win;
 	void			*img[3];
@@ -129,7 +133,7 @@ typedef struct s_data
     char            *map;
     char            raw_map[1024];
     char            **rawmaparray;
-    
+    char            **squaremap;
     int             rows;
     int             coloumns;
     int             **walls;
@@ -205,3 +209,7 @@ int is_valid_adjacent(t_data *data, int x, int y);
 void fill_from_zero(t_data *data);
 void complete_flood(t_data *data, int x, int y);
 t_texture   ft_load_texture(void *mlx, char *path);
+void    make_btwo(t_data *data);
+void    make_a_square(t_data *data);
+void    restore_map(t_data *data);
+void	parse_the_texturepath(t_data *data, char *line, int k, char *ttf);

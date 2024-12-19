@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 12:05:25 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/07/09 13:54:10 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:22:02 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static unsigned int	length(unsigned int nb)
 	len = 0;
 	if (nb == 0)
 		return (1);
-	else if (nb < 0)
+	else if (nb <= 0)
 		len++;
 	while (nb != 0)
 	{

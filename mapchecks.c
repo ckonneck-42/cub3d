@@ -6,22 +6,56 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:04:48 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/12 17:04:00 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:24:46 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void    make_a_square(t_data *data)
+{
+    int i;
+    int k;
+
+    i = 0;
+    k = 0;
+    data->squaremap = malloc((data->coloumns + 1) * sizeof(char *));
+    while(i < data->coloumns + 1)
+    {
+        data->squaremap[i] = malloc((data->rows + 2) * sizeof(char));
+        ft_memset(data->squaremap[i], '2', data->rows + 2);
+        data->squaremap[i][data->rows + 2] = '\0';
+        i++;
+    }
+    make_btwo(data);
+}
+
+void    make_btwo(t_data *data)
+{
+    int i;
+    int k;
+    int len;
+    i = 1;
+    k = 0;
+    while (i < data->coloumns)
+    {
+        len = ft_strlen(data->rawmaparray[k]);
+        ft_memcpy(data->squaremap[i] + 1, data->rawmaparray[k], len - 1);
+        data->squaremap[i][data->rows + 2] = '\0';
+        i++;
+        k++;
+    }
+}
+
+
 char    get_char_at(t_data *data, int x, int y)
 {
-    printf("x %d and y %d\n", x, y);
-    // printf("char at those coords is %c\n", data->rawmaparray[y][x]);
-    return(data->rawmaparray[y][x]);
+    return(data->squaremap[y][x]);
 }
 
 void    set_char_at(t_data *data, int x, int y, char new)
 {
-    data->rawmaparray[y][x] = new;// might have leaks if i am overwriting it;
+    data->squaremap[y][x] = new;// might have leaks if i am overwriting it;
 }
 
 int     get_nr_of_lines(t_data *data)
@@ -29,15 +63,14 @@ int     get_nr_of_lines(t_data *data)
     int i;
     
     i = 0;
-    while (data->rawmaparray[i])
+    while (data->squaremap[i])
     {
         i++;
     }
-    // printf("returning i - 1 : %d\n", i -1 );
     return(i - 1);
 }
 
-void    flood_fill(t_data *data, int x, int y)// do a seperate data rows and coloyumns also git gud
+void    flood_fill(t_data *data, int x, int y)
 {
     size_t  width;
     size_t  height;
@@ -45,29 +78,18 @@ void    flood_fill(t_data *data, int x, int y)// do a seperate data rows and col
     int linenr;
     if(y == -1)
         y = 0;
-    // printf("entered flood fill\n");
-    // printf("x = %d , y = %d\n", x, y);
-    // printf("hello\n");
-    //  printf("string is %zu long\n",ft_strlen(data->rawmaparray[y]));
-    //  printf("string is %s\n",data->rawmaparray[y]);
     linenr = get_nr_of_lines(data);
-    // if (y > linenr || (x > ft_strlen(data->rawmaparray[y]) - 2 ) || (x < 0 || y < 0))//shit fucked yo
-    if (!data->rawmaparray[y][x])
+    if (!data->squaremap[y][x])
         return ;
-    if (y > linenr || data->rawmaparray[y][x] == '\n' || data->rawmaparray[y][x] == '\0' || (x <= 0 || y <= 0))
+    if (y > linenr - 1 || data->squaremap[y][x] == '\n' || data->squaremap[y][x] == '\0' || (x <= 0 || y <= 0))
     {
-        printf("error at floodfill width and height");
         return ;
     }
     int i = 0;
-    // while(data->rawmaparray[i])
-    // {
-    //     printf("current array is %s\n", data->rawmaparray[i++]);
-    // }
     if (x != 0)
     {
         current_char = get_char_at(data, x, y);
-        if (current_char == '1' || current_char == 'F' || current_char == ' ')
+        if (current_char == '1' || current_char == 'F' || current_char == ' ' || current_char == '2')
             return;
         set_char_at(data, x, y, 'F');
         flood_fill(data, x + 1, y);
@@ -79,8 +101,7 @@ void    flood_fill(t_data *data, int x, int y)// do a seperate data rows and col
 void complete_flood(t_data *data,int x, int y)
 {
     flood_fill(data, x, y);
-    fill_from_zero(data); // implement bzero to put null everywhere after \n to make mapchecks viable for nullcheck, 
-    //do it based on maximum length of the line + 1;
+    fill_from_zero(data);
 }
 
 void fill_from_zero(t_data *data)
@@ -89,71 +110,45 @@ void fill_from_zero(t_data *data)
     int  x, y;
     char    current;
     int i;
-    x = 1;
+   
+    y = 1;
     int k;
     int linenr;
     linenr = get_nr_of_lines(data);
-    printf("entered fill\n");
-    // printf("coloumns = %d\n", data->coloumns);
-    // printf("linenr = %d\n", linenr);
-    k = 0;
-    while (x < linenr)
+    while (y < linenr - 2)
     {
-        y = 1;
-        while (y < ft_strlen(data->rawmaparray[k]) - 1)
+        x = 1;
+        k = 0;
+        while (x < ft_strlen(data->squaremap[k]) - 2)
         {
-            // printf("y is currently %d", y);
-            // printf("trying to access char at x %d and y %d\n", x, y);
             current = get_char_at(data, x, y);
-            printf("current char is in fill from zero %c\n", current);
             if (current == '0')
                 flood_fill(data, x, y);
-            y++;
+            x++;
             i = 0;
-            while(data->rawmaparray[i])
-            {
-                printf("current array is %s\n", data->rawmaparray[i++]);
-            }
         }
-        x++;
         k++;
+        y++;
     }
-    //   printf("coloumns = %d\n", data->coloumns);
-    // printf("rows = %d\n", data->rows);
 }
+
 int is_surrounded(t_data *data)
 {
     size_t  player_x;
     size_t  player_y;
     size_t  i;
     size_t  j;
+
     player_x = data->posX;
     player_y = data->posY;
-    
-
-    
-    // i = 0;
-    // while (data->rawmaparray[i])
-    // {
-    //     j = 0;
-    //     while (data->rawmaparray[i][j])
-    //     {
-    //         printf("this is data->rawmaparray[%zu][%zu]: %c\n", i, j, data->rawmaparray[i][j]);
-    //         j++;
-    //     }
-    //     i++;
-    // }
-    
-
-    
     complete_flood(data, player_x/50, player_y/50);
     i = 1;
-    while (data->rawmaparray[i])
+    while (data->squaremap[i])
     {
         j = 1;
-        while(j < ft_strlen(data->rawmaparray[i]) )
+        while(j < ft_strlen(data->squaremap[i]) )
         {
-            if (data->rawmaparray[i][j] == 'F')
+            if (data->squaremap[i][j] == 'F')
             {
                 if (is_valid_adjacent(data, j, i) == 1)
                     return (1);
@@ -171,24 +166,34 @@ int is_valid_adjacent(t_data *data, int x, int y)
     char    down;
     char    left;
     char    right;
-    printf("we in is valid adjacent\n");
     up = get_char_at(data, x - 1, y);
-    printf("the char is %c\n", up);
     down = get_char_at(data, x + 1, y);
-    printf("the char is %c\n", down);
     left = get_char_at(data, x, y - 1);
-    printf("the char is %c\n", left);
     right = get_char_at(data, x, y + 1);
-    printf("the char is %c\n", right);
-    if ((up != 'F' && up != '1' && up != 'N') || 
-    (down != 'F' && down != '1' && down != 'N') || 
-    (left != 'F' && left != '1' && left != 'N') || 
-    (right != 'F' && right != '1' && right != 'N'))
+    if (up == '2' || down == '2' || right == '2' || left == '2')
     {
-        printf("error hassei\n");
-        return (1);
+        return(1);
     }
     return (0);
+}
+
+void    restore_map(t_data *data)
+{
+    int i;
+    int k;
+    i = 0;
+    k = 0;
+    while(data->squaremap[i])
+    {
+        k = 0;
+        while (data->squaremap[i][k])
+        {
+            if (data->squaremap[i][k] == 'F')
+                data->squaremap[i][k] = '0';
+            k++;
+        }
+        i++;
+    }
 }
 
 

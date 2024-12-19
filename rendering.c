@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:48:00 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/15 15:43:36 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/19 17:14:03 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ t_texture	ft_load_texture(void *mlx, char *path)
 
 void	ft_wall_texture(t_data *data)
 {
-	data->wall_texture[0] = ft_load_texture(data->mlx, "./pic/blue_stone.xpm");
-	data->wall_texture[1] = ft_load_texture(data->mlx, "./pic/grey_stone.xpm");
-	data->wall_texture[2] = ft_load_texture(data->mlx, "./pic/wood.xpm");
-	data->wall_texture[3] = ft_load_texture(data->mlx, "./pic/color_stone.xpm");
+	data->wall_texture[0] = ft_load_texture(data->mlx, data->easttxt);//east
+	data->wall_texture[1] = ft_load_texture(data->mlx, data->westtxt);//west
+	data->wall_texture[2] = ft_load_texture(data->mlx, data->southtxt);//south
+	data->wall_texture[3] = ft_load_texture(data->mlx, data->northtxt);//north
 }
 
 void renderScene(t_data *data)
@@ -61,7 +61,7 @@ void renderScene(t_data *data)
     // Loop through each column on the screen
     for (int screenColumn = 0; screenColumn < data->screenWidth; screenColumn++)
 	{
-        render3D(data, data->distanceahead[screenColumn], 20, screenColumn); // 50 is the cube height, change as needed
+        render3D(data, data->distanceahead[screenColumn], 40, screenColumn); // 50 is the cube height, change as needed
     }
 	// parse_map(data->map, data);
 }
@@ -272,12 +272,31 @@ void	render_textures(char target, t_data *data, int x, int y)
 	// 	// 	x, y);
 	else if (target == 'N' && data->playerflag == 0)
 	{
-		// printf("saving player coords");
 		data->posX = x+25;
 		data->posY = y+25;
 		data->playerflag = 1;
-		// mlx_put_image_to_window(data->mlx, data->win, data->img[0],  if i dont update the screen it doesnt show
-		// 	x, y);
+		data->a = 230;
+	}
+	else if (target == 'W' && data->playerflag == 0)
+	{
+		data->posX = x+25;
+		data->posY = y+25;
+		data->playerflag = 1;
+		data->a = 140;
+	}
+	else if (target == 'S' && data->playerflag == 0)
+	{
+		data->posX = x+25;
+		data->posY = y+25;
+		data->playerflag = 1;
+		data->a = 50;
+	}
+	else if (target == 'E' && data->playerflag == 0)
+	{
+		data->posX = x+25;
+		data->posY = y+25;
+		data->playerflag = 1;
+		data->a = 320;
 	}
 	//instead of doing prev_x, we just go square, we go up down left right, whatever, set amount of pixels
 		 // Draw a white dot for the player

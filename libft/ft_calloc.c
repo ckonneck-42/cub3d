@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 09:31:36 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/06/18 16:16:10 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:21:39 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	char	*ptr;
 
 	ptr = NULL;
-	if (nmemb >= 0)
+	if (nmemb > 0)
 	{
 		ptr = (char *) malloc(nmemb * size);
 		if (!ptr)
