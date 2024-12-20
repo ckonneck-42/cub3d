@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/20 16:22:01 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/20 21:09:44 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	mlx_functions(t_data *data)
+{
+	data->colours = 45000;
+	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);	
+	mlx_hook(data->win, 17, 0, close_window, data);
+	mlx_hook(data->win, 2, 1L << 0, ft_close, data);
+	mlx_key_hook(data->win, keypress, data);
+	// mlx_hook(data->win, 4, 0, mouse_press, data);
+	// mlx_hook(data->win, 5, 0, mouse_release, data);
+	// mlx_hook(data->win, 6, 0, mousemovement, data);
+	mlx_mouse_hook(data->win, mousemovement, data);
+	mlx_loop(data->mlx);
+}
 
 int main(int argc, char **argv)
 {
@@ -34,25 +48,8 @@ int main(int argc, char **argv)
 		restore_map(data);
 		castbeams(data);
 		renderScene(data);
+		mlx_functions(data);
 	}
-	
-	data->colours = 45000;
-	// mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
-	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
-
-	
-	// 	int img_width;
-	// int img_height;
-	// void *img;
-	// img = mlx_xpm_file_to_image(data->mlx, "./pic/NO.xpm", &img_width, &img_height);
-	// mlx_put_image_to_window(data->mlx, data->win, img, 960, 540);
-	// raycasting(&data);
-	
-	mlx_hook(data->win, 17, 0, close_window, data);
-	mlx_hook(data->win, 2, 1L << 0, ft_close, data);
-	mlx_key_hook(data->win, keypress, data);
-	mlx_loop(data->mlx);
-
 }
 
 

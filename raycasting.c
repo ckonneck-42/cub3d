@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:32 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/20 16:23:45 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/20 21:03:49 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void castbeams(t_data *data)
                 if (ft_detectpointbeam(beamX, beamY, data, rad_angle_1) == 1
                 && ft_detectpointbeam(beamX -1, beamY - 1, data, rad_angle_1) == 1)
                     break ;
-            my_mlx_pixel_put(data, beamX, beamY, 1);
+            // my_mlx_pixel_put(data, beamX, beamY, 1);
             beamX += cos(rad_angle_1) / data->clear;
             beamY += sin(rad_angle_1) / data->clear;
         }

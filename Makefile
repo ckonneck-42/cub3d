@@ -6,13 +6,13 @@
 #    By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 12:14:45 by ckonneck          #+#    #+#              #
-#    Updated: 2024/12/12 17:33:37 by dyao             ###   ########.fr        #
+#    Updated: 2024/12/20 19:07:32 by dyao             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 # Source files for cub3d
-cub3d_SRCS = main.c keyhandling.c raycasting.c rendering.c parsing.c free.c mapchecks.c
+cub3d_SRCS = main.c keyhandling.c raycasting.c rendering.c parsing.c free.c mapchecks.c mousehanding.c
 cub3d_OBJS = $(cub3d_SRCS:.c=.o)
 cub3d_DEPS = $(cub3d_SRCS:.c=.d)
 CC = cc -g

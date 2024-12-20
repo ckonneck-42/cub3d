@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/20 16:21:20 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/20 20:47:45 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <math.h>
 #include <mlx.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #define CENTER_X 960
 #define CENTER_Y 540
@@ -157,6 +158,7 @@ typedef struct s_data
     double          distanceahead[1920];
     t_final_point   final_point[1920];
     t_texture       wall_texture[4];
+    t_texture       gun[2];
     double          distanceleft;
     double          distanceright;
     int             screenHeight;
@@ -169,6 +171,7 @@ typedef struct s_data
     float           pre_color;
 	const char		*filename;
     char            **fd_parsearray;
+    bool            fire;
 	t_Coordinate	**coordinates;
     	// t_RaycastVars	ray;
 	t_Cube			cube;
@@ -222,3 +225,10 @@ void checkfilename(t_data *data, char *map);
 void checktheplayer(t_data *data);
 void    smallmap(t_data *data);
 int ft_detectgrid(t_data *data, double x, double y);
+
+int	    mousemovement(int button, int x, int y, t_data *data);
+
+void    drawgun(t_data *data, int i);
+void    draw_cross(t_data *data);
+int mouse_release(int button, int x, int y, t_data *data);
+int mouse_press(int button, int x, int y, t_data *data);
