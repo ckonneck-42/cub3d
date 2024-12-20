@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/19 17:25:16 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:22:01 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_data	*base_init(t_data *data, char **argv)
 	data->FOV = 60 * PI / 180;
 	data->screenHeight = 1080;
 	data->screenWidth = 1920;
+	data->clear = 2;
 	return(data);
 };
 

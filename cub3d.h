@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/19 17:32:40 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:21:20 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,9 @@ typedef struct s_data
     double          distanceright;
     int             screenHeight;
     int             screenWidth;
+    int             check_x;
+    int             check_y;
+    int             clear;
     float             FOV;
 	float			colours;
     float           pre_color;
@@ -214,3 +217,8 @@ void    make_a_square(t_data *data);
 void    restore_map(t_data *data);
 void	parse_the_texturepath(t_data *data, char *line, int k, char *ttf);
 void	ft_wall_texture(t_data *data);
+void	freetextures(t_data *data);
+void checkfilename(t_data *data, char *map);
+void checktheplayer(t_data *data);
+void    smallmap(t_data *data);
+int ft_detectgrid(t_data *data, double x, double y);

@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/12 13:48:25 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:38:13 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,21 @@ int	close_window(t_data *data)
 {
 	mlx_clear_window(data->mlx, data->win);
     mlx_destroy_image(data->mlx, data->img[0]);
+	freetextures(data);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	mlx_loop_end(data->mlx);
-	freecall(data->coordinates, data->rows);
+	freecall(data->coordinates, data->rows + 3);
 	int i = 0;
 	while(data->fd_parsearray && data->fd_parsearray[i])
 		free(data->fd_parsearray[i++]);
 	i = 0;
 	while(data->rawmaparray && data->rawmaparray[i])
 		free(data->rawmaparray[i++]);
+	i = 0;
+	while(data->squaremap && data->squaremap[i])
+		free(data->squaremap[i++]);
+	free(data->squaremap);
 	free(data->rawmaparray);
 	free(data->fd_parsearray);
 	free(data->mlx);
@@ -125,26 +130,29 @@ void pressD(t_data *data)  // Move Right
         printf("You hit a wall\n");
 }
 
-int	keypress(int keycode, t_data *data)//facing north set
+int keypress(int keycode, t_data *data)//facing north set
 {
-	if (keycode == K_W)
-		pressW(data);
-	else if (keycode == K_A)
-		pressA(data);
-	else if (keycode == K_S)
-		pressS(data);
-	else if (keycode == K_D)
-		pressD(data);
-	else if(keycode == K_ARRRGT)
-	{
-		data->a = fmod(data->a + 5.0, 360.0); 
-	}
-	else if(keycode == K_ARRLFT)
-	{
-		data->a = fmod(data->a - 5.0 + 360.0, 360.0);
-	}
-	redraw_map(data);
-	return (0);
+    if (keycode == K_W)
+        pressW(data);
+    else if (keycode == K_A)
+        pressA(data);
+    else if (keycode == K_S)
+        pressS(data);
+    else if (keycode == K_D)
+        pressD(data);
+    else if(keycode == K_ARRRGT)
+        data->a = fmod(data->a + 5.0, 360.0);
+    else if(keycode == K_ARRLFT)
+        data->a = fmod(data->a - 5.0 + 360.0, 360.0);
+    else if (keycode == K_ARRUP)
+        data->clear++;
+    else if (keycode == K_ARRDWN)
+    {
+        if (data->clear > 1)
+            data->clear--;
+    }
+    redraw_map(data);
+    return (0);
 }
 
 void	redraw_map(t_data *data)
@@ -152,9 +160,9 @@ void	redraw_map(t_data *data)
 	reinit_data(data);
 	data->colours = 16711680;//deep red (player)
 	my_mlx_pixel_put(data, data->posX, data->posY, 5);
-	renderScene(data);
 	parse_map(data);
 	castbeams(data);
+	renderScene(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 	// mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 	data->colours = 45000;//normalize for walls
@@ -171,3 +179,4 @@ void reinit_data(t_data *data)
 	// data = base_init(data);
 	// parse_map(data->map, data);
 }
+//implement max row and cols.

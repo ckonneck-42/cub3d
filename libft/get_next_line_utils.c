@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:52:18 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/15 17:32:15 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/20 13:08:22 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,6 @@ void	*ft_memmove(void *dst, const void *src, size_t n)
 	return (dest_ptr);
 }
 
-void	ft_bzero(void *s, size_t n)
-{
-	char	*ptr;
-
-	ptr = (char *)s;
-	while (n > 0)
-	{
-		*ptr = 0;
-		ptr++;
-		n--;
-	}
-}
 
 int	ft_vandr(int bytesread, int fd, char *ch, char **chartobesplit)
 {

@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/19 17:34:14 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:14:37 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	fd_parse(char *map, t_data *data)
 	char *line;
 	int fd;
 	i = 0;
+	checkfilename(data, map);
 	fd = open(map, O_RDONLY);
 	line = get_next_line(fd);
 	data->fd_parsearray = malloc(sizeof(char *) * 1024);
@@ -62,6 +63,21 @@ void	fd_parse(char *map, t_data *data)
 		line = get_next_line(fd);
 	}
 	data->fd_parsearray[i] = NULL;
+}
+
+void checkfilename(t_data *data, char *map)
+{
+	int i;
+	
+	i = 0;
+	while(map[i])
+		i++;
+	i = i - 4;
+	if (map[i] == '.' && map[i+1] == 'c' && map[i+2] == 'u' && map[i+3] == 'b')
+		return ;
+	else
+		clean_exit(data, "invalid mapname");
+
 }
 
 
@@ -103,7 +119,7 @@ void	parse_the_texturepath(t_data *data, char *line, int k, char *ttf)
 	i = 0;
 	if (ft_strncmp(ttf, "NO", 2) == 0)
 	{
-		data->northtxt = malloc(ft_strlen(line));
+		data->northtxt = malloc(ft_strlen(line) + 1);
 		while (line[k] == 'N' || line[k] == 'O' || line[k] == ' ')
 			k++;
 		while (line[k] != '\n')
@@ -112,7 +128,7 @@ void	parse_the_texturepath(t_data *data, char *line, int k, char *ttf)
 	}
 	else if (ft_strncmp(ttf, "EA", 2) == 0)
 	{
-		data->easttxt = malloc(ft_strlen(line));
+		data->easttxt = malloc(ft_strlen(line) + 1);
 		while (line[k] == 'E' || line[k] == 'A' || line[k] == ' ')
 			k++;
 		while (line[k] != '\n')
@@ -121,7 +137,7 @@ void	parse_the_texturepath(t_data *data, char *line, int k, char *ttf)
 	}
 	else if (ft_strncmp(ttf, "WE", 2) == 0)
 	{
-		data->westtxt = malloc(ft_strlen(line));
+		data->westtxt = malloc(ft_strlen(line) + 1);
 		while (line[k] == 'W' || line[k] == 'E' || line[k] == ' ')
 			k++;
 		while (line[k] != '\n')
@@ -130,7 +146,7 @@ void	parse_the_texturepath(t_data *data, char *line, int k, char *ttf)
 	}
 	else if (ft_strncmp(ttf, "SO", 2) == 0)
 	{
-		data->southtxt = malloc(ft_strlen(line));
+		data->southtxt = malloc(ft_strlen(line) + 1);
 		while (line[k] == 'S' || line[k] == 'O' || line[k] == ' ')
 			k++;
 		while (line[k] != '\n')
@@ -270,6 +286,7 @@ void	copy_map_to_buffer(t_data *data, size_t buffer_size)
 	int i;
 	int k;
 	k = 0;
+	i = 0;
 	i = find_the_map(i, data);
 	data->rawmaparray = malloc(sizeof(char *) * 1024);
 	// printf("copying\n");
@@ -291,18 +308,21 @@ void	copy_map_to_buffer(t_data *data, size_t buffer_size)
 	data->rawmaparray[k] = NULL;
 }
 
-int find_the_map(int i, t_data *data)
+int find_the_map(int i, t_data *data)// find a better way to do this
 {
+	int k;
 	while(data->fd_parsearray[i])
 	{
-		if (ft_strncmp(data->fd_parsearray[i], "111", 3) == 0)
+		k = 0;
+		while(data->fd_parsearray[i][k] == ' ' || data->fd_parsearray[i][k] == '\t')
+			k++;
+		if (ft_strncmp(&data->fd_parsearray[i][k], "1", 1) == 0)
 			return(i);
 		i++;
 	}
 	clean_exit(data, "couldn't find a map");
 	return(0);
 }
-
 
 char *get_next_line_from_memory(const char *buffer, size_t *offset)
 {
@@ -339,6 +359,7 @@ void parse_map(t_data *data)
 	int y = 0;
 	int k;
 	k = 0;
+	int p = 0;
 	while (data->squaremap[k] != NULL)
 	{
 		line = data->squaremap[k];
@@ -346,27 +367,32 @@ void parse_map(t_data *data)
 		i = 0;
 		x = 0;
 		while (line[i] == '1' || line[i] == '0' || line[i] == 'N' || line[i] == ' ' || line[i] == '2'
-		|| line[i] == 'E' || line[i] == 'W' || line[i] == 'S')
+		|| line[i] == 'E' || line[i] == 'W' || line[i] == 'S' || line[i] == '\t')
 		{
 			if(line[i] == '1' || line[i] == '2')
 				data->coordinates[x/50][y/50].map = '1';
 			else
 				data->coordinates[x/50][y/50].map = line[i];
+			if(line[i] == ' ')
+				line[i] = '0';
 			render_textures(line[i], data, x, y);
 			i++;
 			x += 50;
 		}
-		if (line[i] != '\0' && line[i] != '\n' && line[i] != '2')
+		if (line[i] != '\0' && line[i] != '\n' && line[i] != '2' && line[i] != '\t' && line[i] != 'F')
         {
+			
             printf("Found irregularity: %c\n", line[i]);
+			printf("at: x %d, y %d\n", x/50, y/50);
 			freedom(data, line);
         }
 		y += 50;
 		k++;
 	}
+	if(data->playerflag == 0)
+		clean_exit(data, "no player found");
 	data->colours = 16711680;//deep red (player)
 	my_mlx_pixel_put(data, data->posX, data->posY, 5);
-	
 	printf("finished parsing\n");
 }
 
@@ -392,5 +418,6 @@ void calculatesize(char *map, t_data *data)
 	}
 	data->rows += 1;
 	// free(line);maybe necessary
-	printf("rows %d, coloumns %d\n", data->rows, data->coloumns);
+	// printf("rows %d, coloumns %d\n", data->rows, data->coloumns);
+	printf("arbitrarycalculatesizecheckpoint\n");
 }
