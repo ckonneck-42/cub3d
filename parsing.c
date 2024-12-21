@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 13:43:04 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/21 19:54:28 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	parse_map3(t_data *data, int i, char *line)
 	}
 }
 
-t_Coordinate	**allocatecoordinates(int rows, int cols)
+t_Coordinate	**alloco(int rows, int cols)
 {
 	t_Coordinate	**coordinates;
 	int				i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   floodfill.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 12:57:28 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 17:23:33 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/21 19:51:26 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	flood_fill(t_data *data, int x, int y)
 		current_char = get_char_at(data, x, y);
 		if (current_char == '1' || current_char == 'F' || current_char == ' '
 			|| current_char == '2' || current_char == 'N' || current_char == 'W'
-			|| current_char == 'E' ||  current_char == 'S')
+			|| current_char == 'E' || current_char == 'S')
 			return ;
 		set_char_at(data, x, y, 'F');
 		flood_fill(data, x + 1, y);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 17:06:33 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/21 19:54:42 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,24 @@ typedef struct s_final_point
     int y;
 }   t_final_point;
 
+typedef struct s_draw_wall
+{
+	double	wallstarty;
+	double	wallendy;
+	double	walltotal;
+	double	wall_true_start_y;
+}	t_draw_wall;
+
 typedef struct s_texture
 {
-    void    *img;
-    char    *addr;
-    int     width;
-    int     height;
-    int     bpp;
-    int     line_length;
-    int     endian;
-}   t_texture;
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}	t_texture;
 
 typedef struct s_data
 {
@@ -123,75 +131,89 @@ typedef struct s_data
     char            **fd_parsearray;
     int             textureflag;
     bool            fire;
+
+	t_draw_wall		wall;
+	double	wallstarty;
+	double	wallendy;
+	double	walltotal;
+	double	wall_true_start_y;
+
 	t_Coordinate	**coordinates;
 }					t_data;
 
+void			redraw_map(t_data *data);
+t_data			*base_init(t_data *data, char **argv);
+int				keypress(int keycode, t_data *data);
+int				ft_close(int keycode, t_data *data);
+int				close_window(t_data *data);
+void			my_mlx_pixel_put(t_data *data, float x, float y, int size);
+void			parse_map(t_data *data);
+void			reinit_data(t_data *data);
+int				get_pixel_color(int x, int y, t_data *data);
+int				ft_detectpoint(t_data *data, double nextx, double nexty);
+void			calculatesize(char *map, t_data *data);
+void			castbeams(t_data *data);
+void			render_textures(char target, t_data *data, int x, int y);
+t_Coordinate	**alloco(int rows, int cols);
+void			freecall(t_Coordinate **coordinates, int rows);
+void			freedom(t_data *data, char *line);
+void			render3d(t_data *data, double distance,
+					double cubeHeight, int screenColumn);
+void			renderscene(t_data *data);
+void			parse_everything_else(char *map, t_data *data);
+void			copy_map_to_buffer(t_data *data, size_t buffer_size);
+void			fd_parse(char *map, t_data *data);
+int				find_the_map(int i, t_data *data);
+void			parse_the_color(t_data *data, char *line, int k, char **temp);
+int				ft_isalnumwhole(char *line);
+int				assign_colors(char **temp, t_data *data);
+void			clean_exit(t_data *data, char *errormessage);
+int				is_surrounded(t_data *data);
+int				is_valid_adjacent(t_data *data, int x, int y);
+void			fill_from_zero(t_data *data);
+void			complete_flood(t_data *data, int x, int y);
+t_texture		ft_load_texture(void *mlx, char *path, t_data *data);
+void			make_btwo(t_data *data);
+void			make_a_square(t_data *data);
+void			restore_map(t_data *data);
+void			parse_the_texturepath(t_data *data,
+					char *line, int k, char *ttf);
+void			ft_wall_texture(t_data *data);
+void			freetextures(t_data *data);
+void			checkfilename(t_data *data, char *map);
+void			checktheplayer(t_data *data);
+void			smallmap(t_data *data);
+int				ft_detectgrid(t_data *data, double x, double y);
 
-void	redraw_map(t_data *data);
-t_data	*base_init(t_data *data, char **argv);
-int	keypress(int keycode, t_data *data);
-int	ft_close(int keycode, t_data *data);
-int	close_window(t_data *data);
-void	my_mlx_pixel_put(t_data *data, float x, float y, int size);
-void parse_map(t_data *data);
-void reinit_data(t_data *data);
-int get_pixel_color(int x, int y, t_data *data);
-int ft_detectpoint(t_data *data, double nextx, double nexty);
-void calculatesize(char *map, t_data *data);
-void castbeams(t_data *data);
-void	render_textures(char target, t_data *data, int x, int y);
-t_Coordinate	**allocatecoordinates(int rows, int cols);
-void	freecall(t_Coordinate **coordinates, int rows);
-void	freedom(t_data *data, char *line);
-void render3D(t_data *data, double distance, float cubeHeight, int screenColumn);
-void renderScene(t_data *data);
-void	parse_everything_else(char *map, t_data *data);
-void	copy_map_to_buffer(t_data *data, size_t buffer_size);
-void	fd_parse(char *map, t_data *data);
-int find_the_map(int i, t_data *data);
-void	parse_the_color(t_data *data, char *line, int k, char **temp);
-int ft_isalnumwhole(char *line);
-int assign_colors(char **temp, t_data *data);
-void	clean_exit(t_data *data, char *errormessage);
-int is_surrounded(t_data *data);
-int is_valid_adjacent(t_data *data, int x, int y);
-void fill_from_zero(t_data *data);
-void complete_flood(t_data *data, int x, int y);
-t_texture	ft_load_texture(void *mlx, char *path, t_data *data);
-void    make_btwo(t_data *data);
-void    make_a_square(t_data *data);
-void    restore_map(t_data *data);
-void	parse_the_texturepath(t_data *data, char *line, int k, char *ttf);
-void	ft_wall_texture(t_data *data);
-void	freetextures(t_data *data);
-void checkfilename(t_data *data, char *map);
-void checktheplayer(t_data *data);
-void    smallmap(t_data *data);
-int ft_detectgrid(t_data *data, double x, double y);
+int				mousemovement(int button, int x, int y, t_data *data);
 
-int	    mousemovement(int button, int x, int y, t_data *data);
-
-void    drawgun(t_data *data, int i);
-void    draw_cross(t_data *data);
-int mouse_release(int button, int x, int y, t_data *data);
-int mouse_press(int button, int x, int y, t_data *data);
-void	base_init2(t_data *data);
-int	get_nr_of_lines(t_data *data);
-void	set_char_at(t_data *data, int x, int y, char new);
-char	get_char_at(t_data *data, int x, int y);
-void	flood_fill(t_data *data, int x, int y);
-void pressw(t_data *data);
-void presss(t_data *data);
-void pressa(t_data *data);
-void pressd(t_data *data);
-int parse_map2(t_data *data, char *line, int x, int y);
-void parse_map3(t_data *data, int i, char *line);
-void	parse_north(t_data *data, char *line, int k, int i);
-void	parse_east(t_data *data, char *line, int k, int i);
-void	parse_west(t_data *data, char *line, int k, int i);
-void	parse_south(t_data *data, char *line, int k, int i);
-void	seperate_clean_exit(t_data *data, char *errormessage);
-char	*get_next_line_from_memory(const char *buffer, size_t *offset);
-int	find_colors(char *ttf, t_data *data);
-void free_array(t_data *data, char **temp);
-void checkforduplicates(t_data *data);
+void			drawgun(t_data *data, int i);
+void			draw_cross(t_data *data);
+int				mouse_release(int button, int x, int y, t_data *data);
+int				mouse_press(int button, int x, int y, t_data *data);
+void			base_init2(t_data *data);
+int				get_nr_of_lines(t_data *data);
+void			set_char_at(t_data *data, int x, int y, char new);
+char			get_char_at(t_data *data, int x, int y);
+void			flood_fill(t_data *data, int x, int y);
+void			pressw(t_data *data);
+void			presss(t_data *data);
+void			pressa(t_data *data);
+void			pressd(t_data *data);
+int				parse_map2(t_data *data, char *line, int x, int y);
+void			parse_map3(t_data *data, int i, char *line);
+void			parse_north(t_data *data, char *line, int k, int i);
+void			parse_east(t_data *data, char *line, int k, int i);
+void			parse_west(t_data *data, char *line, int k, int i);
+void			parse_south(t_data *data, char *line, int k, int i);
+void			seperate_clean_exit(t_data *data, char *errormessage);
+char			*get_next_line_from_memory(const char *buffer, size_t *offset);
+int				find_colors(char *ttf, t_data *data);
+void			free_array(t_data *data, char **temp);
+void			checkforduplicates(t_data *data);
+void			draw_middle(t_data *data, int screenColumn);
+void			ft_draw_wall_2(t_data *data,
+					int screenColumn, double distance, int i);
+void			ft_draw_wall(t_data *data,
+					int screenColumn, double distance, int i);
+int             ft_detectgrid_2(t_data *data, double x, double y);

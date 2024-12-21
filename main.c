@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 17:08:20 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/21 19:56:56 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,21 @@
 void	mlx_functions(t_data *data)
 {
 	data->colours = 45000;
-	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);	
+	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 	mlx_hook(data->win, 17, 0, close_window, data);
 	mlx_hook(data->win, 2, 1L << 0, ft_close, data);
 	mlx_key_hook(data->win, keypress, data);
+	mlx_loop(data->mlx);
+}
 	// mlx_hook(data->win, 4, 0, mouse_press, data);
 	// mlx_hook(data->win, 5, 0, mouse_release, data);
 	// mlx_hook(data->win, 6, 0, mousemovement, data);
 	// mlx_mouse_hook(data->win, mousemovement, data);
-	mlx_loop(data->mlx);
-}
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_data *data;
+	t_data	*data;
+
 	data = base_init(data, argv);
 	base_init2(data);
 	if (argc != 2)
@@ -43,39 +44,38 @@ int main(int argc, char **argv)
 		calculatesize(data->map, data);
 		make_a_square(data);
 		checkforduplicates(data);
-		data->coordinates = allocatecoordinates(data->rows + 3, data->coloumns + 1);
+		data->coordinates = alloco(data->rows + 3, data->coloumns + 1);
 		parse_map(data);
-		if(is_surrounded(data) == 1)
+		if (is_surrounded(data) == 1)
 			clean_exit(data, "invalid map");
 		restore_map(data);
 		castbeams(data);
-		renderScene(data);
+		renderscene(data);
 	}
-		mlx_functions(data);
+	mlx_functions(data);
 }
 
-
-void checkforduplicates(t_data *data)
+void	checkforduplicates(t_data *data)
 {
-	int i = 0;
-	int k;
+	int	i;
+	int	k;
+
+	i = 0;
 	while (data->squaremap[i])
 	{
 		k = 0;
 		while (data->squaremap[i][k])
 		{
-			if (data->squaremap[i][k] == 'N' || data->squaremap[i][k] == 'E' 
+			if (data->squaremap[i][k] == 'N' || data->squaremap[i][k] == 'E'
 				|| data->squaremap[i][k] == 'W' || data->squaremap[i][k] == 'S')
 				data->playerflag++;
 			k++;
-			
 		}
 		i++;
 	}
 	if (data->playerflag > 1)
 		clean_exit(data, "duplicates hakken\n");
 }
-
 
 t_data	*base_init(t_data *data, char **argv)
 {
@@ -84,23 +84,20 @@ t_data	*base_init(t_data *data, char **argv)
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, 1920, 1080, "cub3d");
 	data->img[0] = mlx_new_image(data->mlx, 1920, 1080);
-	// data->img[1] = mlx_new_image(data->mlx, 1920, 1080);
 	data->addr = mlx_get_data_addr(data->img[0], &data->bits_per_pixel,
 			&data->line_length, &data->endian);
-	// data->addr1 = mlx_get_data_addr(data->img[1], &data->bits_per_pixel,
-    //                             &data->line_length, &data->endian);
-	return(data);
-};
+	return (data);
+}
 
 void	base_init2(t_data *data)
 {
 	data->colours = 45000;
 	data->posX = 960;
-	data->posY = 540;  //x and y start position
-  	data->dirX = 1;
-	data->dirY = 0; //initial direction vector
-  	data->planeX = 0;
-	data->planeY = 1.0; //the 2d raycaster version of camera plane
+	data->posY = 540;
+	data->dirX = 1;
+	data->dirY = 0;
+	data->planeX = 0;
+	data->planeY = 1.0;
 	data->movespeed = 10.0;
 	data->playerflag = 0;
 	data->a = 0;
