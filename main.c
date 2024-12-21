@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/20 21:09:44 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/21 14:39:53 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	mlx_functions(t_data *data)
 	// mlx_hook(data->win, 4, 0, mouse_press, data);
 	// mlx_hook(data->win, 5, 0, mouse_release, data);
 	// mlx_hook(data->win, 6, 0, mousemovement, data);
-	mlx_mouse_hook(data->win, mousemovement, data);
+	// mlx_mouse_hook(data->win, mousemovement, data);
 	mlx_loop(data->mlx);
 }
 
@@ -30,6 +30,7 @@ int main(int argc, char **argv)
 {
 	t_data *data;
 	data = base_init(data, argv);
+	base_init2(data);
 	if (argc != 2)
 	{
 		printf("give map plx\n");
@@ -48,8 +49,8 @@ int main(int argc, char **argv)
 		restore_map(data);
 		castbeams(data);
 		renderScene(data);
-		mlx_functions(data);
 	}
+		mlx_functions(data);
 }
 
 
@@ -66,6 +67,11 @@ t_data	*base_init(t_data *data, char **argv)
 			&data->line_length, &data->endian);
 	// data->addr1 = mlx_get_data_addr(data->img[1], &data->bits_per_pixel,
     //                             &data->line_length, &data->endian);
+	return(data);
+};
+
+void	base_init2(t_data *data)
+{
 	data->colours = 45000;
 	data->posX = 960;
 	data->posY = 540;  //x and y start position
@@ -79,11 +85,12 @@ t_data	*base_init(t_data *data, char **argv)
 	data->playerAngle = 0;
 	data->flag = 0;
 	data->coloumns = 0;
+	data->check_x = 0;
+	data->check_y = 0;
 	data->rows = 0;
 	data->FOV = 60 * PI / 180;
 	data->screenHeight = 1080;
 	data->screenWidth = 1920;
 	data->clear = 2;
-	return(data);
-};
-
+	data->textureflag = 0;
+}

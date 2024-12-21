@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+         #
+#    By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 12:14:45 by ckonneck          #+#    #+#              #
-#    Updated: 2024/12/20 19:07:32 by dyao             ###   ########.fr        #
+#    Updated: 2024/12/21 13:44:33 by ckonneck         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 # Source files for cub3d
-cub3d_SRCS = main.c keyhandling.c raycasting.c rendering.c parsing.c free.c mapchecks.c mousehanding.c
+cub3d_SRCS = main.c keyhandling.c raycasting.c rendering.c parsing.c free.c mapchecks.c mousehanding.c \
+				floodfill.c utils.c wasd.c textureparsing.c colorparsing.c parsing2.c
 cub3d_OBJS = $(cub3d_SRCS:.c=.o)
 cub3d_DEPS = $(cub3d_SRCS:.c=.d)
 CC = cc -g

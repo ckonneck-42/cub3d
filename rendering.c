@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:48:00 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/20 20:51:31 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/21 14:41:16 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,34 @@ void	my_mlx_pixel_put(t_data *data, float x, float y, int size)
 	}
 }
 
-//The essence is to place the pixels on the .xpm in proportion on the wall.
 t_texture	ft_load_texture(void *mlx, char *path, t_data *data)
 {
 	t_texture	texture;
 
 	texture.img = mlx_xpm_file_to_image(mlx, path, &texture.width, &texture.height);
 	if (!texture.img)
-		clean_exit(data, "Load .xpm img wrong!");
+		seperate_clean_exit(data, "Load .xpm img wrong!");
 	texture.addr = mlx_get_data_addr(texture.img, &texture.bpp, &texture.line_length, &texture.endian);
 	return (texture);
 }
 
 void	ft_wall_texture(t_data *data)
 {
+    int i;
+
+    i = 0;
+    while(i < 4)
+    {
+        data->wall_texture[i].img = NULL;
+        i++;
+    }
+    data->textureflag = 1;
 	data->wall_texture[0] = ft_load_texture(data->mlx, data->easttxt, data);//east
 	data->wall_texture[1] = ft_load_texture(data->mlx, data->westtxt, data);//west
 	data->wall_texture[2] = ft_load_texture(data->mlx, data->southtxt, data);//south
 	data->wall_texture[3] = ft_load_texture(data->mlx, data->northtxt, data);//north
-    data->gun[0] = ft_load_texture(data->mlx, "pic/gun/smallgun.xpm", data);
-    data->gun[1] = ft_load_texture(data->mlx, "pic/gun/smallgun_shoot.xpm", data);
+    // data->gun[0] = ft_load_texture(data->mlx, "pic/gun/smallgun.xpm", data);
+    // data->gun[1] = ft_load_texture(data->mlx, "pic/gun/smallgun_shoot.xpm", data);
 }
 
 void    drawgun(t_data *data, int i)
@@ -71,7 +79,6 @@ void    drawgun(t_data *data, int i)
         while (start_y < 1080)
         {
             data->colours = *(int *)(data->gun[i].addr + ((int)y * data->gun[i].line_length + (int)x * (data->gun[i].bpp / 8)));
-            // printf("this is the color: %f\n", data->colours);
             if (data->colours != -16777216)
                 my_mlx_pixel_put(data, start_x, start_y, 1);
             y++;
@@ -116,10 +123,10 @@ void renderScene(t_data *data)
     }
     // parse_map(data->map, data);
     smallmap(data);
-    if (!data->fire)
-        drawgun(data, 0);
-    else
-        drawgun(data, 1);
+    // if (!data->fire)
+    //     drawgun(data, 0);
+    // else
+    //     drawgun(data, 1);
 }
 
 void    ft_draw_wall(t_data *data, float wallStartY, float wallEndY, double wall_true_start_y, int screenColumn, double distance, float walltotal, int i)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/20 20:47:45 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/21 14:54:30 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,58 +46,8 @@ typedef struct s_Coordinate
 {
 	float			x;
 	float			y;
-	float			z;
     char            map;
 }					t_Coordinate;
-
-
-typedef struct 
-{
-	char *imgpath;
-	int mapX;
-	int mapY;
-	int height;	
-} t_Cube;
-
-typedef struct {
-    // Screen dimensions
-    int screenWidth; 
-    int screenHeight;
-
-    // Player position and direction
-    double posX, posY;    // Player's position
-    double dirX, dirY;    // Direction vector
-    double planeX, planeY; // Camera plane
-
-    // Ray properties
-    double cameraX;       // X-coordinate in camera space
-    double rayDirX, rayDirY; // Ray direction
-
-    // Map grid position
-    int mapX, mapY;       // Current map cell
-
-    // DDA step and distance
-    double sideDistX, sideDistY; // Distances to next x or y side
-    double deltaDistX, deltaDistY; // Distance increments
-    double perpWallDist;  // Perpendicular wall distance
-    int stepX, stepY;     // DDA step direction
-    int hit;              // Did the ray hit a wall?
-    int side;             // Was a NS or EW wall hit?
-
-    // Drawing parameters
-    int lineHeight;       // Height of the line to draw
-    int drawStart, drawEnd; // Drawing limits for the stripe
-
-    // Texture properties
-    int texNum;           // Texture number of the hit wall
-    double wallX;         // Exact hit position on the wall
-    int texX;             // X-coordinate on the texture
-	int texY;  
-	int **textures;
-    // Texture dimensions (assumed globally consistent)
-    int texWidth;         // Width of a texture
-    int texHeight;        // Height of a texture
-} t_RaycastVars;
 
 typedef struct s_final_point
 {
@@ -171,29 +121,22 @@ typedef struct s_data
     float           pre_color;
 	const char		*filename;
     char            **fd_parsearray;
+    int             textureflag;
     bool            fire;
 	t_Coordinate	**coordinates;
-    	// t_RaycastVars	ray;
-	t_Cube			cube;
 }					t_data;
 
-typedef struct s_walls
-{
-    int num;
-    int **walls;
-}               t_walls;
 
 void	redraw_map(t_data *data);
 t_data	*base_init(t_data *data, char **argv);
 int	keypress(int keycode, t_data *data);
 int	ft_close(int keycode, t_data *data);
 int	close_window(t_data *data);
-void	raycasting(t_data *data);
 void	my_mlx_pixel_put(t_data *data, float x, float y, int size);
 void parse_map(t_data *data);
 void reinit_data(t_data *data);
 int get_pixel_color(int x, int y, t_data *data);
-int ft_detectpoint(t_data *data, double nextX, double nextY);
+int ft_detectpoint(t_data *data, double nextx, double nexty);
 void calculatesize(char *map, t_data *data);
 void castbeams(t_data *data);
 void	render_textures(char target, t_data *data, int x, int y);
@@ -206,9 +149,9 @@ void	parse_everything_else(char *map, t_data *data);
 void	copy_map_to_buffer(t_data *data, size_t buffer_size);
 void	fd_parse(char *map, t_data *data);
 int find_the_map(int i, t_data *data);
-void	parse_the_color(t_data *data, char *line, int k);
+void	parse_the_color(t_data *data, char *line, int k, char **temp);
 int ft_isalnumwhole(char *line);
-void assign_colors(char **temp, t_data *data);
+int assign_colors(char **temp, t_data *data);
 void	clean_exit(t_data *data, char *errormessage);
 int is_surrounded(t_data *data);
 int is_valid_adjacent(t_data *data, int x, int y);
@@ -232,3 +175,22 @@ void    drawgun(t_data *data, int i);
 void    draw_cross(t_data *data);
 int mouse_release(int button, int x, int y, t_data *data);
 int mouse_press(int button, int x, int y, t_data *data);
+void	base_init2(t_data *data);
+int	get_nr_of_lines(t_data *data);
+void	set_char_at(t_data *data, int x, int y, char new);
+char	get_char_at(t_data *data, int x, int y);
+void	flood_fill(t_data *data, int x, int y);
+void pressw(t_data *data);
+void presss(t_data *data);
+void pressa(t_data *data);
+void pressd(t_data *data);
+int parse_map2(t_data *data, char *line, int x, int y);
+void parse_map3(t_data *data, int i, char *line);
+void	parse_north(t_data *data, char *line, int k, int i);
+void	parse_east(t_data *data, char *line, int k, int i);
+void	parse_west(t_data *data, char *line, int k, int i);
+void	parse_south(t_data *data, char *line, int k, int i);
+void	seperate_clean_exit(t_data *data, char *errormessage);
+char	*get_next_line_from_memory(const char *buffer, size_t *offset);
+int	find_colors(char *ttf, t_data *data);
+void free_array(t_data *data, char **temp);

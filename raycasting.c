@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:32 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/20 21:03:49 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/21 14:58:49 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void castbeams(t_data *data)
     float beamX;
     float beamY;
     data->colours = 8388736;// purple for beam
-    double  ang = data->a;
+    double ang = data->a;
     double ang_mark = data->a + 1920 * 0.02;
     double ang_2 = 1920 * 0.04 + data->a - ang_mark;
     int i = 0;

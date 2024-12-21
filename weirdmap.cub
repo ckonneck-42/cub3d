@@ -1,12 +1,12 @@
-SO  ./textures/deutschland_1.xpm
-NO  ./textures/deutschland_2.xpm
+SO  pic/eagle.xpm
+NO  pic/eagle.xpm
 
 
    F 0,0,255
 
 C 50,001,01
-WE ./textures/deutschland_3.xpm
-EA ./textures/deutschland_bier_4.xpm
+WE pic/eagle.xpm
+EA pic/eagle.xpm
      111111111111111111111
      10100000100000000001
 111110101000111100011111

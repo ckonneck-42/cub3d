@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:55:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/20 13:44:51 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:57:59 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,76 @@ void	freedom(t_data *data, char *line)
 
 void	clean_exit(t_data *data, char *errormessage)
 {
-	printf("Error\n%s\nexiting game\n" ,errormessage);
+	printf("Error\n%s\nexiting game\n", errormessage);
 	close_window(data);
 }
 
 void	freetextures(t_data *data)
 {
 	if (data->northtxt)
-	{
 		free(data->northtxt);
-		mlx_destroy_image(data->mlx, data->wall_texture[3].img);
-		data->wall_texture[3].img = NULL;
-	}
 	if (data->westtxt)
-	{
 		free(data->westtxt);
-		mlx_destroy_image(data->mlx, data->wall_texture[1].img);
-		data->wall_texture[1].img = NULL;
-	}
 	if (data->easttxt)
-	{
 		free(data->easttxt);
-		mlx_destroy_image(data->mlx, data->wall_texture[0].img);
-		data->wall_texture[0].img = NULL;
-	}
 	if (data->southtxt)
-	{
 		free(data->southtxt);
+	if (data->wall_texture[3].img)
+		mlx_destroy_image(data->mlx, data->wall_texture[3].img);
+	if (data->wall_texture[2].img)
 		mlx_destroy_image(data->mlx, data->wall_texture[2].img);
-		data->wall_texture[2].img = NULL;
-	}
+	if (data->wall_texture[1].img)
+		mlx_destroy_image(data->mlx, data->wall_texture[1].img);
+	if (data->wall_texture[0].img)
+		mlx_destroy_image(data->mlx, data->wall_texture[0].img);
 }
+
+void	seperate_clean_exit(t_data *data, char *errormessage)
+{
+	int	i;
+
+	printf("Error\n%s\nexiting game\n", errormessage);
+	mlx_clear_window(data->mlx, data->win);
+	if (data->textureflag == 1)
+		freetextures(data);
+	mlx_destroy_image(data->mlx, data->img[0]);
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
+	mlx_loop_end(data->mlx);
+	i = 0;
+	while (data->fd_parsearray && data->fd_parsearray[i])
+		free(data->fd_parsearray[i++]);
+	i = 0;
+	free(data->fd_parsearray);
+	free(data->mlx);
+	free(data);
+	exit(0);
+}
+
+// void	freetextures(t_data *data)
+// {
+// 	if (data->northtxt)
+// 	{
+// 		free(data->northtxt);
+// 		mlx_destroy_image(data->mlx, data->wall_texture[3].img);
+// 		data->wall_texture[3].img = NULL;
+// 	}
+// 	if (data->westtxt)
+// 	{
+// 		free(data->westtxt);
+// 		mlx_destroy_image(data->mlx, data->wall_texture[1].img);
+// 		data->wall_texture[1].img = NULL;
+// 	}
+// 	if (data->easttxt)
+// 	{
+// 		free(data->easttxt);
+// 		mlx_destroy_image(data->mlx, data->wall_texture[0].img);
+// 		data->wall_texture[0].img = NULL;
+// 	}
+// 	if (data->southtxt)
+// 	{
+// 		free(data->southtxt);
+// 		mlx_destroy_image(data->mlx, data->wall_texture[2].img);
+// 		data->wall_texture[2].img = NULL;
+// 	}
+// }
