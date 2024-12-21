@@ -3,132 +3,113 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:32 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 14:58:49 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/21 20:39:05 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-// int ft_detectpointbeam(float beamX, float beamY, t_data *data, double rad_angle)
-// {
-// // Calculate grid indices
-
-// 	// if ((int)beamX % GRID_SIZE == 0 || (int)beamY % GRID_SIZE == 0)
-// 	// 	return (1);
-//     int gridX = (int)((beamX + cos(rad_angle)) / GRID_SIZE);
-//     int gridY = (int)((beamY + sin(rad_angle)) / GRID_SIZE);
-
-// 	// Ensure gridX and gridY are within bounds
-//     if (gridX < 0 || gridY < 0)
-//     {
-//         // Out of bounds, no collision detected
-//         return 0;
-//     }
-
-// 	if (gridX >= data->rows || gridY >= data->coloumns || !data->coordinates[gridX])
-// 		return (1);
-
-// 	// Check for wall at the grid location
-// 	if (data->coordinates[gridX][gridY].map == '1')
-// 		return 1;
-
-// 	// No wall detected
-// 	return 0;
-// }
-
-int ft_detectpointbeam(float beamX, float beamY, t_data *data, double rad_angle)
+int	ft_detectpointbeam_2(double beamX, double beamY, t_data *data)
 {
-// Calculate grid indices
-    if (data->check_x && data->check_y && (int)beamX == data->check_x && (int)beamY == data->check_y)
-        return (0);
-    // int gridX = (int)((beamX + cos(rad_angle)) / GRID_SIZE);
-    // int gridY = (int)((beamY + sin(rad_angle)) / GRID_SIZE);
-    int gridX = (int)((beamX) / GRID_SIZE);
-    int gridY = (int)((beamY) / GRID_SIZE);
-    // printf("this is beamX: %f, this is beamY: %f, this is gridX: %d, this is gridY: %d, this is the number: %c\n", beamX, beamY, gridX, gridY, data->coordinates[gridX][gridY].map);
-  // Ensure gridX and gridY are within bounds
-    if (gridX < 0 || gridY < 0)
-    {
-        // Out of bounds, no collision detected
-        return 0;
-    }
-  if (gridX >= data->rows || gridY >= data->coloumns || !data->coordinates[gridX])
-    return (1);
-  // Check for wall at the grid location
-  // if (data->coordinates[gridX][gridY].map == '1')
-  //  return 1;
-    if (data->coordinates[gridX][gridY].map == '1')
-    return 1;
-    gridX = (int)((beamX + 1) / GRID_SIZE);
-    gridY = (int)(beamY / GRID_SIZE);
-    if (data->coordinates[gridX][gridY].map == '1')
-    return 1;
-    gridX = (int)((beamX) / GRID_SIZE);
-    gridY = (int)((beamY + 1) / GRID_SIZE);
-    if (data->coordinates[gridX][gridY].map == '1')
-    return 1;
-    gridX = (int)((beamX - 1) / GRID_SIZE);
-    gridY = (int)((beamY) / GRID_SIZE);
-    if (data->coordinates[gridX][gridY].map == '1')
-    return 1;
-    gridX = (int)((beamX) / GRID_SIZE);
-    gridY = (int)((beamY - 1) / GRID_SIZE);
-    if (data->coordinates[gridX][gridY].map == '1')
-    return 1;
-    data->check_x = (int)beamX;
-    data->check_y = (int)beamY;
-  // No wall detected
-  return 0;
+	int	gridx;
+	int	gridy;
+
+	gridx = (int)((beamX + 1) / GRID_SIZE);
+	gridy = (int)(beamY / GRID_SIZE);
+	if (data->coordinates[gridx][gridy].map == '1')
+		return (1);
+	gridx = (int)((beamX) / GRID_SIZE);
+	gridy = (int)((beamY + 1) / GRID_SIZE);
+	if (data->coordinates[gridx][gridy].map == '1')
+		return (1);
+	gridx = (int)((beamX - 1) / GRID_SIZE);
+	gridy = (int)((beamY) / GRID_SIZE);
+	if (data->coordinates[gridx][gridy].map == '1')
+		return (1);
+	gridx = (int)((beamX) / GRID_SIZE);
+	gridy = (int)((beamY - 1) / GRID_SIZE);
+	if (data->coordinates[gridx][gridy].map == '1')
+		return (1);
+	return (0);
 }
 
-// int	ft_detectpointbeam(float beamX, float beamY,t_data *data, double rad_angle) original function, unable to go oob
-// {
-// 	int gridX; 
-// 	int gridY;
-// 	gridX = (int)((beamX + cos(rad_angle)) / GRID_SIZE) ;
-// 	gridY = (int)((beamY + sin(rad_angle)) / GRID_SIZE);
-// 	if (data->coordinates[gridX][gridY].map == '1')
-//    		return(1);
-// 	return(0);
-// }
-void castbeams(t_data *data)
+int	ft_detectpointbeam(float beamX, float beamY, t_data *data)
 {
-    float beamX;
-    float beamY;
-    data->colours = 8388736;// purple for beam
-    double ang = data->a;
-    double ang_mark = data->a + 1920 * 0.02;
-    double ang_2 = 1920 * 0.04 + data->a - ang_mark;
-    int i = 0;
-    while (i < 1920)
-    {
-        ang = fmod(ang, 360.0);
-        if (ang < 0)
-            ang += 360.0;
-        beamX = data->posX;
-        beamY = data->posY;
-        double rad_angle_1 = ang * (PI / 180.0);
-        double rad_angle_2 = ang_2 * (PI / 180.0);
-        while (beamX >= 0 && beamX <= 1920 && beamY >= 0 && beamY <= 1080)
-        {
-            if ((int)beamX % GRID_SIZE == 0 || (int)beamY % GRID_SIZE == 0)
-                if (ft_detectpointbeam(beamX, beamY, data, rad_angle_1) == 1
-                && ft_detectpointbeam(beamX -1, beamY - 1, data, rad_angle_1) == 1)
-                    break ;
-            // my_mlx_pixel_put(data, beamX, beamY, 1);
-            beamX += cos(rad_angle_1) / data->clear;
-            beamY += sin(rad_angle_1) / data->clear;
-        }
-        data->final_point[i].x = beamX;
-        data->final_point[i].y = beamY;
-        data->distanceahead[i] = (sqrt(pow(beamX - data->posX, 2) + pow(beamY - data->posY, 2))) * cos(rad_angle_2);
-        // printf("this is the beamX: %f, this is the beamY: %f, this is the distance %f\n", beamX, beamY, data->distanceahead[i]);
-        ang += 0.04;
-        ang_2 -= 0.04;
-        i++;
-    }
+	int	gridx;
+	int	gridy;
+
+	gridx = (int)((beamX) / GRID_SIZE);
+	gridy = (int)((beamY) / GRID_SIZE);
+	if (data->check_x && data->check_y && (int)beamX == data->check_x
+		&& (int)beamY == data->check_y)
+		return (0);
+	if (gridx < 0 || gridy < 0)
+		return (0);
+	if (gridx >= data->rows || gridy >= data->coloumns
+		|| !data->coordinates[gridx])
+		return (1);
+	if (data->coordinates[gridx][gridy].map == '1')
+		return (1);
+	if (ft_detectpointbeam_2(beamX, beamY, data))
+		return (1);
+	data->check_x = (int)beamX;
+	data->check_y = (int)beamY;
+	return (0);
+}
+
+void	dis_cal(t_data *data, double beamx, double beamy, int i)
+{
+	double	rad_angle_2;
+	double	ang_mark;
+	double	ang_2;
+
+	ang_mark = data->a + 1920 * 0.02;
+	ang_2 = 1920 * 0.04 + data->a - ang_mark - 0.04 * i;
+	rad_angle_2 = ang_2 * (PI / 180.0);
+	data->distanceahead[i] = (sqrt(pow(beamx - data->posX, 2)
+				+ pow(beamy - data->posY, 2))) * cos(rad_angle_2);
+	data->final_point[i].x = beamx;
+	data->final_point[i].y = beamy;
+}
+
+void	find_beam_end(t_data *data, double beamx,
+		double beamy, double rad_angle_1)
+{
+	while (beamx >= 0 && beamx <= 1920 && beamy >= 0 && beamy <= 1080)
+	{
+		if ((int)beamx % GRID_SIZE == 0 || (int)beamy % GRID_SIZE == 0)
+			if (ft_detectpointbeam(beamx, beamy, data) == 1
+				&& ft_detectpointbeam(beamx -1, beamy - 1, data) == 1)
+				break ;
+		beamx += cos(rad_angle_1) / data->clear;
+		beamy += sin(rad_angle_1) / data->clear;
+	}
+	data->beamx = beamx;
+	data->beamy = beamy;
+}
+
+void	castbeams(t_data *data)
+{
+	double	rad_angle_1;
+	double	ang;
+	int		i;
+
+	ang = data->a;
+	i = 0;
+	while (i < 1920)
+	{
+		ang = fmod(ang, 360.0);
+		if (ang < 0)
+			ang += 360.0;
+		data->beamx = data->posX;
+		data->beamy = data->posY;
+		rad_angle_1 = ang * (PI / 180.0);
+		find_beam_end(data, data->beamx, data->beamy, rad_angle_1);
+		dis_cal(data, data->beamx, data->beamy, i);
+		ang += 0.04;
+		i++;
+	}
 }

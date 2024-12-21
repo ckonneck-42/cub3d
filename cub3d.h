@@ -6,7 +6,7 @@
 /*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 19:54:42 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/21 20:49:15 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,24 @@
 #define K_S 115
 #define K_D 100
 #define GRID_SIZE 50
-# define TEXTURE_BRICK "./pic/NO.xpm"
-# define TEXTURE_SNOW "./pic/Snow.xpm"
-# define TEXTURE_METAL "./pic/Metal.xpm"
-# define TEXTURE_LAVA "./pic/Lava.xpm"
-# define TEXTURE_BLUE "./pic/Blue.xpm"
-
+#define TEXTURE_BRICK "./pic/NO.xpm"
+#define TEXTURE_SNOW "./pic/Snow.xpm"
+#define TEXTURE_METAL "./pic/Metal.xpm"
+#define TEXTURE_LAVA "./pic/Lava.xpm"
+#define TEXTURE_BLUE "./pic/Blue.xpm"
 
 typedef struct s_Coordinate
 {
 	float			x;
 	float			y;
-    char            map;
+	char			map;
 }					t_Coordinate;
 
 typedef struct s_final_point
 {
-    int x;
-    int y;
-}   t_final_point;
-
-typedef struct s_draw_wall
-{
-	double	wallstarty;
-	double	wallendy;
-	double	walltotal;
-	double	wall_true_start_y;
-}	t_draw_wall;
+	int	x;
+	int	y;
+}	t_final_point;
 
 typedef struct s_texture
 {
@@ -76,68 +67,67 @@ typedef struct s_texture
 
 typedef struct s_data
 {
-    char            *northtxt;
-    char            *easttxt;
-    char            *westtxt;
-    char            *southtxt;
+	char			*northtxt;
+	char			*easttxt;
+	char			*westtxt;
+	char			*southtxt;
 	void			*mlx;
 	void			*win;
 	void			*img[3];
 	char			*addr;
-    char			*addr1;
-	int			    line_length;
+	char			*addr1;
+	int				line_length;
 	int				bits_per_pixel;
 	int				endian;
-    int             fd;
-    char            *map;
-    char            raw_map[1024];
-    char            **rawmaparray;
-    char            **squaremap;
-    int             rows;
-    int             coloumns;
-    int             **walls;
-    int             a;
-    int             flag;
-    int             playerflag;
-    int             floorcolor;
-    int             ceilingcolor;
-    int             redc;
-    int             greenc;
-    int             bluec;
+	int				fd;
+	char			*map;
+	char			raw_map[1024];
+	char			**rawmaparray;
+	char			**squaremap;
+	int				rows;
+	int				coloumns;
+	int				**walls;
+	int				a;
+	int				flag;
+	int				playerflag;
+	int				floorcolor;
+	int				ceilingcolor;
+	int				redc;
+	int				greenc;
+	int				bluec;
 	double			posX;
 	double			posY;
 	double			dirX;
 	double			dirY;
 	double			planeX;
 	double			planeY;
-    float           rayAngle;
-    float           playerAngle;
-	double 			movespeed;
-    double          distanceahead[1920];
-    t_final_point   final_point[1920];
-    t_texture       wall_texture[4];
-    t_texture       gun[2];
-    double          distanceleft;
-    double          distanceright;
-    int             screenHeight;
-    int             screenWidth;
-    int             check_x;
-    int             check_y;
-    int             clear;
-    float             FOV;
+	float			rayAngle;
+	float			playerAngle;
+	double			movespeed;
+	double			distanceahead[1920];
+	t_final_point	final_point[1920];
+	double			beamx;
+	double			beamy;
+	t_texture		wall_texture[4];
+	t_texture		gun[2];
+	double			distanceleft;
+	double			distanceright;
+	int				screenHeight;
+	int				screenWidth;
+	int				check_x;
+	int				check_y;
+	int				clear;
+	float			FOV;
 	float			colours;
-    float           pre_color;
+	float			pre_color;
 	const char		*filename;
-    char            **fd_parsearray;
-    int             textureflag;
-    bool            fire;
-
-	t_draw_wall		wall;
-	double	wallstarty;
-	double	wallendy;
-	double	walltotal;
-	double	wall_true_start_y;
-
+	char			**fd_parsearray;
+	int				textureflag;
+	bool			fire;
+	double			wallstarty;
+	double			wallendy;
+	double			walltotal;
+	double			wall_true_start_y;
 	t_Coordinate	**coordinates;
 }					t_data;
 
@@ -216,4 +206,4 @@ void			ft_draw_wall_2(t_data *data,
 					int screenColumn, double distance, int i);
 void			ft_draw_wall(t_data *data,
 					int screenColumn, double distance, int i);
-int             ft_detectgrid_2(t_data *data, double x, double y);
+int				ft_detectgrid_2(t_data *data, double x, double y);
