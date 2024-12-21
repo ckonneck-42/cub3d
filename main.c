@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 14:39:53 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/21 17:08:20 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int main(int argc, char **argv)
 		parse_everything_else(data->map, data);
 		calculatesize(data->map, data);
 		make_a_square(data);
+		checkforduplicates(data);
 		data->coordinates = allocatecoordinates(data->rows + 3, data->coloumns + 1);
 		parse_map(data);
 		if(is_surrounded(data) == 1)
@@ -53,6 +54,27 @@ int main(int argc, char **argv)
 		mlx_functions(data);
 }
 
+
+void checkforduplicates(t_data *data)
+{
+	int i = 0;
+	int k;
+	while (data->squaremap[i])
+	{
+		k = 0;
+		while (data->squaremap[i][k])
+		{
+			if (data->squaremap[i][k] == 'N' || data->squaremap[i][k] == 'E' 
+				|| data->squaremap[i][k] == 'W' || data->squaremap[i][k] == 'S')
+				data->playerflag++;
+			k++;
+			
+		}
+		i++;
+	}
+	if (data->playerflag > 1)
+		clean_exit(data, "duplicates hakken\n");
+}
 
 
 t_data	*base_init(t_data *data, char **argv)

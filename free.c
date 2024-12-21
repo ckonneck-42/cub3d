@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:55:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 14:57:59 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/21 17:25:30 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,31 +78,3 @@ void	seperate_clean_exit(t_data *data, char *errormessage)
 	free(data);
 	exit(0);
 }
-
-// void	freetextures(t_data *data)
-// {
-// 	if (data->northtxt)
-// 	{
-// 		free(data->northtxt);
-// 		mlx_destroy_image(data->mlx, data->wall_texture[3].img);
-// 		data->wall_texture[3].img = NULL;
-// 	}
-// 	if (data->westtxt)
-// 	{
-// 		free(data->westtxt);
-// 		mlx_destroy_image(data->mlx, data->wall_texture[1].img);
-// 		data->wall_texture[1].img = NULL;
-// 	}
-// 	if (data->easttxt)
-// 	{
-// 		free(data->easttxt);
-// 		mlx_destroy_image(data->mlx, data->wall_texture[0].img);
-// 		data->wall_texture[0].img = NULL;
-// 	}
-// 	if (data->southtxt)
-// 	{
-// 		free(data->southtxt);
-// 		mlx_destroy_image(data->mlx, data->wall_texture[2].img);
-// 		data->wall_texture[2].img = NULL;
-// 	}
-// }

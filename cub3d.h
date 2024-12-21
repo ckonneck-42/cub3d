@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 14:54:30 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/21 17:06:33 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,3 +194,4 @@ void	seperate_clean_exit(t_data *data, char *errormessage);
 char	*get_next_line_from_memory(const char *buffer, size_t *offset);
 int	find_colors(char *ttf, t_data *data);
 void free_array(t_data *data, char **temp);
+void checkforduplicates(t_data *data);

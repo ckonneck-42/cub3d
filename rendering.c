@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:48:00 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 14:41:16 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/21 17:23:14 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,81 +357,20 @@ void    smallmap(t_data *data)
     my_mlx_pixel_put(data, 250, 150, 10);
 }
 
-
-
-void draw_cube(t_data *data, float x, float y)
-{
-	float targetx;
-	float targety;
-	float targetz;
-	int i;
-	data->colours = 500000;
-	targetx = x + 50;
-	while(x <= targetx)
-	{
-		my_mlx_pixel_put(data, x, y, 1);
-		x++;
-	}
-	targety = y + 50;
-	while(y <= targety)
-	{	
-		my_mlx_pixel_put(data, x, y, 1);
-		y++;
-	}
-	targetx = x - 50;
-	while(x >= targetx)
-	{
-		my_mlx_pixel_put(data, x, y, 1);
-		x--;
-	}
-	targety = y - 50;
-	while(y >= targety)
-	{
-		my_mlx_pixel_put(data, x, y, 1);
-		y--;
-	}
-}
-
 void	render_textures(char target, t_data *data, int x, int y)
 {
-
-	if (target == '1' || target == '\n' || target == '\0')
-	{
-		// printf("drawing cube for x: %d, and y: %d\n", x/50, y/50);
-		draw_cube(data, x, y);
-	}
-	else if (target == 'N' && data->playerflag == 0)
-	{
-		data->posX = x+25;
+    if ((target == 'N' || target == 'W' || target == 'S' || target == 'E') && data->playerflag == 1)
+    {
+        data->posX = x+25;
 		data->posY = y+25;
-		data->playerflag = 1;
-		data->a = 230;
-		checktheplayer(data);
-	}
-	else if (target == 'W' && data->playerflag == 0)
-	{
-		data->posX = x+25;
-		data->posY = y+25;
-		data->playerflag = 1;
-		data->a = 140;
-		checktheplayer(data);
-	}
-	else if (target == 'S' && data->playerflag == 0)
-	{
-		data->posX = x+25;
-		data->posY = y+25;
-		data->playerflag = 1;
-		data->a = 50;
-		checktheplayer(data);
-	}
-	else if (target == 'E' && data->playerflag == 0)
-	{
-		data->posX = x+25;
-		data->posY = y+25;
-		data->playerflag = 1;
-		data->a = 320;
-		checktheplayer(data);
-	}
-	else if ((target == 'E' || target == 'W' || target == 'N' || target == 'S') && data->playerflag == 1)
-		clean_exit(data, "duplicate found");
+        if (target == 'N')
+		    data->a = 230;
+        if (target == 'W')
+            data->a = 140;
+        if (target == 'E')
+            data->a = 320;
+        if (target == 'S')
+            data->a = 50;
+        data->playerflag = 9;
+    }
 }
