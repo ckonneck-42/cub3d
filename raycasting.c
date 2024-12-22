@@ -6,7 +6,7 @@
 /*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:32 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 20:39:05 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/22 14:27:54 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	dis_cal(t_data *data, double beamx, double beamy, int i)
 void	find_beam_end(t_data *data, double beamx,
 		double beamy, double rad_angle_1)
 {
-	while (beamx >= 0 && beamx <= 1920 && beamy >= 0 && beamy <= 1080)
+	while (1)
 	{
 		if ((int)beamx % GRID_SIZE == 0 || (int)beamy % GRID_SIZE == 0)
 			if (ft_detectpointbeam(beamx, beamy, data) == 1

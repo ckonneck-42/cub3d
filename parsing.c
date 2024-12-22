@@ -6,7 +6,7 @@
 /*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:49:05 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 19:54:28 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/22 14:37:36 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,12 @@ void	parse_map(t_data *data)
 		x = 0;
 		i = parse_map2(data, line, x, y);
 		parse_map3(data, i, line);
-		y += 50;
+		y += GRID_SIZE;
 		k++;
 	}
 	if (data->playerflag == 0)
 		clean_exit(data, "no player found");
 	data->colours = 16711680;
-	my_mlx_pixel_put(data, data->posX, data->posY, 5);
 }
 
 int	parse_map2(t_data *data, char *line, int x, int y)
@@ -74,12 +73,12 @@ int	parse_map2(t_data *data, char *line, int x, int y)
 		|| line[i] == '\t')
 	{
 		if (line[i] == '1' || line[i] == '2')
-			data->coordinates[x / 50][y / 50].map = '1';
+			data->coordinates[x / GRID_SIZE][y / GRID_SIZE].map = '1';
 		else
-			data->coordinates[x / 50][y / 50].map = line[i];
+			data->coordinates[x / GRID_SIZE][y / GRID_SIZE].map = line[i];
 		render_textures(line[i], data, x, y);
 		i++;
-		x += 50;
+		x += GRID_SIZE;
 	}
 	return (i);
 }

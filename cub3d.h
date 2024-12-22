@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 13:34:12 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 14:55:19 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ typedef struct s_data
 	int				endian;
 	int				fd;
 	char			*map;
-	char			raw_map[1024];
-	char			**rawmaparray;
+	char			raw_map[99999];
+	char			*rawmaparray[1024];
 	char			**squaremap;
 	int				rows;
 	int				coloumns;

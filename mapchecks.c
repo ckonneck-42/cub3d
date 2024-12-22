@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapchecks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:04:48 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 13:56:37 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 14:47:01 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,11 @@ void	calculatesize(char *map, t_data *data)
 		line = get_next_line_from_memory(data->raw_map, &offset);
 	}
 	data->rows += 1;
-	printf("datarows is %d, data col is %d\n", data->rows, data->coloumns);
-	if (data->coloumns > 22)
-		seperate_clean_exit(data, "map too long");
-	if (data->rows > 38)
-		seperate_clean_exit(data, "map too long");
+	// printf("datarows is %d, data col is %d\n", data->rows, data->coloumns);
+	// if (data->coloumns > 22)
+	// 	seperate_clean_exit(data, "map too long");
+	// if (data->rows > 38)
+	// 	seperate_clean_exit(data, "map too long");
 }
 
 void	checkfilename(t_data *data, char *map)

@@ -6,7 +6,7 @@
 /*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 12:57:28 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 19:51:26 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/22 14:15:55 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	checktheplayer(t_data *data)
 	int		x;
 	int		y;
 
-	x = (data->posX - 25) / 50;
-	y = (data->posY - 25) / 50;
+	x = (data->posX - 25) / GRID_SIZE;
+	y = (data->posY - 25) / GRID_SIZE;
 	current_char = get_char_at(data, x, y);
 	flood_fill(data, x, y);
 	if (is_valid_adjacent(data, x, y) == 1)
@@ -89,9 +89,9 @@ int	is_surrounded(t_data *data)
 	size_t	i;
 	size_t	j;
 
-	player_x = data->posX - 25;
-	player_y = data->posY - 25;
-	complete_flood(data, player_x / 50, player_y / 50);
+	player_x = data->posX - GRID_SIZE / 2;
+	player_y = data->posY - GRID_SIZE / 2;
+	complete_flood(data, player_x / GRID_SIZE, player_y / GRID_SIZE);
 	i = 1;
 	while (data->squaremap[i])
 	{

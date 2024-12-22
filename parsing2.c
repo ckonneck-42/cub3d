@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:41:30 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 13:57:39 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 15:00:11 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	parse_everything_else(char *map, t_data *data)
 			seperate_clean_exit(data, "no ceiling color found");
 	}
 	ft_wall_texture(data);
-	copy_map_to_buffer(data, 1024);
+	copy_map_to_buffer(data, 21000000);
 }
 
 void	copy_map_to_buffer(t_data *data, size_t buffer_size)
@@ -95,7 +95,6 @@ void	copy_map_to_buffer(t_data *data, size_t buffer_size)
 	offset = 0;
 	k = 0;
 	i = find_the_map(i, data);
-	data->rawmaparray = malloc(sizeof(char *) * buffer_size);
 	while (data->fd_parsearray[i] && offset < buffer_size)
 	{
 		len = ft_strlen(data->fd_parsearray[i]);

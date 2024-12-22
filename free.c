@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:55:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 13:39:23 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 14:17:49 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,8 @@ void	seperate_clean_exit(t_data *data, char *errormessage)
 	while (data->fd_parsearray && data->fd_parsearray[i])
 		free(data->fd_parsearray[i++]);
 	i = 0;
-	while (data->rawmaparray && data->rawmaparray[i])
+	while (data->rawmaparray[i])
 		free(data->rawmaparray[i++]);
-	if (data->rawmaparray)
-		free(data->rawmaparray);
 	free(data->fd_parsearray);
 	free(data->mlx);
 	free(data);

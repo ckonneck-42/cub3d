@@ -6,7 +6,7 @@
 /*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:34 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 20:00:08 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/22 14:38:00 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ int	close_window(t_data *data)
 	while (data->fd_parsearray && data->fd_parsearray[i])
 		free(data->fd_parsearray[i++]);
 	i = 0;
-	while (data->rawmaparray && data->rawmaparray[i])
+	while (data->rawmaparray[i])
 		free(data->rawmaparray[i++]);
 	i = 0;
 	while (data->squaremap && data->squaremap[i])
 		free(data->squaremap[i++]);
 	free(data->squaremap);
-	free(data->rawmaparray);
 	free(data->fd_parsearray);
 	free(data->mlx);
 	free(data);
@@ -78,7 +77,6 @@ void	redraw_map(t_data *data)
 {
 	reinit_data(data);
 	data->colours = 16711680;
-	my_mlx_pixel_put(data, data->posX, data->posY, 5);
 	parse_map(data);
 	castbeams(data);
 	renderscene(data);
