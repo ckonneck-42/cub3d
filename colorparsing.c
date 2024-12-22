@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:40:03 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 12:47:31 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 15:53:37 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	free_array(t_data *data, char **temp)
 		free(data->easttxt);
 	if (data->southtxt)
 		free(data->southtxt);
-	seperate_clean_exit(data, "error colors");
+	xpm_clean_exit(data, "error colors");
 }
 
 int	assign_colors(char **temp, t_data *data)

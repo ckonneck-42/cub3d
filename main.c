@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 14:39:59 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/22 15:46:12 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	checkforduplicates(t_data *data)
 		i++;
 	}
 	if (data->playerflag > 1)
-		clean_exit(data, "duplicates hakken\n");
+		seperate_clean_exit(data, "duplicates hakken\n");
 }
 
 t_data	*base_init(t_data *data, char **argv)
@@ -112,4 +112,8 @@ void	base_init2(t_data *data)
 	data->screenWidth = 1920;
 	data->clear = 2;
 	data->textureflag = 0;
+	data->westflag = 0;
+	data->eastflag = 0;
+	data->southflag = 0;
+	data->northflag = 0;
 }

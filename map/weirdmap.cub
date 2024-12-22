@@ -1,12 +1,11 @@
-SO  pic/eagle.xpm
-NO  pic/eagle.xpm
-
+SO  pic/tursescu.xpm
+NO  pic/tursescu.xpm
 
    F 0,0,255
 
 C 50,001,01
-WE pic/eagle.xpm
-EA pic/eagle.xpm
+WE pic/tursescu.xpm
+EA pic/tursescu.xpm
      111111111111111111111
      10100000100000000001
 111110101000111100011111

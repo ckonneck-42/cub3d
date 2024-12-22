@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:48:00 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 19:50:27 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/22 15:13:12 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_texture	ft_load_texture(void *mlx, char *path, t_data *data)
 	texture.img = mlx_xpm_file_to_image(mlx, path,
 			&texture.width, &texture.height);
 	if (!texture.img)
-		seperate_clean_exit(data, "Load .xpm img wrong!");
+		xpm_clean_exit(data, "Load .xpm img wrong!");
 	texture.addr = mlx_get_data_addr(texture.img, &texture.bpp,
 			&texture.line_length, &texture.endian);
 	return (texture);

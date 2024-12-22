@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 14:55:19 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/22 15:55:53 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,10 @@ typedef struct s_data
 	int				redc;
 	int				greenc;
 	int				bluec;
+	int				northflag;
+	int				southflag;
+	int				eastflag;
+	int				westflag;
 	double			posX;
 	double			posY;
 	double			dirX;
@@ -207,3 +211,5 @@ void			ft_draw_wall_2(t_data *data,
 void			ft_draw_wall(t_data *data,
 					int screenColumn, double distance, int i);
 int				ft_detectgrid_2(t_data *data, double x, double y);
+void			xpm_clean_exit(t_data *data, char *errormessage);
+void			tex_clean_exit(t_data *data, char *errormessage);

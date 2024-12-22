@@ -1,4 +1,4 @@
-NO pic/eagle.xpm
+NO pic/grey_stone.xpm
         F 250,250,250
 
 			   EA pic/blue_stone.xpm
@@ -12,8 +12,8 @@ SO pic/purple_stone.xpm
 
 
 1111
-10N1
-1001
-1001
-1001
+10001
+10011
+100W1
+10011
 1111

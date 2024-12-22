@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:36:01 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 13:37:42 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 15:54:00 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	parse_north(t_data *data, char *line, int k, int i)
 	while (line[k] != '\n')
 		data->northtxt[i++] = line[k++];
 	data->northtxt[i] = '\0';
+	data->northflag = 1;
 }
 
 void	parse_east(t_data *data, char *line, int k, int i)
@@ -45,6 +46,7 @@ void	parse_east(t_data *data, char *line, int k, int i)
 	while (line[k] != '\n')
 		data->easttxt[i++] = line[k++];
 	data->easttxt[i] = '\0';
+	data->eastflag = 1;
 }
 
 void	parse_west(t_data *data, char *line, int k, int i)
@@ -55,6 +57,7 @@ void	parse_west(t_data *data, char *line, int k, int i)
 	while (line[k] != '\n')
 		data->westtxt[i++] = line[k++];
 	data->westtxt[i] = '\0';
+	data->westflag = 1;
 }
 
 void	parse_south(t_data *data, char *line, int k, int i)
@@ -65,4 +68,5 @@ void	parse_south(t_data *data, char *line, int k, int i)
 	while (line[k] != '\n')
 		data->southtxt[i++] = line[k++];
 	data->southtxt[i] = '\0';
+	data->southflag = 1;
 }

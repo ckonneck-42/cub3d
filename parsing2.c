@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:41:30 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 15:00:11 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/22 15:37:21 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,17 @@ void	parse_everything_else(char *map, t_data *data)
 	while (data->flag != 6)
 	{
 		if (data->flag == 0 && (find_it("NO", data) != 1))
-			seperate_clean_exit(data, "no north found");
+			tex_clean_exit(data, "no north found");
 		if (data->flag == 1 && (find_it("SO", data) != 1))
-			seperate_clean_exit(data, "no south found");
+			tex_clean_exit(data, "no south found");
 		if (data->flag == 2 && (find_it("WE", data) != 1))
-			seperate_clean_exit(data, "no west found");
+			tex_clean_exit(data, "no west found");
 		if (data->flag == 3 && (find_it("EA", data) != 1))
-			seperate_clean_exit(data, "no east found");
+			tex_clean_exit(data, "no east found");
 		if (data->flag == 4 && (find_colors("F", data) != 1))
-			seperate_clean_exit(data, "no floor color found");
+			tex_clean_exit(data, "no floor color found");
 		if (data->flag == 5 && (find_colors("C", data) != 1))
-			seperate_clean_exit(data, "no ceiling color found");
+			tex_clean_exit(data, "no ceiling color found");
 	}
 	ft_wall_texture(data);
 	copy_map_to_buffer(data, 21000000);

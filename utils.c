@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 12:59:14 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 13:37:31 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 15:53:13 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	ft_isalnumwhole(char *line)
 	int	i;
 
 	i = 0;
+	if (line[0] == '\n')
+		return (1);
 	while (line[i])
 	{
 		if ((line[i] >= 48 && line[i] <= 57 && i < 3) || line[i] == 10

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   floodfill.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 12:57:28 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 14:15:55 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/22 16:00:00 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	is_surrounded(t_data *data)
 	while (data->squaremap[i])
 	{
 		j = 1;
-		while (j < ft_strlen(data->squaremap[i]) - 2)
+		while (j < ft_strlen(data->squaremap[i]) - 1)
 		{
 			if (data->squaremap[i][j] == 'F')
 			{
@@ -109,6 +109,7 @@ int	is_surrounded(t_data *data)
 	}
 	return (0);
 }
+// if floodfill fails, try strlen -2
 
 int	is_valid_adjacent(t_data *data, int x, int y)
 {
