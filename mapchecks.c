@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:04:48 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 17:20:51 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 12:33:22 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,14 @@ void	checkfilename(t_data *data, char *map)
 			+ 3] == 'b')
 		return ;
 	else
-		clean_exit(data, "invalid mapname");
+	{
+		printf("Error\ninvalid filename\n");
+		mlx_destroy_image(data->mlx, data->img[0]);
+		mlx_destroy_window(data->mlx, data->win);
+		mlx_destroy_display(data->mlx);
+		mlx_loop_end(data->mlx);
+		free(data->mlx);
+		free(data);
+		exit(1);
+	}
 }
