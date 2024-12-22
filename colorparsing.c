@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:40:03 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 14:57:36 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 12:47:31 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,19 @@ void	free_array(t_data *data, char **temp)
 
 int	assign_colors(char **temp, t_data *data)
 {
-	if (ft_isalnumwhole(temp[0]) == 0)
+	if (temp[0] && (ft_isalnumwhole(temp[0]) == 0))
 		data->redc = ft_atoi(temp[0]);
 	else
 	{
 		return (1);
 	}
-	if (ft_isalnumwhole(temp[1]) == 0)
+	if (temp[1] && (ft_isalnumwhole(temp[1]) == 0))
 		data->greenc = ft_atoi(temp[1]);
 	else
 	{
 		return (1);
 	}
-	if (ft_isalnumwhole(temp[2]) == 0)
+	if (temp[2] && (ft_isalnumwhole(temp[2]) == 0))
 		data->bluec = ft_atoi(temp[2]);
 	else
 	{

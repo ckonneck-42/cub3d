@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:41:30 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 11:56:26 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 13:57:39 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,16 @@ void	copy_map_to_buffer(t_data *data, size_t buffer_size)
 
 	offset = 0;
 	k = 0;
-	i = 0;
 	i = find_the_map(i, data);
-	data->rawmaparray = malloc(sizeof(char *) * 1024);
+	data->rawmaparray = malloc(sizeof(char *) * buffer_size);
 	while (data->fd_parsearray[i] && offset < buffer_size)
 	{
 		len = ft_strlen(data->fd_parsearray[i]);
 		if (offset + len >= buffer_size)
-			clean_exit(data, "buffer overflow");
+		{
+			data->rawmaparray[k] = NULL;
+			seperate_clean_exit(data, "map too large");
+		}
 		ft_strlcpy(data->raw_map + offset, data->fd_parsearray[i], len + 1);
 		data->rawmaparray[k] = malloc(len + 1);
 		ft_strlcpy(data->rawmaparray[k], data->fd_parsearray[i], len + 1);

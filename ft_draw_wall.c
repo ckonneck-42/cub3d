@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw_wall.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 17:55:58 by dyao              #+#    #+#             */
-/*   Updated: 2024/12/21 19:51:04 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/22 12:42:56 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	ft_draw_other(t_data *data, int screenColumn)
 {
 	double	y;
 
-	data->colours = 2222222;
+	data->colours = data->floorcolor;
 	y = data->wallendy;
 	while (y < 1080)
 	{
 		my_mlx_pixel_put(data, screenColumn, y, 1);
 		y++;
 	}
-	data->colours = 8888888;
+	data->colours = data->ceilingcolor;
 	y = data->wallstarty;
 	while (y > 0)
 	{
@@ -63,14 +63,14 @@ void	ft_draw_other_2(t_data *data, int screenColumn)
 {
 	double	y;
 
-	data->colours = 2222222;
+	data->colours = data->floorcolor;
 	y = data->wallendy;
 	while (y < 1080)
 	{
 		my_mlx_pixel_put(data, screenColumn, y, 1);
 		y++;
 	}
-	data->colours = 8888888;
+	data->colours = data->ceilingcolor;
 	y = data->wallstarty;
 	while (y > 0)
 	{
@@ -116,14 +116,14 @@ void	draw_middle(t_data *data, int screenColumn)
 		my_mlx_pixel_put(data, screenColumn, y, 1);
 		y++;
 	}
-	data->colours = 2222222;
+	data->colours = data->floorcolor;
 	y = data->wallendy;
 	while (y < 1080)
 	{
 		my_mlx_pixel_put(data, screenColumn, y, 1);
 		y++;
 	}
-	data->colours = 8888888;
+	data->colours = data->ceilingcolor;
 	y = data->wallstarty;
 	while (y > 0)
 	{
