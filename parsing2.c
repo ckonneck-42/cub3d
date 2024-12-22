@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:41:30 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/21 14:57:45 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 11:56:26 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,6 @@ int	find_the_map(int i, t_data *data)
 			return (i);
 		i++;
 	}
-	clean_exit(data, "couldn't find a map");
+	seperate_clean_exit(data, "couldn't find a map");
 	return (0);
 }
