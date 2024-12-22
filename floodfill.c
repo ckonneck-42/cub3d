@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 12:57:28 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 16:00:00 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 17:08:53 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	flood_fill(t_data *data, int x, int y)
 {
-	size_t	width;
-	size_t	height;
 	char	current_char;
 	int		linenr;
 
@@ -57,7 +55,7 @@ void	checktheplayer(t_data *data)
 
 void	fill_from_zero(t_data *data)
 {
-	int		x;
+	unsigned long		x;
 	int		y;
 	char	current;
 	int		linenr;

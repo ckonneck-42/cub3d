@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:41:30 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 15:37:21 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 17:09:51 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,8 @@ int	find_it(char *ttf, t_data *data)
 
 void	parse_everything_else(char *map, t_data *data)
 {
-	char	*line;
-	int		fd;
-	int		i;
-
 	data->flag = 0;
+	map = 0;
 	while (data->flag != 6)
 	{
 		if (data->flag == 0 && (find_it("NO", data) != 1))
@@ -92,6 +89,7 @@ void	copy_map_to_buffer(t_data *data, size_t buffer_size)
 	int		k;
 	size_t	len;
 
+	i = 0;
 	offset = 0;
 	k = 0;
 	i = find_the_map(i, data);

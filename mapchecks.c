@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:04:48 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 15:19:55 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 17:07:28 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ void	restore_map(t_data *data)
 void	calculatesize(char *map, t_data *data)
 {
 	char	*line;
-	int		fd;
 	int		ll;
 	size_t	offset;
 
+	map = 0;
 	data->coloumns = 1;
 	offset = 0;
 	line = get_next_line_from_memory(data->raw_map, &offset);

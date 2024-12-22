@@ -6,7 +6,7 @@
 #    By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 12:14:45 by ckonneck          #+#    #+#              #
-#    Updated: 2024/12/22 15:12:39 by ckonneck         ###   ########.fr        #
+#    Updated: 2024/12/22 17:06:38 by ckonneck         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ $(NAME): $(cub3d_OBJS)
 	$(SUCCES)
 
 %.o: %.c
-	$(CC) -O3 -MMD -c $< -o $@
+	$(CC) $(CFLAGS) -O3 -MMD -c $< -o $@
 
 -include $(cub3d_DEPS)
 

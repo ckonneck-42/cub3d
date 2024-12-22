@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 17:55:58 by dyao              #+#    #+#             */
-/*   Updated: 2024/12/22 12:42:56 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 17:10:10 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_draw_wall(t_data *data, int screenColumn, double distance, int i)
 	double	tex_x;
 	double	tex_y;
 	double	y;
-
+	distance = 0;
 	tex_x = fmod(data->final_point[screenColumn].y, GRID_SIZE);
 	y = data->wallstarty;
 	while (y <= data->wallendy)
@@ -87,6 +87,7 @@ void	ft_draw_wall_2(t_data *data, int screenColumn, double distance, int i)
 	double	tex_y;
 	double	y;
 
+	distance = 0;
 	tex_x = fmod(data->final_point[screenColumn].x, GRID_SIZE);
 	y = data->wallstarty;
 	while (y <= data->wallendy)

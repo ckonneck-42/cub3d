@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mousehanding.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 18:47:06 by dyao              #+#    #+#             */
-/*   Updated: 2024/12/21 20:02:44 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/22 17:08:00 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	mouse_press(int button, int x, int y, t_data *data)
 {
+	x = 0;
+	y = 0;
+
 	if (button == 1)
 		drawgun(data, 1);
 	return (0);
@@ -21,6 +24,9 @@ int	mouse_press(int button, int x, int y, t_data *data)
 
 int	mouse_release(int button, int x, int y, t_data *data)
 {
+	x = 0;
+	y = 0;
+
 	if (button == 1)
 		drawgun(data, 0);
 	return (0);

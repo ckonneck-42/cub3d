@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:52:18 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/20 13:08:22 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 17:04:24 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	*ft_memmove(void *dst, const void *src, size_t n)
 	}
 	return (dest_ptr);
 }
-
 
 int	ft_vandr(int bytesread, int fd, char *ch, char **chartobesplit)
 {

@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:40:03 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 15:53:37 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 17:09:08 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	find_colors(char *ttf, t_data *data)
 	int		k;
 	char	**temp;
 
+	temp = NULL;
 	i = 0;
 	k = 0;
 	while (data->fd_parsearray[i])

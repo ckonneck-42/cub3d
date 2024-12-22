@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 15:46:12 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/22 17:07:03 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
 {
 	t_data	*data;
 
+	data = 0;
 	data = base_init(data, argv);
 	base_init2(data);
 	if (argc != 2)
