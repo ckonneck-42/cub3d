@@ -14,7 +14,7 @@
 #include <X11/X.h>
 #include <fcntl.h>
 #include <math.h>
-#include <mlx.h>
+#include "minilibx_linux/mlx.h"
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -145,7 +145,7 @@ void			parse_map(t_data *data);
 void			reinit_data(t_data *data);
 int				get_pixel_color(int x, int y, t_data *data);
 int				ft_detectpoint(t_data *data, double nextx, double nexty);
-void			calculatesize(char *map, t_data *data);
+void			calculatesize(t_data *data);
 void			castbeams(t_data *data);
 void			render_textures(char target, t_data *data, int x, int y);
 t_Coordinate	**alloco(int rows, int cols);
@@ -154,7 +154,7 @@ void			freedom(t_data *data, char *line);
 void			render3d(t_data *data, double distance,
 					double cubeHeight, int screenColumn);
 void			renderscene(t_data *data);
-void			parse_everything_else(char *map, t_data *data);
+void			parse_everything_else(t_data *data);
 void			copy_map_to_buffer(t_data *data, size_t buffer_size);
 void			fd_parse(char *map, t_data *data);
 int				find_the_map(int i, t_data *data);
@@ -183,8 +183,8 @@ int				mousemovement(int button, int x, int y, t_data *data);
 
 void			drawgun(t_data *data, int i);
 void			draw_cross(t_data *data);
-int				mouse_release(int button, int x, int y, t_data *data);
-int				mouse_press(int button, int x, int y, t_data *data);
+int				mouse_release(int button, t_data *data);
+int				mouse_press(int button, t_data *data);
 void			base_init2(t_data *data);
 int				get_nr_of_lines(t_data *data);
 void			set_char_at(t_data *data, int x, int y, char new);
@@ -207,9 +207,9 @@ void			free_array(t_data *data, char **temp);
 void			checkforduplicates(t_data *data);
 void			draw_middle(t_data *data, int screenColumn);
 void			ft_draw_wall_2(t_data *data,
-					int screenColumn, double distance, int i);
+					int screenColumn, int i);
 void			ft_draw_wall(t_data *data,
-					int screenColumn, double distance, int i);
+					int screenColumn, int i);
 int				ft_detectgrid_2(t_data *data, double x, double y);
 void			xpm_clean_exit(t_data *data, char *errormessage);
 void			tex_clean_exit(t_data *data, char *errormessage);

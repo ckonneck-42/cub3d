@@ -34,12 +34,13 @@ void	ft_draw_other(t_data *data, int screenColumn)
 	}
 }
 
-void	ft_draw_wall(t_data *data, int screenColumn, double distance, int i)
+void	ft_draw_wall(t_data *data, int screenColumn, int i)
 {
 	double	tex_x;
 	double	tex_y;
 	double	y;
-	distance = 0;
+
+	tex_y = 0;
 	tex_x = fmod(data->final_point[screenColumn].y, GRID_SIZE);
 	y = data->wallstarty;
 	while (y <= data->wallendy)
@@ -81,13 +82,13 @@ void	ft_draw_other_2(t_data *data, int screenColumn)
 	}
 }
 
-void	ft_draw_wall_2(t_data *data, int screenColumn, double distance, int i)
+void	ft_draw_wall_2(t_data *data, int screenColumn, int i)
 {
 	double	tex_x;
 	double	tex_y;
 	double	y;
 
-	distance = 0;
+	tex_y = 0;
 	tex_x = fmod(data->final_point[screenColumn].x, GRID_SIZE);
 	y = data->wallstarty;
 	while (y <= data->wallendy)

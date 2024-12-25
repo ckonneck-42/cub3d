@@ -12,23 +12,23 @@
 
 #include "cub3d.h"
 
-void	draw_all(t_data *data, int screenColumn, double distance)
+void	draw_all(t_data *data, int screenColumn)
 {
 	if ((int)data->final_point[screenColumn].x % GRID_SIZE == 0
 		&& (int)data->final_point[screenColumn].y % GRID_SIZE == 0)
 		draw_middle(data, screenColumn);
 	else if (((int)data->final_point[screenColumn].x % GRID_SIZE == 0)
 		&& data->final_point[screenColumn].x > data->posX)
-		ft_draw_wall(data, screenColumn, distance, 0);
+		ft_draw_wall(data, screenColumn, 0);
 	else if (((int)data->final_point[screenColumn].x % GRID_SIZE == 0)
 		&& data->final_point[screenColumn].x < data->posX)
-		ft_draw_wall(data, screenColumn, distance, 1);
+		ft_draw_wall(data, screenColumn, 1);
 	else if (((int)data->final_point[screenColumn].y % GRID_SIZE == 0)
 		&& data->final_point[screenColumn].y > data->posY)
-		ft_draw_wall_2(data, screenColumn, distance, 2);
+		ft_draw_wall_2(data, screenColumn, 2);
 	else if (((int)data->final_point[screenColumn].y % GRID_SIZE == 0)
 		&& data->final_point[screenColumn].y < data->posY)
-		ft_draw_wall_2(data, screenColumn, distance, 3);
+		ft_draw_wall_2(data, screenColumn, 3);
 }
 
 void	render3d(t_data *data, double distance,
@@ -49,7 +49,7 @@ void	render3d(t_data *data, double distance,
 		data->wallstarty = 0;
 	if (data->wallendy > data->screenHeight)
 		data->wallendy = data->screenHeight - 1;
-	draw_all(data, screenColumn, distance);
+	draw_all(data, screenColumn);
 }
 
 int	ft_detectgrid(t_data *data, double x, double y)

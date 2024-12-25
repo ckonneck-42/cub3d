@@ -59,10 +59,9 @@ int	find_it(char *ttf, t_data *data)
 	return (0);
 }
 
-void	parse_everything_else(char *map, t_data *data)
+void	parse_everything_else(t_data *data)
 {
 	data->flag = 0;
-	map = 0;
 	while (data->flag != 6)
 	{
 		if (data->flag == 0 && (find_it("NO", data) != 1))

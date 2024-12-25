@@ -12,21 +12,15 @@
 
 #include "cub3d.h"
 
-int	mouse_press(int button, int x, int y, t_data *data)
+int	mouse_press(int button, t_data *data)
 {
-	x = 0;
-	y = 0;
-
 	if (button == 1)
 		drawgun(data, 1);
 	return (0);
 }
 
-int	mouse_release(int button, int x, int y, t_data *data)
+int	mouse_release(int button, t_data *data)
 {
-	x = 0;
-	y = 0;
-
 	if (button == 1)
 		drawgun(data, 0);
 	return (0);

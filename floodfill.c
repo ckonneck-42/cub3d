@@ -41,13 +41,11 @@ void	flood_fill(t_data *data, int x, int y)
 
 void	checktheplayer(t_data *data)
 {
-	char	current_char;
 	int		x;
 	int		y;
 
 	x = (data->posX - 25) / GRID_SIZE;
 	y = (data->posY - 25) / GRID_SIZE;
-	current_char = get_char_at(data, x, y);
 	flood_fill(data, x, y);
 	if (is_valid_adjacent(data, x, y) == 1)
 		clean_exit(data, "player is not within bounds");

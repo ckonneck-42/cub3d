@@ -36,12 +36,10 @@ void	make_btwo(t_data *data)
 	int	i;
 	int	k;
 	int	len;
-	int	x;
 
 	len = 0;
 	i = 1;
 	k = 0;
-	x = 0;
 	while (i < data->coloumns)
 	{
 		len = ft_strlen(data->rawmaparray[k]);
@@ -59,7 +57,6 @@ void	restore_map(t_data *data)
 {
 	int	i;
 	int	k;
-	int	x;
 
 	i = 0;
 	k = 0;
@@ -74,16 +71,14 @@ void	restore_map(t_data *data)
 		}
 		i++;
 	}
-	x = 0;
 }
 
-void	calculatesize(char *map, t_data *data)
+void	calculatesize(t_data *data)
 {
 	char	*line;
 	int		ll;
 	size_t	offset;
 
-	map = 0;
 	data->coloumns = 1;
 	offset = 0;
 	line = get_next_line_from_memory(data->raw_map, &offset);

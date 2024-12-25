@@ -41,8 +41,8 @@ int	main(int argc, char **argv)
 	else
 	{
 		fd_parse(data->map, data);
-		parse_everything_else(data->map, data);
-		calculatesize(data->map, data);
+		parse_everything_else(data);
+		calculatesize(data);
 		make_a_square(data);
 		checkforduplicates(data);
 		data->coordinates = alloco(data->rows + 3, data->coloumns + 1);
