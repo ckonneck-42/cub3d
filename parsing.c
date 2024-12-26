@@ -88,8 +88,8 @@ void	parse_map3(t_data *data, int i, char *line)
 	if (line[i] != '\0' && line[i] != '\n' && line[i] != '2' && line[i] != '\t'
 		&& line[i] != 'F')
 	{
-		printf("Found irregularity: %c\n", line[i]);
-		freedom(data, line);
+		freedom(data, "Found irregularity");
+		exit(0);
 	}
 }
 

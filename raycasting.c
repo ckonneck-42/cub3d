@@ -69,8 +69,8 @@ void	dis_cal(t_data *data, double beamx, double beamy, int i)
 	ang_mark = data->a + 1920 * 0.02;
 	ang_2 = 1920 * 0.04 + data->a - ang_mark - 0.04 * i;
 	rad_angle_2 = ang_2 * (PI / 180.0);
-	data->distanceahead[i] = (sqrt(pow(beamx - data->posX, 2)
-				+ pow(beamy - data->posY, 2))) * cos(rad_angle_2);
+	data->distanceahead[i] = (sqrt(pow(beamx - data->pos_x, 2)
+				+ pow(beamy - data->pos_y, 2))) * cos(rad_angle_2);
 	data->final_point[i].x = beamx;
 	data->final_point[i].y = beamy;
 }
@@ -104,8 +104,8 @@ void	castbeams(t_data *data)
 		ang = fmod(ang, 360.0);
 		if (ang < 0)
 			ang += 360.0;
-		data->beamx = data->posX;
-		data->beamy = data->posY;
+		data->beamx = data->pos_x;
+		data->beamy = data->pos_y;
 		rad_angle_1 = ang * (PI / 180.0);
 		find_beam_end(data, data->beamx, data->beamy, rad_angle_1);
 		dis_cal(data, data->beamx, data->beamy, i);

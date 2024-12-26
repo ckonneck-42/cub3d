@@ -1,6 +1,8 @@
 NO pic/grey_stone.xpm
 
                EA pic/blue_stone.xpm
+
+
 C 0,0,0
                     WE pic/color_stone.xpm
         F 0,0,250
@@ -22,3 +24,4 @@ SO pic/purple_stone.xpm
 11000001110101011111011110N0111
 11110111 1110101 101111010001
 11111111 1111111 111111111111
+

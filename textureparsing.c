@@ -35,7 +35,7 @@ void	parse_north(t_data *data, char *line, int k, int i)
 	while (line[k] != '\n')
 		data->northtxt[i++] = line[k++];
 	data->northtxt[i] = '\0';
-	data->northflag = 1;
+	data->northflag++;
 }
 
 void	parse_east(t_data *data, char *line, int k, int i)
@@ -46,7 +46,7 @@ void	parse_east(t_data *data, char *line, int k, int i)
 	while (line[k] != '\n')
 		data->easttxt[i++] = line[k++];
 	data->easttxt[i] = '\0';
-	data->eastflag = 1;
+	data->eastflag++;
 }
 
 void	parse_west(t_data *data, char *line, int k, int i)
@@ -57,7 +57,7 @@ void	parse_west(t_data *data, char *line, int k, int i)
 	while (line[k] != '\n')
 		data->westtxt[i++] = line[k++];
 	data->westtxt[i] = '\0';
-	data->westflag = 1;
+	data->westflag++;
 }
 
 void	parse_south(t_data *data, char *line, int k, int i)
@@ -68,5 +68,5 @@ void	parse_south(t_data *data, char *line, int k, int i)
 	while (line[k] != '\n')
 		data->southtxt[i++] = line[k++];
 	data->southtxt[i] = '\0';
-	data->southflag = 1;
+	data->southflag++;
 }

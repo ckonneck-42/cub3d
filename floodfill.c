@@ -44,8 +44,8 @@ void	checktheplayer(t_data *data)
 	int		x;
 	int		y;
 
-	x = (data->posX - 25) / GRID_SIZE;
-	y = (data->posY - 25) / GRID_SIZE;
+	x = (data->pos_x - 25) / GRID_SIZE;
+	y = (data->pos_y - 25) / GRID_SIZE;
 	flood_fill(data, x, y);
 	if (is_valid_adjacent(data, x, y) == 1)
 		clean_exit(data, "player is not within bounds");
@@ -54,10 +54,10 @@ void	checktheplayer(t_data *data)
 void	fill_from_zero(t_data *data)
 {
 	unsigned long		x;
-	int		y;
-	char	current;
-	int		linenr;
-	int		k;
+	int					y;
+	char				current;
+	int					linenr;
+	int					k;
 
 	y = 1;
 	k = 1;
@@ -85,8 +85,8 @@ int	is_surrounded(t_data *data)
 	size_t	i;
 	size_t	j;
 
-	player_x = data->posX - GRID_SIZE / 2;
-	player_y = data->posY - GRID_SIZE / 2;
+	player_x = data->pos_x - GRID_SIZE / 2;
+	player_y = data->pos_y - GRID_SIZE / 2;
 	complete_flood(data, player_x / GRID_SIZE, player_y / GRID_SIZE);
 	i = 1;
 	while (data->squaremap[i])

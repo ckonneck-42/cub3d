@@ -78,8 +78,8 @@ void	render_textures(char target, t_data *data, int x, int y)
 	if ((target == 'N' || target == 'W' || target == 'S'
 			|| target == 'E') && data->playerflag == 1)
 	{
-		data->posX = x + 25;
-		data->posY = y + 25;
+		data->pos_x = x + 25;
+		data->pos_y = y + 25;
 		if (target == 'N')
 			data->a = 230;
 		if (target == 'W')

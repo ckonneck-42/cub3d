@@ -29,6 +29,7 @@ int	find_colors(char *ttf, t_data *data)
 		if (ft_strncmp(data->fd_parsearray[i] + k, ttf, 1) == 0)
 		{
 			parse_the_color(data, data->fd_parsearray[i], k, temp);
+			checkiftheresanothercolor(data, i, ttf);
 			data->flag++;
 			return (1);
 		}
@@ -37,6 +38,27 @@ int	find_colors(char *ttf, t_data *data)
 		i++;
 	}
 	return (0);
+}
+
+void	checkiftheresanothercolor(t_data *data, int i, char *ttf)
+{
+	int	k;
+
+	k = 0;
+	i += 1;
+	while (data->fd_parsearray[i])
+	{
+		while (data->fd_parsearray[i][k] == ' '
+			|| data->fd_parsearray[i][k] == 9)
+			k++;
+		if (ft_strncmp(data->fd_parsearray[i] + k, ttf, 1) == 0)
+		{
+			tex_clean_exit(data, "found duplicate colors");
+		}
+		else
+			k = 0;
+		i++;
+	}
 }
 
 void	parse_the_color(t_data *data, char *line, int k, char **temp)

@@ -18,28 +18,28 @@ void	draw_all(t_data *data, int screenColumn)
 		&& (int)data->final_point[screenColumn].y % GRID_SIZE == 0)
 		draw_middle(data, screenColumn);
 	else if (((int)data->final_point[screenColumn].x % GRID_SIZE == 0)
-		&& data->final_point[screenColumn].x > data->posX)
+		&& data->final_point[screenColumn].x > data->pos_x)
 		ft_draw_wall(data, screenColumn, 0);
 	else if (((int)data->final_point[screenColumn].x % GRID_SIZE == 0)
-		&& data->final_point[screenColumn].x < data->posX)
+		&& data->final_point[screenColumn].x < data->pos_x)
 		ft_draw_wall(data, screenColumn, 1);
 	else if (((int)data->final_point[screenColumn].y % GRID_SIZE == 0)
-		&& data->final_point[screenColumn].y > data->posY)
+		&& data->final_point[screenColumn].y > data->pos_y)
 		ft_draw_wall_2(data, screenColumn, 2);
 	else if (((int)data->final_point[screenColumn].y % GRID_SIZE == 0)
-		&& data->final_point[screenColumn].y < data->posY)
+		&& data->final_point[screenColumn].y < data->pos_y)
 		ft_draw_wall_2(data, screenColumn, 3);
 }
 
 void	render3d(t_data *data, double distance,
 		double cubeHeight, int screenColumn)
 {
-	if (screenColumn < 0 || screenColumn > data->screenWidth)
+	if (screenColumn < 0 || screenColumn > data->screen_width)
 		printf("Error: screenColumn (%d) out of bounds!\n", screenColumn);
-	data->wallstarty = (data->screenHeight / 2) - ((cubeHeight
-				* (data->screenWidth / 2) / tan(data->FOV / 2)) / distance / 2);
-	data->wallendy = (data->screenHeight / 2) + ((cubeHeight
-				* (data->screenWidth / 2) / tan(data->FOV / 2)) / distance / 2);
+	data->wallstarty = (data->screen_height / 2) - ((cubeHeight
+				* (data->screen_width / 2) / tan(data->fov / 2)) / distance / 2);
+	data->wallendy = (data->screen_height / 2) + ((cubeHeight
+				* (data->screen_width / 2) / tan(data->fov / 2)) / distance / 2);
 	data->walltotal = data->wallendy - data->wallstarty;
 	data->wall_true_start_y = data->wallstarty;
 	if (screenColumn < 500)
@@ -47,8 +47,8 @@ void	render3d(t_data *data, double distance,
 			data->wallstarty = 300;
 	if (data->wallstarty < 0)
 		data->wallstarty = 0;
-	if (data->wallendy > data->screenHeight)
-		data->wallendy = data->screenHeight - 1;
+	if (data->wallendy > data->screen_height)
+		data->wallendy = data->screen_height - 1;
 	draw_all(data, screenColumn);
 }
 
@@ -84,13 +84,13 @@ void	smallmap(t_data *data)
 	double	b;
 
 	a = 0;
-	x = data->posX - 250;
+	x = data->pos_x - 250;
 	data->colours = 6666666;
-	while (x <= (data->posX + 250))
+	while (x <= (data->pos_x + 250))
 	{
-		y = data->posY - 150;
+		y = data->pos_y - 150;
 		b = 0;
-		while (y <= data->posY + 150)
+		while (y <= data->pos_y + 150)
 		{
 			if (ft_detectgrid(data, x, y))
 				my_mlx_pixel_put(data, a, b, 1);
@@ -109,7 +109,7 @@ void	renderscene(t_data *data)
 	int	screencolumn;
 
 	screencolumn = 0;
-	while (screencolumn < data->screenWidth)
+	while (screencolumn < data->screen_width)
 	{
 		render3d(data, data->distanceahead[screencolumn],
 			GRID_SIZE * 4 / 5, screencolumn);

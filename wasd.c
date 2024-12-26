@@ -47,13 +47,13 @@ void	pressw(t_data *data)
 	double	nexty;
 
 	ang = data->a + 1920 * 0.02;
-	nextx = data->posX + cos(ang * (PI / 180.0)) * data->movespeed;
-	nexty = data->posY + sin(ang * (PI / 180.0)) * data->movespeed;
+	nextx = data->pos_x + cos(ang * (PI / 180.0)) * data->movespeed;
+	nexty = data->pos_y + sin(ang * (PI / 180.0)) * data->movespeed;
 	if (ft_detectpoint(data, nextx, nexty) != 1 && ft_detectpoint(data, nextx
 			- 1, nexty - 1) != 1)
 	{
-		data->posX = nextx;
-		data->posY = nexty;
+		data->pos_x = nextx;
+		data->pos_y = nexty;
 	}
 	else
 		printf("You hit a wall\n");
@@ -66,13 +66,13 @@ void	presss(t_data *data)
 	double	nexty;
 
 	ang = data->a + 1920 * 0.02;
-	nextx = data->posX - cos(ang * (PI / 180.0)) * data->movespeed;
-	nexty = data->posY - sin(ang * (PI / 180.0)) * data->movespeed;
+	nextx = data->pos_x - cos(ang * (PI / 180.0)) * data->movespeed;
+	nexty = data->pos_y - sin(ang * (PI / 180.0)) * data->movespeed;
 	if (ft_detectpoint(data, nextx, nexty) != 1 && ft_detectpoint(data, nextx
 			- 1, nexty - 1) != 1)
 	{
-		data->posX = nextx;
-		data->posY = nexty;
+		data->pos_x = nextx;
+		data->pos_y = nexty;
 	}
 	else
 		printf("You hit a wall\n");
@@ -85,13 +85,13 @@ void	pressa(t_data *data)
 	double	nexty;
 
 	ang = data->a + 1920 * 0.02;
-	nextx = data->posX + sin(ang * (PI / 180.0)) * data->movespeed;
-	nexty = data->posY - cos(ang * (PI / 180.0)) * data->movespeed;
+	nextx = data->pos_x + sin(ang * (PI / 180.0)) * data->movespeed;
+	nexty = data->pos_y - cos(ang * (PI / 180.0)) * data->movespeed;
 	if (ft_detectpoint(data, nextx, nexty) != 1 && ft_detectpoint(data, nextx
 			- 1, nexty - 1) != 1)
 	{
-		data->posX = nextx;
-		data->posY = nexty;
+		data->pos_x = nextx;
+		data->pos_y = nexty;
 	}
 	else
 		printf("You hit a wall\n");
@@ -104,13 +104,13 @@ void	pressd(t_data *data)
 	double	nexty;
 
 	ang = data->a + 1920 * 0.02;
-	nextx = data->posX - sin(ang * (PI / 180.0)) * data->movespeed;
-	nexty = data->posY + cos(ang * (PI / 180.0)) * data->movespeed;
+	nextx = data->pos_x - sin(ang * (PI / 180.0)) * data->movespeed;
+	nexty = data->pos_y + cos(ang * (PI / 180.0)) * data->movespeed;
 	if (ft_detectpoint(data, nextx, nexty) != 1 && ft_detectpoint(data, nextx
 			- 1, nexty - 1) != 1)
 	{
-		data->posX = nextx;
-		data->posY = nexty;
+		data->pos_x = nextx;
+		data->pos_y = nexty;
 	}
 	else
 		printf("You hit a wall\n");

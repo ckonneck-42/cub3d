@@ -48,6 +48,7 @@ int	find_it(char *ttf, t_data *data)
 		if (ft_strncmp(data->fd_parsearray[i] + k, ttf, 2) == 0)
 		{
 			parse_the_texturepath(data, data->fd_parsearray[i], k, ttf);
+			checkiftheresanother(data, i, ttf);
 			k = 0;
 			data->flag++;
 			return (1);

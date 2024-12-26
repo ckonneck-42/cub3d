@@ -25,10 +25,33 @@ void	freecall(t_Coordinate **coordinates, int rows)
 	free(coordinates);
 }
 
-void	freedom(t_data *data, char *line)
+void	freedom(t_data *data, char *errormessage)
 {
-	free(line);
-	close_window(data);
+	int	i;
+
+	freecall(data->coordinates, data->rows +3);
+	printf("Error\n%s\nexiting game\n", errormessage);
+	mlx_clear_window(data->mlx, data->win);
+	if (data->textureflag == 1)
+		freetextures(data);
+	mlx_destroy_image(data->mlx, data->img[0]);
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
+	mlx_loop_end(data->mlx);
+	i = 0;
+	while (data->fd_parsearray && data->fd_parsearray[i])
+		free(data->fd_parsearray[i++]);
+	i = 0;
+	while (data->rawmaparray[i])
+		free(data->rawmaparray[i++]);
+	i = 0;
+	while (data->squaremap && data->squaremap[i])
+		free(data->squaremap[i++]);
+	if (data->squaremap)
+		free(data->squaremap);
+	free(data->fd_parsearray);
+	free(data->mlx);
+	free(data);
 }
 
 void	clean_exit(t_data *data, char *errormessage)

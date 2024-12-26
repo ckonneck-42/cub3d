@@ -14,7 +14,7 @@
 # Source files for cub3d
 cub3d_SRCS = main.c keyhandling.c raycasting.c rendering.c parsing.c free.c mapchecks.c mousehanding.c \
 				floodfill.c utils.c wasd.c textureparsing.c colorparsing.c parsing2.c gun.c ft_draw_wall.c \
-				render3D.c free2.c
+				render3D.c free2.c parsing3.c
 cub3d_OBJS = $(cub3d_SRCS:.c=.o)
 cub3d_DEPS = $(cub3d_SRCS:.c=.d)
 CC = cc -g
