@@ -6,7 +6,7 @@
 /*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:28:24 by dyao              #+#    #+#             */
-/*   Updated: 2024/12/21 19:47:23 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/30 15:27:05 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ void	render3d(t_data *data, double distance,
 	if (screenColumn < 0 || screenColumn > data->screen_width)
 		printf("Error: screenColumn (%d) out of bounds!\n", screenColumn);
 	data->wallstarty = (data->screen_height / 2) - ((cubeHeight
-				* (data->screen_width / 2) / tan(data->fov / 2)) / distance / 2);
+				* (data->screen_width / 2)
+				/ tan(data->fov / 2)) / distance / 2);
 	data->wallendy = (data->screen_height / 2) + ((cubeHeight
-				* (data->screen_width / 2) / tan(data->fov / 2)) / distance / 2);
+				* (data->screen_width / 2)
+				/ tan(data->fov / 2)) / distance / 2);
 	data->walltotal = data->wallendy - data->wallstarty;
 	data->wall_true_start_y = data->wallstarty;
 	if (screenColumn < 500)

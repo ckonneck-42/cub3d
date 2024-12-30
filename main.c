@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 17:07:03 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:34:37 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ void	mlx_functions(t_data *data)
 	data->colours = 45000;
 	mlx_put_image_to_window(data->mlx, data->win, data->img[0], 0, 0);
 	mlx_hook(data->win, 17, 0, close_window, data);
-	mlx_hook(data->win, 2, 1L << 0, ft_close, data);
-	mlx_key_hook(data->win, keypress, data);
+	mlx_loop_hook(data->mlx, move, data);
+	mlx_hook(data->win, 2, 1L << 0, key_press, data);
+	mlx_hook(data->win, 3, 1L << 1, key_release, data);
 	mlx_loop(data->mlx);
 }
+	// mlx_hook(data->win, 2, 1L << 0, ft_close, data);
+	// mlx_key_hook(data->win, keypress, data);
 	// mlx_hook(data->win, 4, 0, mouse_press, data);
 	// mlx_hook(data->win, 5, 0, mouse_release, data);
 	// mlx_hook(data->win, 6, 0, mousemovement, data);
@@ -95,9 +98,5 @@ void	base_init2(t_data *data)
 	data->screen_height = 1080;
 	data->screen_width = 1920;
 	data->clear = 2;
-	data->textureflag = 0;
-	data->westflag = 0;
-	data->eastflag = 0;
-	data->southflag = 0;
-	data->northflag = 0;
+	base_init3(data);
 }

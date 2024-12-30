@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 15:55:53 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:40:21 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,14 @@ typedef struct s_data
 	double			wallendy;
 	double			walltotal;
 	double			wall_true_start_y;
+	bool			move_w;
+	bool			move_s;
+	bool			move_a;
+	bool			move_d;
+	bool			clearadd;
+	bool			clearmin;
+	bool			look_right;
+	bool			look_left;
 	t_Coordinate	**coordinates;
 }					t_data;
 
@@ -216,3 +224,7 @@ void			tex_clean_exit(t_data *data, char *errormessage);
 void			checkiftheresanother(t_data *data, int i, char *ttf);
 void			checkiftheresanothercolor(t_data *data, int i, char *ttf);
 void			parse_calc_dupes(t_data *data);
+int				key_press(int keycode, t_data *data);
+int				key_release(int keycode, t_data *data);
+int				move(t_data *data);
+void			base_init3(t_data *data);
