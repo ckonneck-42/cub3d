@@ -6,7 +6,7 @@
 #    By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 12:14:45 by ckonneck          #+#    #+#              #
-#    Updated: 2024/12/30 14:19:12 by dyao             ###   ########.fr        #
+#    Updated: 2024/12/30 17:59:42 by dyao             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,23 +29,23 @@ SUCCES			= @echo "$(GREEN)cub3d compiled successfully$(COLOR)"
 all: $(NAME)
 
 $(NAME): $(cub3d_OBJS)
-	$(MAKE) -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(cub3d_OBJS) $(LIBS) -o $(NAME) -lreadline
-	$(SUCCES)
+	@$(MAKE) -C $(LIBFT_DIR)
+	@$(CC) $(CFLAGS) $(cub3d_OBJS) $(LIBS) -o $(NAME) -lreadline
+	@$(SUCCES)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -O3 -MMD -c $< -o $@
+	@$(CC) $(CFLAGS) -O3 -MMD -c $< -o $@
 
 -include $(cub3d_DEPS)
 
 clean:
-	$(MAKE) -C $(LIBFT_DIR) clean
-	rm -f $(cub3d_OBJS) $(cub3d_DEPS)
+	@$(MAKE) -C $(LIBFT_DIR) clean
+	@rm -f $(cub3d_OBJS) $(cub3d_DEPS)
 
 
 fclean: clean
-	$(MAKE) -C $(LIBFT_DIR) fclean
-	rm -f $(NAME)
+	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@rm -f $(NAME)
 
 
 re: fclean all

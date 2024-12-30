@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+         #
+#    By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/10 08:26:08 by ckonneck          #+#    #+#              #
-#    Updated: 2024/12/19 12:21:18 by ckonneck         ###   ########.fr        #
+#    Updated: 2024/12/30 18:02:01 by dyao             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,17 +29,21 @@ NAME        =    libft.a
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar -rcs $(NAME) $(OBJS)
+	@ar -rcs $(NAME) $(OBJS)  # Suppress ar command output
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@  # Suppress gcc command output
 
 clean:
-	$(RM) $(OBJS)
+	@$(RM) $(OBJS)  # Suppress rm command output
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)  # Suppress rm command output
 
 re: fclean $(NAME)
 
 .PHONY: all clean fclean re
+
 
 #-r: Replace existing members of the archive with new ones. If the archive does not exist, it will be created.
 #-c: Create the archive. This option ensures that the archive is created even if it already exists.
