@@ -6,7 +6,7 @@
 /*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:37 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/30 15:34:37 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/30 16:58:41 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	mlx_functions(t_data *data)
 	mlx_loop_hook(data->mlx, move, data);
 	mlx_hook(data->win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->win, 3, 1L << 1, key_release, data);
+	mlx_hook(data->win, 6, 1L << 6, mousemovement, data);
 	mlx_loop(data->mlx);
 }
 	// mlx_hook(data->win, 2, 1L << 0, ft_close, data);
 	// mlx_key_hook(data->win, keypress, data);
 	// mlx_hook(data->win, 4, 0, mouse_press, data);
 	// mlx_hook(data->win, 5, 0, mouse_release, data);
-	// mlx_hook(data->win, 6, 0, mousemovement, data);
 	// mlx_mouse_hook(data->win, mousemovement, data);
 
 int	main(int argc, char **argv)

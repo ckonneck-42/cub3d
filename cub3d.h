@@ -6,7 +6,7 @@
 /*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/30 15:40:21 by dyao             ###   ########.fr       */
+/*   Updated: 2024/12/30 17:18:10 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void			checktheplayer(t_data *data);
 void			smallmap(t_data *data);
 int				ft_detectgrid(t_data *data, double x, double y);
 
-int				mousemovement(int button, int x, int y, t_data *data);
+int				mousemovement(int x, int y, t_data *data);
 
 void			drawgun(t_data *data, int i);
 void			draw_cross(t_data *data);

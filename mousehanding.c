@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mousehanding.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 18:47:06 by dyao              #+#    #+#             */
-/*   Updated: 2024/12/22 17:08:00 by ckonneck         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:21:07 by dyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,21 @@ int	mouse_release(int button, t_data *data)
 	return (0);
 }
 
-int	mousemovement(int button, int x, int y, t_data *data)
+int	mousemovement(int x, int y, t_data *data)
 {
-	if (button == 3 && data->fire == 0)
-		data->fire = 1;
-	else if (button == 3 && data->fire == 1)
-		data->fire = 0;
-	while (1)
+	if (x > 1920)
+		x = 1920;
+	if (y < 0)
+		y = 0;
+	if (x < 900)
+		data->look_left = 1;
+	else if (x > 1020)
+		data->look_right = 1;
+	else
 	{
-		mlx_mouse_get_pos(data->mlx, data->win, &x, &y);
-		if (x > 1920)
-			x = 1920;
-		if (x < 930)
-		{
-			data->a += (x - 960) * 0.04;
-			redraw_map(data);
-		}
-		else if (x > 990)
-		{
-			data->a += (x - 960) * 0.04;
-			redraw_map(data);
-		}
-		else
-			break ;
+		data->look_left = 0;
+		data->look_right = 0;
 	}
-	redraw_map(data);
 	return (0);
 }
 
