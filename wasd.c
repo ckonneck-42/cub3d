@@ -3,42 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   wasd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:00:49 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/30 14:46:17 by dyao             ###   ########.fr       */
+/*   Updated: 2025/01/02 11:43:53 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	keypress(int keycode, t_data *data)
-{
-	if (keycode == K_W)
-		pressw(data);
-	else if (keycode == K_A)
-		pressa(data);
-	else if (keycode == K_S)
-		presss(data);
-	else if (keycode == K_D)
-		pressd(data);
-	else if (keycode == K_ARRRGT)
-		data->a = fmod(data->a + 5.0, 360.0);
-	else if (keycode == K_ARRLFT)
-		data->a = fmod(data->a - 5.0 + 360.0, 360.0);
-	else if (keycode == K_ARRUP)
-	{
-		if (data->clear < 5)
-			data->clear++;
-	}
-	else if (keycode == K_ARRDWN)
-	{
-		if (data->clear > 1)
-			data->clear--;
-	}
-	redraw_map(data);
-	return (0);
-}
+// int	keypress(int keycode, t_data *data)
+// {
+// 	if (keycode == K_W)
+// 		pressw(data);
+// 	else if (keycode == K_A)
+// 		pressa(data);
+// 	else if (keycode == K_S)
+// 		presss(data);
+// 	else if (keycode == K_D)
+// 		pressd(data);
+// 	else if (keycode == K_ARRRGT)
+// 		data->a = fmod(data->a + 5.0, 360.0);
+// 	else if (keycode == K_ARRLFT)
+// 		data->a = fmod(data->a - 5.0 + 360.0, 360.0);
+// 	else if (keycode == K_ARRUP)
+// 	{
+// 		if (data->clear < 5)
+// 			data->clear++;
+// 	}
+// 	else if (keycode == K_ARRDWN)
+// 	{
+// 		if (data->clear > 1)
+// 			data->clear--;
+// 	}
+// 	redraw_map(data);
+// 	return (0);
+// }
 
 void	pressw(t_data *data)
 {

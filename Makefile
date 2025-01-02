@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+         #
+#    By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 12:14:45 by ckonneck          #+#    #+#              #
-#    Updated: 2024/12/30 17:59:42 by dyao             ###   ########.fr        #
+#    Updated: 2025/01/02 11:29:37 by ckonneck         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ helgrind: $(NAME)
 # extra options: --verbose --log-file=valgrind-out.txt
 #norminette rule
 norminette: $(cub3d_SRCS)
-		norminette $(cub3d_SRCS)
+		norminette $(cub3d_SRCS) cub3d.h
 
 # Declare phony targets
 .PHONY: all libft clean fclean re valgrind norminette

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyao <dyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:14:40 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/30 17:18:10 by dyao             ###   ########.fr       */
+/*   Updated: 2025/01/02 11:23:14 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,3 +228,4 @@ int				key_press(int keycode, t_data *data);
 int				key_release(int keycode, t_data *data);
 int				move(t_data *data);
 void			base_init3(t_data *data);
+void			main_exit(t_data *data, char *errormessage);

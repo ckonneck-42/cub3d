@@ -6,7 +6,7 @@
 /*   By: ckonneck <ckonneck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 15:11:54 by ckonneck          #+#    #+#             */
-/*   Updated: 2024/12/22 15:54:05 by ckonneck         ###   ########.fr       */
+/*   Updated: 2025/01/02 11:28:40 by ckonneck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,19 @@ void	tex_clean_exit(t_data *data, char *errormessage)
 	while (data->fd_parsearray && data->fd_parsearray[i])
 		free(data->fd_parsearray[i++]);
 	free(data->fd_parsearray);
+	free(data->mlx);
+	free(data);
+	exit(0);
+}
+
+void	main_exit(t_data *data, char *errormessage)
+{
+	printf("Error\n%s\nexiting game\n", errormessage);
+	mlx_clear_window(data->mlx, data->win);
+	mlx_destroy_image(data->mlx, data->img[0]);
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
+	mlx_loop_end(data->mlx);
 	free(data->mlx);
 	free(data);
 	exit(0);
